@@ -1,0 +1,61 @@
+
+
+query GetRefs($owner: String!, $name: String!) {
+  repository(owner: $owner, name: $name) {
+    refs(refPrefix: "refs/heads/", first: 100) {
+      edges {
+        node {
+          name
+          associatedPullRequests(first: 100) {
+            nodes {
+              title
+              merged
+              closed
+              number
+              baseRef {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetPullRequestByName($owner: String!, $name: String!, $branchName: String!) {
+  repository(owner: $owner, name: $name) {
+    pullRequests(headRefName: $branchName, first: 100) {
+      nodes {
+        number
+        title
+        merged
+        closed
+      }
+    }
+  }
+}
+
+query GetBranchInfos($owner: String!, $name: String!, $branchName: String!) {
+    repository(owner: $owner, name: $name) {
+        ref(qualifiedName: $branchName){
+            name
+            associatedPullRequests(first:100){
+                nodes{
+                    number
+                    merged
+                    closed
+                }
+            }
+        }
+        pullRequests(baseRefName: $branchName, first:100){
+            nodes{
+                headRefName
+                number
+                merged
+                closed
+            }
+        }
+    }
+}
+

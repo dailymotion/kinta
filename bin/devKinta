@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+THISDIR=$(dirname "$0")
+KI_DIR=${THISDIR}/..
+
+echo "compiling...(this might take some time the first time you run this in order to download all dependencies)"
+${KI_DIR}/gradlew -p ${KI_DIR} installDist >/dev/null || exit 1
+
+echo "done compiling"
+
+${THISDIR}/kinta "$@"

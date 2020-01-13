@@ -1,0 +1,12 @@
+/out/
+build
+.gradle
+/.idea
+kinta.credentials
+/*.iml
+kinta.config
+local.properties
+/site
+/docs/kdoc
+/docs/index.md
+mkdocs.yml
