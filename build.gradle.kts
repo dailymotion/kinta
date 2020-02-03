@@ -26,7 +26,7 @@ subprojects {
     }
 
     group = "com.dailymotion.kinta"
-    version = "0.1.0"
+    version = "0.1.0-SNAPSHOT"
 
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
@@ -91,15 +91,11 @@ fun Project.configureMavenPublish() {
 
         repositories {
             maven {
-                name = "pluginTest"
-                url = uri("file://${rootProject.buildDir}/localMaven")
-            }
-            maven {
-                name = "oss"
-                url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+                name = "bintray"
+                url = uri("https://api.bintray.com/maven/dailymotion/kinta/${project.property("POM_ARTIFACT_ID")}/;publish=1;override=1")
                 credentials {
-                    username = findProperty("SONATYPE_NEXUS_USERNAME") as String?
-                    password = findProperty("SONATYPE_NEXUS_PASSWORD") as String?
+                    username = System.getenv("BINTRAY_USER")
+                    password = System.getenv("BINTRAY_API_KEY")
                 }
             }
         }
