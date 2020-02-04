@@ -10,3 +10,5 @@ local.properties
 /docs/kdoc
 /docs/index.md
 mkdocs.yml
+/docs/kinta.zip
+/venv

@@ -135,3 +135,12 @@ fun Project.configureMavenPublish() {
         }
     }
 }
+
+apply(from = "docs.gradle.kts")
+
+tasks.register("deployDocsIfNeeded") {
+    val branch = System.getenv("TRAVIS_BRANCH")
+    if (branch == "master") {
+        dependsOn("deployDocs")
+    }
+}

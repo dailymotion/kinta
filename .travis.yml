@@ -1,10 +1,19 @@
 language: java
 install: true
 os: linux
-dist: trusty
-jdk: oraclejdk8
+dist: bionic
+jdk: oraclejdk9
+addons:
+  apt:
+    packages:
+      - virtualenv
+before_script:
+  - virtualenv venv
+  - export PATH="./venv/bin:$PATH"
+  - pip install mkdocs-material
+  - mkdocs -V
 script:
-  - "./gradlew clean assemble uploadIfNeeded"
+  - "./gradlew clean assemble uploadIfNeeded deployDocsIfNeeded"
 env:
   global:
     - secure: Mx9FhkpD1IGNpCWuxxqwP+SkmPhfL8s2VmbqQC2dHCZ9oSQuCCVqhTj0Nmm1BVDYKTPk+f4OlLI8O8JKuF7pahrGd88gtRHRonwndXy6TOdxmsLcyuiFHGiKBqOY4PZSxaUYr24IrHpgoj0RlRr67eceWWSP5yv/LdRAGv0y/d/3KuRZCSg2q5rk23J7qXaoYUgH/K3Fu84u8/79UpJamiyuIxCblKPx6EY6Zp10SwLU2PUnV73zNQb1e3wgt8V9FnfNSVCz604WHEtjykWy8xdPW2jimMHGQLRnRiWCQjPMTQtHA47Vp8jWhEOYfIByRa1NCQ48DNIljZ8gg5MHB5LSpFNS/JgvuxizueluI6t04qkKwCfGBo7NDNrBrhZvSJhsQVbyMXrf0Xh53Kup0Uoyba//mNid1bJYVwNglbbxpoz3XIrfdHotDbd4XEymh3e1KnyAwoyXjmCpoms0VMLEJEwz+7QyCZLfGDlOfsEO53puGqHG4FCrx0jSvQXggv7L26Eq8vQGoYOGvVjWPNVczvN3GN5W+TKd7NoZh+mUc4wBVTiaKovdU3U/niU+OW3L95oitdfsIVH14GnKYFX1XxU5t8bsHuz71YUCRWSY8tKpyKvoX63AfTP3fv+ln6GbrczENVf53QziN4ceJoyHxh58B4kueqC/Zsll9mE=
