@@ -26,7 +26,7 @@ subprojects {
     }
 
     group = "com.dailymotion.kinta"
-    version = "0.1.0-SNAPSHOT"
+    version = "0.1.0"
 
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
@@ -52,16 +52,23 @@ subprojects {
 }
 
 fun Project.configureMavenPublish() {
+    val javaPluginConvention = project.convention.findPlugin(JavaPluginConvention::class.java)
+    val sourcesJarTaskProvider = tasks.register("sourcesJar", org.gradle.jvm.tasks.Jar::class.java) {
+        archiveClassifier.set("sources")
+        from(javaPluginConvention?.sourceSets?.get("main")?.allSource)
+    }
 
     configure<PublishingExtension> {
         publications {
             create<MavenPublication>("default") {
                 from(components.findByName("java"))
 
+                artifact(sourcesJarTaskProvider.get())
+
                 pom {
                     groupId = group.toString()
                     artifactId = findProperty("POM_ARTIFACT_ID") as String?
-                    version = version
+                    version = project.version as String?
 
                     name.set(findProperty("POM_NAME") as String?)
                     packaging = "jar"
