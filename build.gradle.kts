@@ -26,7 +26,7 @@ subprojects {
     }
 
     group = "com.dailymotion.kinta"
-    version = "0.1.0-SNAPSHOT"
+    version = "0.1.1"
 
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
