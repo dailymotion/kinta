@@ -55,10 +55,10 @@ subprojects {
         val branch = System.getenv("TRAVIS_BRANCH")
         val isPullRequest = System.getenv("TRAVIS_PULL_REQUEST")?.toBoolean()
         if (!tag.isNullOrBlank()) {
-            println("Upload artifacts to Bintray...")
+            project.logger.lifecycle("Upload to Bintray needed.")
             dependsOn("publishDefaultPublicationToBintrayRepository")
         } else if (isPullRequest == false && branch == "master") {
-            println("Upload artifacts to OJO...")
+            project.logger.lifecycle("Upload to OJO needed.")
             dependsOn("publishDefaultPublicationToOjoRepository")
         }
     }
