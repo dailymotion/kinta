@@ -50,12 +50,12 @@ subprojects {
         configureMavenPublish()
     }
 
-    tasks.register<Task>("uploadIfNeeded"){
+    tasks.register<Task>("uploadIfNeeded") {
         val tag = System.getenv("TRAVIS_TAG")
         val branch = System.getenv("TRAVIS_BRANCH")
         if (!tag.isNullOrBlank()) {
             dependsOn("publishDefaultPublicationToBintrayRepository")
-        }else if (branch == "master") {
+        } else if (branch == "master") {
             dependsOn("publishDefaultPublicationToOjoRepository")
         }
     }
