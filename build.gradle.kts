@@ -53,9 +53,12 @@ subprojects {
     tasks.register<Task>("uploadIfNeeded") {
         val tag = System.getenv("TRAVIS_TAG")
         val branch = System.getenv("TRAVIS_BRANCH")
+        println("Checking if we need to upload : tag is $tag and branch is $branch")
         if (!tag.isNullOrBlank()) {
+            println("Will upload to Bintray")
             dependsOn("publishDefaultPublicationToBintrayRepository")
         } else if (branch == "master") {
+            println("Will upload to OJO")
             dependsOn("publishDefaultPublicationToOjoRepository")
         }
     }
