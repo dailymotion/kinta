@@ -26,7 +26,7 @@ subprojects {
     }
 
     group = "com.dailymotion.kinta"
-    version = "0.1.0"
+    version = "0.1.0-SNAPSHOT"
 
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
@@ -49,19 +49,36 @@ subprojects {
     afterEvaluate {
         configureMavenPublish()
     }
+
+    tasks.register<Task>("uploadIfNeeded") {
+        val tag = System.getenv("TRAVIS_TAG")
+        val branch = System.getenv("TRAVIS_BRANCH")
+        if (!tag.isNullOrBlank()) {
+            dependsOn("publishDefaultPublicationToBintrayRepository")
+        } else if (branch == "master") {
+            dependsOn("publishDefaultPublicationToOjoRepository")
+        }
+    }
 }
 
 fun Project.configureMavenPublish() {
+    val javaPluginConvention = project.convention.findPlugin(JavaPluginConvention::class.java)
+    val sourcesJarTaskProvider = tasks.register("sourcesJar", org.gradle.jvm.tasks.Jar::class.java) {
+        archiveClassifier.set("sources")
+        from(javaPluginConvention?.sourceSets?.get("main")?.allSource)
+    }
 
     configure<PublishingExtension> {
         publications {
             create<MavenPublication>("default") {
                 from(components.findByName("java"))
 
+                artifact(sourcesJarTaskProvider.get())
+
                 pom {
                     groupId = group.toString()
                     artifactId = findProperty("POM_ARTIFACT_ID") as String?
-                    version = version
+                    version = project.version as String?
 
                     name.set(findProperty("POM_NAME") as String?)
                     packaging = "jar"
@@ -91,15 +108,19 @@ fun Project.configureMavenPublish() {
 
         repositories {
             maven {
-                name = "pluginTest"
-                url = uri("file://${rootProject.buildDir}/localMaven")
+                name = "bintray"
+                url = uri("https://api.bintray.com/maven/dailymotion/com.dailymotion.kinta/${project.property("POM_ARTIFACT_ID")}/;publish=1;override=1")
+                credentials {
+                    username = System.getenv("BINTRAY_USER")
+                    password = System.getenv("BINTRAY_API_KEY")
+                }
             }
             maven {
-                name = "oss"
-                url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+                name = "ojo"
+                url = uri("https://oss.jfrog.org/artifactory/oss-snapshot-local/")
                 credentials {
-                    username = findProperty("SONATYPE_NEXUS_USERNAME") as String?
-                    password = findProperty("SONATYPE_NEXUS_PASSWORD") as String?
+                    username = System.getenv("BINTRAY_USER")
+                    password = System.getenv("BINTRAY_API_KEY")
                 }
             }
         }
