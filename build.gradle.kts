@@ -49,6 +49,16 @@ subprojects {
     afterEvaluate {
         configureMavenPublish()
     }
+
+    tasks.register<Task>("uploadIfNeeded"){
+        val tag = System.getenv("TRAVIS_TAG")
+        val branch = System.getenv("TRAVIS_BRANCH")
+        if (!tag.isNullOrBlank()) {
+            dependsOn("publishDefaultPublicationToBintrayRepository")
+        }else if (branch == "master") {
+            dependsOn("publishDefaultPublicationToOjoRepository")
+        }
+    }
 }
 
 fun Project.configureMavenPublish() {
@@ -100,6 +110,14 @@ fun Project.configureMavenPublish() {
             maven {
                 name = "bintray"
                 url = uri("https://api.bintray.com/maven/dailymotion/com.dailymotion.kinta/${project.property("POM_ARTIFACT_ID")}/;publish=1;override=1")
+                credentials {
+                    username = System.getenv("BINTRAY_USER")
+                    password = System.getenv("BINTRAY_API_KEY")
+                }
+            }
+            maven {
+                name = "ojo"
+                url = uri("https://oss.jfrog.org/artifactory/oss-snapshot-local/")
                 credentials {
                     username = System.getenv("BINTRAY_USER")
                     password = System.getenv("BINTRAY_API_KEY")
