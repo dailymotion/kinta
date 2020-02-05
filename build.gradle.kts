@@ -25,6 +25,10 @@ subprojects {
         }
     }
 
+    configure<JavaPluginExtension> {
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
     group = "com.dailymotion.kinta"
     version = "0.1.1-SNAPSHOT"
 
