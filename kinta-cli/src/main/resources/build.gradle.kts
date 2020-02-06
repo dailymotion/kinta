@@ -13,6 +13,10 @@ repositories {
     }
 }
 
+configure<JavaPluginExtension> {
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 dependencies {
     api("com.dailymotion.kinta:kinta-lib:0.1.0")
     // The builtin workflows are in [com.dailymotion.kinta.BuiltinWorkflows].
