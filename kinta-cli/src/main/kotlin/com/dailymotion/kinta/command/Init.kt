@@ -25,6 +25,7 @@ object Init : CliktCommand(name = "init", help = "Initializes kinta in a project
         copyResource("com.dailymotion.kinta.Workflows", "kintaSrc/src/main/resources/META-INF/services/com.dailymotion.kinta.Workflows")
         copyResource("build.gradle.kts", "kintaSrc/build.gradle.kts")
         copyResource("gitignore", "kintaSrc/.gitignore")
+        copyResource("kinta.properties", "kintaSrc/kinta.properties")
 
         //Assemble kintaSrc
         Gradle(File("kintaSrc")).executeTask("assemble")

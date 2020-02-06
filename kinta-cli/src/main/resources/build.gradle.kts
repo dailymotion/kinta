@@ -18,10 +18,10 @@ configure<JavaPluginExtension> {
 }
 
 dependencies {
-    api("com.dailymotion.kinta:kinta-lib:0.1.0")
+    api("com.dailymotion.kinta:kinta-lib:0.1.1")
     // The builtin workflows are in [com.dailymotion.kinta.BuiltinWorkflows].
     // Comment this line if you don't want the builtin kinta workflows
-    implementation("com.dailymotion.kinta:kinta-workflows:0.1.0")
+    implementation("com.dailymotion.kinta:kinta-workflows:0.1.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
 }
 
