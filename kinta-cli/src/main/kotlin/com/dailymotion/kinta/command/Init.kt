@@ -1,5 +1,6 @@
 package com.dailymotion.kinta.command
 
+import com.dailymotion.kinta.integration.git.GitIntegration
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
@@ -25,7 +26,10 @@ object Init : CliktCommand(name = "init", help = "Initializes kinta in a project
         copyResource("build.gradle.kts", "kintaSrc/build.gradle.kts")
         copyResource("gitignore", "kintaSrc/.gitignore")
 
+        //Assemble kintaSrc
         Gradle(File("kintaSrc")).executeTask("assemble")
+        //Add kintaSrc to Git
+        GitIntegration.add(File("kintaSrc").path)
     }
 
     private fun copyResource(resourceName: String, dirName: String) {
