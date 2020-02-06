@@ -10,7 +10,7 @@ class BuiltInWorkflows : Workflows {
     override fun all() = listOf(
             cleanLocal,
             cleanGithubBranches,
-            InitPlayStoreMetadata,
+            GetPlayStoreMetadata,
             GetPlayStorePreviews,
             UpdatePlayStoreListings,
             UpdatePlayStoreImages,

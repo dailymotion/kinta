@@ -1,5 +1,10 @@
 package com.dailymotion.kinta.command
 
+<<<<<<< HEAD
+=======
+import com.dailymotion.kinta.helper.CommandUtil
+import com.dailymotion.kinta.integration.git.GitIntegration
+>>>>>>> Add PlayStore config prompt
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
@@ -26,6 +31,15 @@ object Init : CliktCommand(name = "init", help = "Initializes kinta in a project
         copyResource("gitignore", "kintaSrc/.gitignore")
 
         Gradle(File("kintaSrc")).executeTask("assemble")
+
+        //Ask for the PLAY API service account
+        if (CommandUtil.prompt(
+                        message = "Would you like to set up the Play Store config (Useful for GooglePlayIntegration) ?\n" +
+                                "Please refer to https://developers.google.com/android-publisher/getting_started and use a service_account.",
+                        options = listOf("yes", "no")) == "yes") {
+
+            InitPlayStoreConfig.main(emptyList())
+        }
     }
 
     private fun copyResource(resourceName: String, dirName: String) {

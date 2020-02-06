@@ -10,7 +10,7 @@ object LocalMetadataHelper {
 
     private fun checkMetaDataFolder() {
         check(ANDROID_METADATA_FOLDER.exists()) {
-            "$ANDROID_METADATA_FOLDER not found. Make sure to call 'kinta run pullPlayStoreListings' first or create the files tree manually"
+            "$ANDROID_METADATA_FOLDER not found. Make sure to call 'kinta ${GetPlayStoreMetadata.commandName}' first or create the files tree manually"
         }
     }
 
