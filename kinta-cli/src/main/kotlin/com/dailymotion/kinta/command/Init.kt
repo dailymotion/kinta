@@ -1,10 +1,6 @@
 package com.dailymotion.kinta.command
 
-<<<<<<< HEAD
-=======
 import com.dailymotion.kinta.helper.CommandUtil
-import com.dailymotion.kinta.integration.git.GitIntegration
->>>>>>> Add PlayStore config prompt
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
