@@ -1,6 +1,5 @@
-package com.dailymotion.kinta.workflows.builtin.playstore
+package com.dailymotion.kinta.integration.googleplay
 
-import com.dailymotion.kinta.integration.googleplay.GooglePlayIntegration
 import java.io.*
 
 
