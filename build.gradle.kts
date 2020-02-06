@@ -57,7 +57,7 @@ subprojects {
         if (!tag.isNullOrBlank()) {
             project.logger.lifecycle("Upload to Bintray needed.")
             dependsOn("publishDefaultPublicationToBintrayRepository")
-        } else if (pullRequest == "false" && branch == "master") {
+        } else if ((pullRequest.isBlank() || pullRequest == "false") && branch == "master") {
             project.logger.lifecycle("Upload to OJO needed.")
             dependsOn("publishDefaultPublicationToOjoRepository")
         }
