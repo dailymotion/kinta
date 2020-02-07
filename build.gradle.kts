@@ -16,6 +16,9 @@ fun isMaster(): Boolean {
     return (pullRequest?.isBlank() == true || pullRequest == "false") && branch == "master"
 }
 
+
+version = "0.1.1-SNAPSHOT"
+
 subprojects {
     repositories {
         // mavenLocal()
@@ -41,7 +44,7 @@ subprojects {
     }
 
     group = "com.dailymotion.kinta"
-    version = "0.1.1-SNAPSHOT"
+    version = rootProject.version
 
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
@@ -65,7 +68,7 @@ subprojects {
         configureMavenPublish()
     }
 
-    tasks.register<Task>("uploadIfNeeded") {
+    tasks.register<Task>("deployArtifactsIfNeeded") {
         if (isTag()) {
             project.logger.lifecycle("Upload to Bintray needed.")
             dependsOn("publishDefaultPublicationToBintrayRepository")
@@ -147,5 +150,11 @@ apply(from = "docs.gradle.kts")
 tasks.register("deployDocsIfNeeded") {
     if (isMaster()) {
         dependsOn("deployDocs")
+    }
+}
+
+tasks.register("deployArchivesIfNeeded") {
+    if (isTag()) {
+        dependsOn("deployArchives")
     }
 }

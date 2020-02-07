@@ -2,7 +2,7 @@
 
 TMP_DIR=$(mktemp -d)
 
-curl -L -s "https://dailymotion.github.io/kinta/kinta.zip" > ${TMP_DIR}/kinta.zip
+curl -L -s "https://dailymotion.github.io/kinta/zip/latest.zip" > ${TMP_DIR}/kinta.zip
 
 unzip -d ${TMP_DIR} ${TMP_DIR}/kinta.zip
 
