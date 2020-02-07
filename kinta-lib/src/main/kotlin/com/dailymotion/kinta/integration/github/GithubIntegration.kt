@@ -29,7 +29,7 @@ object GithubIntegration {
 
         val head_ = head ?: Project.repository.branch!!
         val base_ = base ?: "master"
-        val title_ = title ?: base_
+        val title_ = title ?: head_
 
         check(head_ != base_) {
             "You cannot make a pull request with the same head and base ($head_)"
