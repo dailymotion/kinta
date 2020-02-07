@@ -29,20 +29,7 @@ dependencies {
     testImplementation(Libs.jUnit)
 }
 
-tasks.withType<Jar> {
-    archiveFileName.set("kinta-cli.jar")
-    manifest {
-        attributes("Main-Class" to "com.dailymotion.kinta.MainKt")
-    }
-    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }) {
-        /**
-         * we remove INDEX.LIST else java does not find the MainClass
-         * since we remove INDEX.LIST, it also looks like we need to remove signatures too. Not 100% sure why
-         */
-        exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/INDEX.LIST", "META-INF/*.kotlin_module")
-    }
-}
-
 application {
     mainClassName = "com.dailymotion.kinta.MainKt"
+    applicationName = "kinta"
 }

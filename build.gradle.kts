@@ -7,6 +7,15 @@ plugins {
     id("org.jetbrains.dokka").version(Versions.dokka).apply(false)
 }
 
+fun isTag() = !System.getenv("TRAVIS_TAG").isNullOrBlank()
+
+fun isMaster(): Boolean {
+    val branch = System.getenv("TRAVIS_BRANCH")
+    val pullRequest = System.getenv("TRAVIS_PULL_REQUEST") as String?
+
+    return (pullRequest?.isBlank() == true || pullRequest == "false") && branch == "master"
+}
+
 subprojects {
     repositories {
         // mavenLocal()
@@ -57,13 +66,10 @@ subprojects {
     }
 
     tasks.register<Task>("uploadIfNeeded") {
-        val tag = System.getenv("TRAVIS_TAG")
-        val branch = System.getenv("TRAVIS_BRANCH")
-        val pullRequest = System.getenv("TRAVIS_PULL_REQUEST") as String?
-        if (!tag.isNullOrBlank()) {
+        if (isTag()) {
             project.logger.lifecycle("Upload to Bintray needed.")
             dependsOn("publishDefaultPublicationToBintrayRepository")
-        } else if ((pullRequest?.isBlank() == true || pullRequest == "false") && branch == "master") {
+        } else if (isMaster()) {
             project.logger.lifecycle("Upload to OJO needed.")
             dependsOn("publishDefaultPublicationToOjoRepository")
         }
@@ -133,5 +139,13 @@ fun Project.configureMavenPublish() {
                 }
             }
         }
+    }
+}
+
+apply(from = "docs.gradle.kts")
+
+tasks.register("deployDocsIfNeeded") {
+    if (isMaster()) {
+        dependsOn("deployDocs")
     }
 }
