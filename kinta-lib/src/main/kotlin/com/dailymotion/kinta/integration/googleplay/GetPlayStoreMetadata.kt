@@ -1,11 +1,10 @@
-package com.dailymotion.kinta.workflows.builtin.playstore
+package com.dailymotion.kinta.integration.googleplay
 
 import com.dailymotion.kinta.integration.git.GitIntegration
-import com.dailymotion.kinta.integration.googleplay.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 
 
-object InitPlayStoreMetadata : CliktCommand(name = "playStoreInit", help = "Pull listings from the Google Play, Changelogs from releases") {
+object GetPlayStoreMetadata : CliktCommand(name = "getPlayStoreMetadata", help = "Pull listings from the Google Play, Changelogs from releases") {
 
     override fun run() {
         //Delete local files

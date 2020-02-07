@@ -1,6 +1,7 @@
 package com.dailymotion.kinta
 
 import com.dailymotion.kinta.command.Init
+import com.dailymotion.kinta.command.InitPlayStoreConfig
 import com.dailymotion.kinta.command.Run
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.github.ajalt.clikt.core.CliktCommand
@@ -12,7 +13,8 @@ import kotlin.system.exitProcess
 val subCommands: List<CliktCommand> by lazy {
     listOf(
             Run,
-            Init
+            Init,
+            InitPlayStoreConfig
     )
 }
 
