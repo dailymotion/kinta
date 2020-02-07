@@ -24,13 +24,18 @@ object Init : CliktCommand(name = "init", help = "Initializes kinta in a project
         copyResource("CustomWorkflows.kt", "kintaSrc/src/main/kotlin/com/dailymotion/kinta/CustomWorkflows.kt")
         copyResource("com.dailymotion.kinta.Workflows", "kintaSrc/src/main/resources/META-INF/services/com.dailymotion.kinta.Workflows")
         copyResource("build.gradle.kts", "kintaSrc/build.gradle.kts")
+
+        File("kintaSrc/build.gradle.kts").apply {
+            writeText(readText().replace("{KINTA_VERSION}", com.dailymotion.kinta.VERSION))
+        }
         copyResource("gitignore", "kintaSrc/.gitignore")
         copyResource("kinta.properties", "kintaSrc/kinta.properties")
 
-        //Assemble kintaSrc
+
         Gradle(File("kintaSrc")).executeTask("assemble")
-        //Add kintaSrc to Git
         GitIntegration.add(File("kintaSrc").path)
+
+        println("This project is now setup to use kinta. You can define your workflows in kintaSrc/src/main/.... It is meant to be in source control. Take a look around. :)")
     }
 
     private fun copyResource(resourceName: String, dirName: String) {
