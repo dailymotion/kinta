@@ -19,6 +19,22 @@ Kinta is 100% written in Kotlin and can run in your CI or on your laptop.
 
 ⚠️ Kinta is currently under heavy development. While it's working and used in production, the API might change at any time without warning.
 
+# Installation
+
+Install kinta:
+
+```
+curl -v -s 'https://dailymotion.github.io/kinta/install.sh' |sh
+```
+
+Then inside your app repo:
+
+```
+kinta init
+```
+
+This will create a `kintaSrc` directory where you can tweak your workflows.
+
 # Integrations
 
 Current integrations include:
