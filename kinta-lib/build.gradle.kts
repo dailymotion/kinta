@@ -33,3 +33,28 @@ apollo {
     generateKotlinModels.set(true)
     useSemanticNaming.set(false)
 }
+
+
+tasks.register("kintaVersion") {
+    val outputDir = file("build/generated/kotlin")
+
+    inputs.property("version", version)
+    outputs.dir(outputDir)
+
+    doLast {
+        val versionFile = file("$outputDir/com/dailymotion/kinta/Version.kt")
+        versionFile.parentFile.mkdirs()
+        versionFile.writeText("""// Generated file. Do not edit!
+package com.dailymotion.kinta
+val VERSION = "${project.version}"
+""")
+    }
+}
+
+(project.extensions.getByName("kotlin") as org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension).sourceSets.named("main").get().kotlin.srcDir(file("build/generated/kotlin"))
+
+tasks.getByName("compileKotlin") {
+    this as org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+    this.source(file("build/generated/kotlin"))
+    dependsOn("kintaVersion")
+}
