@@ -47,13 +47,14 @@ fun main(args: Array<String>) {
     object : CliktCommand(
             name = "kinta",
             help = "mobile workflows automation. Read more at https://dailymotion.github.io/kinta/",
-            invokeWithoutSubcommand = true
+            invokeWithoutSubcommand = true,
+            printHelpOnEmptyArgs = true
     ) {
         val version by option("--version", "-V").flag()
 
         override fun run() {
             if (version) {
-                println("$VERSION\n")
+                println(VERSION)
                 exitProcess(0)
             }
         }
