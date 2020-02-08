@@ -62,7 +62,7 @@ object Jira {
         val response2 = service.setTransition(issueId, TransitionBody(Transition(transition.id))).execute()
 
         if (!response2.isSuccessful) {
-            Log.e("cannot change ticket $issueId status ==> ${response1.code()} / ${response1.errorBody()?.toString()}")
+            Log.e("cannot change ticket $issueId status ==> ${response2.code()} / ${response2.errorBody()?.toString()}")
         }
     }
 
