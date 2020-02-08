@@ -2,11 +2,12 @@
 
 // for GoogleCredential
 
-package com.dailymotion.kinta.integration.googleplay
+package com.dailymotion.kinta.integration.googleplay.internal
 
 import com.dailymotion.kinta.KintaConfig
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Log
+import com.dailymotion.kinta.integration.googleplay.GooglePlayRelease
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.AbstractInputStreamContent
@@ -200,6 +201,10 @@ object GooglePlayIntegration {
                 listLocalText.add(LocalizedText().setLanguage(listing.language).setText(content))
                 Log.d("Set changelog for ${listing.language} to $content")
             }
+
+            /**
+             * Update any release of any track where versionCodes.max() match the versionCode param
+             */
 
             /**
              * Update any release of any track where versionCodes.max() match the versionCode param
@@ -436,4 +441,8 @@ object GooglePlayIntegration {
             }
         }
     }
+
+    fun isConfigured() =
+            (KintaConfig.get(KintaEnv.GOOGLE_PLAY_JSON) ?: KintaEnv.get(KintaEnv.GOOGLE_PLAY_JSON))?.isNotBlank() == true
+                    && KintaConfig.get(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)?.isNotBlank() == true
 }

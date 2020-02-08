@@ -1,31 +1,24 @@
 package com.dailymotion.kinta.workflows.builtin
 
-import com.dailymotion.kinta.integration.github.GithubIntegration
+import com.dailymotion.kinta.Project
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 
-val cleanGithubBranches = object : CliktCommand(name = "cleanGithubBranches", help = """
-    Clean up branches in your github repository. This is useful for workflows where 
-        - Remove remote tracking branches that have been deleted in the remote with git fetch -p
-        - Remove all the local branches that only have closed or merged pull requests.
-    This will force delete the local branches, you can restore deleted branches from your git reflog
-    but that process is a bit more involved so double check before you call this workflow.
-    This only works for repositories hosted on github.
-""".trimIndent()) {
+object GitCleanRemote : CliktCommand(name = "gitCleanRemote", help = """
+    Clean up branches in your git repository.""".trimIndent()) {
 
     private val dontAsk by option("--dont-ask").flag()
 
     override fun run() {
-        val branchesInfo = GithubIntegration.getAllBranches().map { GithubIntegration.getBranchInfo(branch = it) }
+        val gitTool = Project.gitTool ?: throw Exception("Your git is not supported yet")
+
+        val branchesInfo = gitTool.getAllBranches()
+                .filter { it != "master" }
+                .map { gitTool.getBranchInfo(branch = it) }
 
         val branchesToDelete = branchesInfo.filter {
             val name = it.name
-
-            if (name == "master") {
-                // never delete master
-                return@filter false
-            }
 
             if (it.pullRequests.isNullOrEmpty()) {
                 // This ref has no associated pull request yet, don't delete it
@@ -59,7 +52,7 @@ val cleanGithubBranches = object : CliktCommand(name = "cleanGithubBranches", he
         }
 
         branchesToDelete.forEach {
-            GithubIntegration.deleteRef(ref = it)
+            gitTool.deleteRef(ref = it)
         }
     }
 }

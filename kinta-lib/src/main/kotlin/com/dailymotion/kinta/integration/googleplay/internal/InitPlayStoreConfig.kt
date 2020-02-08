@@ -1,9 +1,8 @@
-package com.dailymotion.kinta.command
+package com.dailymotion.kinta.integration.googleplay.internal
 
 import com.dailymotion.kinta.KintaConfig
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.helper.CommandUtil
-import com.dailymotion.kinta.integration.googleplay.GetPlayStoreMetadata
 import com.github.ajalt.clikt.core.CliktCommand
 import org.json.JSONException
 import org.json.JSONObject

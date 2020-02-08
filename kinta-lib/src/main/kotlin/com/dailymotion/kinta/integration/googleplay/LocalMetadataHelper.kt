@@ -1,5 +1,7 @@
 package com.dailymotion.kinta.integration.googleplay
 
+import com.dailymotion.kinta.integration.googleplay.internal.GetPlayStoreMetadata
+import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import java.io.*
 
 

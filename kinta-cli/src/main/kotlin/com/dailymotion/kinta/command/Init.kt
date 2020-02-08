@@ -1,7 +1,8 @@
 package com.dailymotion.kinta.command
 
-import com.dailymotion.kinta.integration.git.GitIntegration
 import com.dailymotion.kinta.helper.CommandUtil
+import com.dailymotion.kinta.integration.git.GitIntegration
+import com.dailymotion.kinta.integration.googleplay.internal.InitPlayStoreConfig
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
