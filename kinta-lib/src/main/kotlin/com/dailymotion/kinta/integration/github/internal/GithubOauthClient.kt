@@ -18,6 +18,12 @@ object GithubOauthClient {
     private val rnd = SecureRandom()
     private val lock = Object()
 
+    val clientId: String
+            get() = KintaConfig.get(KintaEnv.GITHUB_APP_CLIENT_ID) ?: KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_ID) ?: ""
+
+    val clientSecret: String
+        get() = KintaConfig.get(KintaEnv.GITHUB_APP_CLIENT_SECRET) ?: KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_SECRET) ?: ""
+
     private fun randomString(len: Int): String {
         val sb = StringBuilder(len)
         for (i in 0 until len)
@@ -46,10 +52,11 @@ object GithubOauthClient {
         GithubCredentials(username!!, token!!)
     }
 
+    fun isConfigured() = !clientId.isBlank() && !clientSecret.isBlank()
 
     private fun acquireToken(): String {
         val state = randomString(16)
-        val url = "https://github.com/login/oauth/authorize?client_id=${KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_ID)}&scope=repo&state=$state"
+        val url = "https://github.com/login/oauth/authorize?client_id=$clientId}&scope=repo&state=$state"
         var token: String? = null
 
         Log.d("acquiring oauth token")
@@ -61,8 +68,8 @@ object GithubOauthClient {
                 }
                 val code = session.parms["code"]
 
-                val postUrl = "https://github.com/login/oauth/access_token?client_id=${KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_ID)}" +
-                        "&client_secret=${KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_SECRET)}" +
+                val postUrl = "https://github.com/login/oauth/access_token?client_id=$clientId}" +
+                        "&client_secret=$clientSecret}" +
                         "&state=$state" +
                         "&code=$code"
 
