@@ -6,10 +6,11 @@ jdk: oraclejdk9
 addons:
   apt:
     packages:
-      - virtualenv
+      - python3-venv
 before_script:
-  - virtualenv venv
+  - python3 -m venv venv
   - export PATH="./venv/bin:$PATH"
+  - which pip
   - pip install mkdocs-material
   - mkdocs -V
 script:
