@@ -8,7 +8,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 
-object InitPlayStoreConfig : CliktCommand(
+object PlayStoreInit : CliktCommand(
         name = "initPlayStoreConfig",
         help = "Convenient workflow to set up Play Store requirements in order to use other Play Store workflows (publish, listing, ...)"
 ) {
@@ -35,7 +35,7 @@ object InitPlayStoreConfig : CliktCommand(
 
                 // Ask for getting play store meta data
                 if (CommandUtil.prompt(message = "Do you want to fetch the Play Store metadatas", options = listOf("yes", "no")) == "yes") {
-                    GetPlayStoreMetadata.main(emptyList())
+                    PlayStorePullMetadatas.main(emptyList())
                 }
             } else {
                 println("App package name not provided. Exiting.")

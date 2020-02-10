@@ -1,7 +1,7 @@
 package com.dailymotion.kinta.integration.googleplay
 
-import com.dailymotion.kinta.integration.googleplay.internal.GetPlayStoreMetadata
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
+import com.dailymotion.kinta.integration.googleplay.internal.PlayStorePullMetadatas
 import java.io.*
 
 
@@ -11,7 +11,7 @@ object LocalMetadataHelper {
 
     private fun checkMetaDataFolder() {
         check(ANDROID_METADATA_FOLDER.exists()) {
-            "$ANDROID_METADATA_FOLDER not found. Make sure to call 'kinta ${GetPlayStoreMetadata.commandName}' first or create the files tree manually"
+            "$ANDROID_METADATA_FOLDER not found. Make sure to call 'kinta ${PlayStorePullMetadatas.commandName}' first or create the files tree manually"
         }
     }
 

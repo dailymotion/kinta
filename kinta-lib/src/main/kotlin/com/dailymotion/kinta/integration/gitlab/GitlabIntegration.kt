@@ -4,7 +4,6 @@ import com.dailymotion.kinta.*
 import com.dailymotion.kinta.integration.git.model.BranchInfo
 import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.gitlab.internal.GitlabService
-import com.dailymotion.kinta.integration.gitlab.internal.InitGitlab
 import com.dailymotion.kinta.integration.gitlab.internal.MergeRequestBody
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -149,8 +148,6 @@ object GitlabIntegration : GitTool {
             } catch (e: Exception) {
                 false
             }
-
-    override fun getSetUpWorkflow() = InitGitlab
 
     override fun getAllBranches(
             token: String?,

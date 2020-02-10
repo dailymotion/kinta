@@ -6,7 +6,7 @@ import com.dailymotion.kinta.helper.CommandUtil
 import com.github.ajalt.clikt.core.CliktCommand
 
 
-object InitGithub : CliktCommand(name = "initGithub", help = "Set up Github to use it with Kinta") {
+object GithubInit : CliktCommand(name = "initGithub", help = "Set up Github to use it with Kinta") {
 
     override fun run() {
         val clientId = CommandUtil.prompt(message = "Provide your GitHub app client id :")

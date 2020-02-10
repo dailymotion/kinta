@@ -6,7 +6,6 @@ import com.dailymotion.kinta.*
 import com.dailymotion.kinta.integration.git.model.BranchInfo
 import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.github.internal.GithubOauthClient
-import com.dailymotion.kinta.integration.github.internal.InitGithub
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -126,8 +125,6 @@ object GithubIntegration: GitTool {
     }
 
     override fun isConfigured() = GithubOauthClient.isConfigured()
-
-    override fun getSetUpWorkflow() = InitGithub
 
     override fun getAllBranches(
             token: String?,

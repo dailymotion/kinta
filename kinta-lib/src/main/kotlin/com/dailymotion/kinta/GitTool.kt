@@ -1,7 +1,6 @@
 package com.dailymotion.kinta
 
 import com.dailymotion.kinta.integration.git.model.BranchInfo
-import com.github.ajalt.clikt.core.CliktCommand
 
 interface GitTool {
 
@@ -33,6 +32,4 @@ interface GitTool {
     )
 
     fun isConfigured(): Boolean
-
-    fun getSetUpWorkflow(): CliktCommand
 }

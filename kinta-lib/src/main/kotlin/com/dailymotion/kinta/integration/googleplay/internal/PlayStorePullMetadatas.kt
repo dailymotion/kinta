@@ -5,7 +5,7 @@ import com.dailymotion.kinta.integration.googleplay.LocalMetadataHelper
 import com.github.ajalt.clikt.core.CliktCommand
 
 
-object GetPlayStoreMetadata : CliktCommand(name = "getPlayStoreMetadata", help = "Pull listings from the Google Play, Changelogs from releases") {
+object PlayStorePullMetadatas : CliktCommand(name = "pullMetadatas", help = "Pull listings from the Google Play, Changelogs from releases") {
 
     override fun run() {
         //Delete local files

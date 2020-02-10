@@ -2,7 +2,7 @@ package com.dailymotion.kinta.command
 
 import com.dailymotion.kinta.helper.CommandUtil
 import com.dailymotion.kinta.integration.git.GitIntegration
-import com.dailymotion.kinta.integration.googleplay.internal.InitPlayStoreConfig
+import com.dailymotion.kinta.integration.googleplay.internal.PlayStoreInit
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
@@ -45,7 +45,7 @@ object Init : CliktCommand(name = "init", help = "Initializes kinta in a project
                                 "Please refer to https://developers.google.com/android-publisher/getting_started and use a service_account.",
                         options = listOf("yes", "no")) == "yes") {
 
-            InitPlayStoreConfig.main(emptyList())
+            PlayStoreInit.main(emptyList())
         }
     }
 
