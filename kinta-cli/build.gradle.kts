@@ -25,6 +25,7 @@ dependencies {
     implementation(Libs.clikt)
     implementation(Libs.kotlinSerialization)
     implementation(project(":kinta-lib"))
+    implementation(project(":kinta-workflows"))
 
     testImplementation(Libs.jUnit)
 }

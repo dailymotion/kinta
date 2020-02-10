@@ -30,7 +30,7 @@ object Libs {
 
     const val gradle = "org.gradle:gradle-tooling-api:6.0.1"
 
-    const val clikt = "com.github.ajalt:clikt:1.7.0"
+    const val clikt = "com.github.ajalt:clikt:2.4.0"
 
     const val jUnit = "junit:junit:4.12"
 }
