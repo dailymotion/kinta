@@ -5,7 +5,7 @@ import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegrati
 import com.github.ajalt.clikt.core.CliktCommand
 
 
-object UpdatePlayStoreListings : CliktCommand(name = "updatePlayStoreListings", help = "Push listings to the Google Play") {
+object PlayStoreUpdateListings : CliktCommand(name = "updateListings", help = "Push listings to the Google Play") {
 
     override fun run() {
         /**

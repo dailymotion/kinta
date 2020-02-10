@@ -1,10 +1,15 @@
-package com.dailymotion.kinta.workflows.builtin
+package com.dailymotion.kinta.workflows.builtin.gittool
 
-import com.dailymotion.kinta.Project
+import com.dailymotion.kinta.GitTool
 import com.dailymotion.kinta.integration.git.GitIntegration
+import com.dailymotion.kinta.integration.github.GithubIntegration
+import com.dailymotion.kinta.integration.gitlab.GitlabIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 
-object GitCleanLocal : CliktCommand(name = "gitCleanLocal", help = """
+object GithubCleanLocal: GitCleanLocal(GithubIntegration)
+object GitlabCleanLocal: GitCleanLocal(GitlabIntegration)
+
+open class GitCleanLocal(val gitTool: GitTool) : CliktCommand(name = "cleanLocal", help = """
     Clean up branches in your local repository:
         - Remove remote tracking branches that have been deleted in the remote with git fetch -p
         - Remove all the local branches that only have closed or merged pull requests.
@@ -13,8 +18,6 @@ object GitCleanLocal : CliktCommand(name = "gitCleanLocal", help = """
     This only works for repositories hosted on github.
 """.trimIndent()) {
     override fun run() {
-        val gitTool = Project.gitTool ?: throw Exception("Your git is not supported yet")
-
         GitIntegration.fetch(prune = true)
         val branchesInfo = GitIntegration.getBranches()
                 .filter { it != "master" }

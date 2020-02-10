@@ -7,7 +7,7 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.types.long
 
 
-object UpdatePlayStoreChangeLogs : CliktCommand(name = "updatePlayStoreChangeLogs", help = "Update changelogs for a specific version cpde") {
+object PlayStoreUpdateChangeLogs : CliktCommand(name = "updateChangeLogs", help = "Update changelogs for a specific version cpde") {
 
     private val versionCode by argument("--versionCode", help = "The release version code to update").long()
 

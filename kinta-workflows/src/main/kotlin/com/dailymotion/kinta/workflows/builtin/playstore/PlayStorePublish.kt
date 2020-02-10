@@ -11,7 +11,7 @@ import com.github.ajalt.clikt.parameters.types.long
 import java.io.File
 
 
-object PublishPlayStore : CliktCommand(name = "publish", help = "Publish a version on the given track") {
+object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a version on the given track") {
 
     private val archiveFile by option("--archiveFile")
 

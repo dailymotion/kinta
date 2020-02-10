@@ -9,7 +9,7 @@ import java.io.OutputStream
 import java.net.URL
 
 
-object GetPlayStorePreviews : CliktCommand(name = "pullPlayStorePreviews", help = "Pull images previews from the Google Play") {
+object PlayStorePullPreviews : CliktCommand(name = "pullPreviews", help = "Pull images previews from the Google Play") {
 
     private const val PREVIEWS_FOLDER = "kintaSrc/playStorePreviews/"
 
