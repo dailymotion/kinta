@@ -35,7 +35,7 @@ fun setCurrentVersion(version: String) {
 fun getCurrentVersion(): String {
     val file = File("build.gradle.kts")
     var version = file.readLines().mapNotNull {
-        Regex("^version = (.*)").matchEntire(it)?.groupValues[1]
+        Regex("^version = (.*)").matchEntire(it)?.groupValues?.get(1)
     }.firstOrNull()
 
     require(version != null) {
