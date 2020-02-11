@@ -99,7 +99,7 @@ val deployTask = tasks.register("deployDocs") {
         createIndexMd()
         createMkdocsYml()
 
-        runCommand(command = "mkdocs gh-deploy --verbose")
+        runCommand(command = "mkdocs gh-deploy --force")
     }
 }
 
