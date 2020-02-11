@@ -18,6 +18,6 @@ mkdir $KINTADIR 2> /dev/null
 # It will remove one level of directory
 mv  ${TMP_DIR}/kinta-* ${KINTADIR}/current || die "you already have an install in $KINTADIR, run 'kinta update' instead"
 
-${KINTADIR}/current/bin/kinta bootstrap
+${KINTADIR}/current/bin/kinta firstTimeInstall
 
 rm -rf "$TMP_DIR"

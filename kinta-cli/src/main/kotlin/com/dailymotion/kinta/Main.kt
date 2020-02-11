@@ -1,6 +1,6 @@
 package com.dailymotion.kinta
 
-import com.dailymotion.kinta.command.Bootstrap
+import com.dailymotion.kinta.command.FirstTimeInstall
 import com.dailymotion.kinta.command.Init
 import com.dailymotion.kinta.command.Update
 import com.dailymotion.kinta.integration.gradle.Gradle
@@ -33,9 +33,9 @@ val kintaSrcCommands by lazy {
 }
 
 val mainCommands = listOf(
-        Init,
-        Bootstrap,
-        Update
+        FirstTimeInstall,
+        Update,
+        Init
 )
 
 enum class LogType(val options: List<String>, val logLevel: Int) {
