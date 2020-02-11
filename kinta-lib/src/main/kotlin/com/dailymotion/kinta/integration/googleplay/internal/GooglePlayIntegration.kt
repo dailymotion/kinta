@@ -205,10 +205,6 @@ object GooglePlayIntegration {
             /**
              * Update any release of any track where versionCodes.max() match the versionCode param
              */
-
-            /**
-             * Update any release of any track where versionCodes.max() match the versionCode param
-             */
             edits.tracks().list(packageName_, editId).execute().tracks.forEach { track ->
                 track.releases.filter { it.versionCodes.max() == versionCode }.forEach { release ->
                     edits.tracks().update(packageName_, editId, track.track, Track().setReleases(listOf(release.clone().setReleaseNotes(listLocalText)))).execute()
