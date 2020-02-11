@@ -20,8 +20,8 @@ class BuiltInWorkflows : Workflows {
 
     private val playStoreWorkflows = object : CliktCommand(name = "playstore", help = "Play Store relative workflows") {
         override fun run() {
-            if(!GooglePlayIntegration.isConfigured()){
-                println("Your environment is not set up. Please run kinta ${PlayStoreInit.commandName}")
+            if (context.invokedSubcommand != PlayStoreInit && !GooglePlayIntegration.isConfigured()) {
+                println("Your environment is not set up. Please run kinta $commandName ${PlayStoreInit.commandName}")
                 exitProcess(0)
             }
         }
@@ -37,8 +37,8 @@ class BuiltInWorkflows : Workflows {
 
     private val gitHubWorkflows = object : CliktCommand(name = "github", help = "Github relative workflows") {
         override fun run() {
-            if(!GithubIntegration.isConfigured()){
-                println("Your environment is not set up. Please run kinta ${GithubInit.commandName}")
+            if (context.invokedSubcommand != GithubInit && !GithubIntegration.isConfigured()) {
+                println("Your environment is not set up. Please run kinta $commandName ${GithubInit.commandName}")
                 exitProcess(0)
             }
         }
@@ -51,8 +51,8 @@ class BuiltInWorkflows : Workflows {
 
     private val gitlabWorkflows = object : CliktCommand(name = "gitlab", help = "Gitlab relative workflows") {
         override fun run() {
-            if(!GitlabIntegration.isConfigured()){
-                println("Your environment is not set up. Please run kinta ${GitlabInit.commandName}")
+            if (context.invokedSubcommand != GitlabInit && !GitlabIntegration.isConfigured()) {
+                println("Your environment is not set up. Please run kinta $commandName ${GitlabInit.commandName}")
                 exitProcess(0)
             }
         }

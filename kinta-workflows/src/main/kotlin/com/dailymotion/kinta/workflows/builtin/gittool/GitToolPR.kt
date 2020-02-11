@@ -8,7 +8,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 object GithubPR: GitPR(GithubIntegration)
 object GitlabPR: GitPR(GitlabIntegration)
 
-open class GitPR(val gitTool: GitTool) : CliktCommand(name = "gitPR", help = "Open a pull request on Gitlab") {
+open class GitPR(val gitTool: GitTool) : CliktCommand(name = "pr", help = "Open a pull request on Gitlab") {
 
     override fun run() {
         gitTool.openPullRequest()

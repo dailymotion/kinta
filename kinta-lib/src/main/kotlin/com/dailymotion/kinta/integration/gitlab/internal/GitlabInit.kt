@@ -6,7 +6,7 @@ import com.dailymotion.kinta.helper.CommandUtil
 import com.github.ajalt.clikt.core.CliktCommand
 
 
-object GitlabInit : CliktCommand(name = "initGitlab", help = "Set up Gitlab to use it with Kinta") {
+object GitlabInit : CliktCommand(name = "init", help = "Set up Gitlab to use it with Kinta") {
 
     override fun run() {
         val personalToken = CommandUtil.prompt(message = "Provide your Gitlab personal token :")
