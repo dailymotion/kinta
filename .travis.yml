@@ -9,6 +9,7 @@ addons:
       - python3-venv
 before_script:
   - export PATH="./venv/bin:$PATH"
+  - export GIT_TRACE=1
   - ./scripts/before_script.sh
 
 script:
