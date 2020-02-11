@@ -39,6 +39,8 @@ val mainCommands = listOf(
 )
 
 fun main(args: Array<String>) {
+    Logger.init(args)
+
     val allCommands = if (File("kintaSrc").exists()) {
         mainCommands + kintaSrcCommands
     } else {
