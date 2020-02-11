@@ -27,8 +27,8 @@ object TravisEncryptFile : CliktCommand(name = "encryptFile") {
 
         File(output).writeBytes(result.ouptut)
 
-        val keyVar = File(input).name.toVar()
-        val ivVar = File(input).name.toVar()
+        val keyVar = File(input).name.toVar() + "_KEY"
+        val ivVar = File(input).name.toVar() + "_IV"
         val encryptedKey = TravisIntegration.encrypt(value = "$keyVar=${result.key.toHex()}", repoOwner = repoOwner, repoName = repoName)
         val encryptedIv = TravisIntegration.encrypt(value = "$ivVar=${result.iv.toHex()}", repoOwner = repoOwner, repoName = repoName)
 
