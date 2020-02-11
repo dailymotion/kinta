@@ -9,7 +9,7 @@ import org.json.JSONObject
 import java.io.File
 
 object PlayStoreInit : CliktCommand(
-        name = "initPlayStoreConfig",
+        name = "init",
         help = "Convenient workflow to set up Play Store requirements in order to use other Play Store workflows (publish, listing, ...)"
 ) {
     override fun run() {

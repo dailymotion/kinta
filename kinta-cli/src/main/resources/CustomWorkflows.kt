@@ -1,5 +1,6 @@
 package com.dailymotion.kinta
 
+import com.dailymotion.kinta.workflows.BuiltInWorkflows
 import com.github.ajalt.clikt.core.CliktCommand
 
 /**
@@ -8,12 +9,20 @@ import com.github.ajalt.clikt.core.CliktCommand
  * Feel free to share workflows to kinta/workflows-builtin if you think it could be useful for the community!
  */
 class CustomWorkflows : Workflows {
-    override fun all(): List<CliktCommand> {
-        return listOf(object: CliktCommand(name = "customWorkflowHelloWorld ") {
-            override fun run() {
-                println("This is an Hello World custom workflow.")
-                // code your workflow here
+
+    private val customWorkflows = listOf(
+            object : CliktCommand(name = "customWorkflowHelloWorld ") {
+                override fun run() {
+                    println("This is an Hello World custom workflow !")
+                    // code your workflow here
+                }
             }
-        })
+    )
+
+    override fun all(): List<CliktCommand> {
+        return listOf(
+                customWorkflows,
+                BuiltInWorkflows.all() // Make all BuiltInWorkflows available
+        ).flatten()
     }
 }
