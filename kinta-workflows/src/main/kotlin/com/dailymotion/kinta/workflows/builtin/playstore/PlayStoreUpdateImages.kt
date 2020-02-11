@@ -1,7 +1,7 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
-import com.dailymotion.kinta.integration.googleplay.GooglePlayIntegration
 import com.dailymotion.kinta.integration.googleplay.LocalMetadataHelper
+import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.choice
@@ -9,7 +9,7 @@ import com.github.ajalt.clikt.parameters.types.choice
 /**
  * Push Play Store images for a specific imageType and a specific llanguage if provided
  */
-object UpdatePlayStoreImages : CliktCommand(name = "updatePlayStoreImages", help = "Push metadata images to the Google Play") {
+object PlayStoreUpdateImages : CliktCommand(name = "updateImages", help = "Push metadata images to the Google Play") {
 
     private val imageTypeValue by option("-imageType", help = GooglePlayIntegration.ImageType.values().joinToString(separator = ", ") { it.value })
             .choice(*GooglePlayIntegration.ImageType.values().map { it.value }.toTypedArray())

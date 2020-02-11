@@ -1,7 +1,7 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
-import com.dailymotion.kinta.integration.googleplay.GooglePlayIntegration
 import com.dailymotion.kinta.integration.googleplay.LocalMetadataHelper
+import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.options.option
@@ -11,7 +11,7 @@ import com.github.ajalt.clikt.parameters.types.long
 import java.io.File
 
 
-object PublishPlayStore : CliktCommand(name = "publish", help = "Publish a version on the given track") {
+object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a version on the given track") {
 
     private val archiveFile by option("--archiveFile")
 

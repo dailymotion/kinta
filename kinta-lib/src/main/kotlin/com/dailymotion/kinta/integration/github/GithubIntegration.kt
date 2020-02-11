@@ -3,6 +3,8 @@ package com.dailymotion.kinta.integration.github
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.toDeferred
 import com.dailymotion.kinta.*
+import com.dailymotion.kinta.integration.git.model.BranchInfo
+import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.github.internal.GithubOauthClient
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
@@ -15,13 +17,13 @@ import okhttp3.RequestBody
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
 
-object GithubIntegration {
-    fun openPullRequest(token: String? = null,
-                        owner: String? = null,
-                        repo: String? = null,
-                        head: String? = null,
-                        base: String? = null,
-                        title: String? = null
+object GithubIntegration: GitTool {
+    override fun openPullRequest(token: String?,
+                                 owner: String?,
+                                 repo: String?,
+                                 head: String?,
+                                 base: String?,
+                                 title: String?
     ) {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
@@ -67,28 +69,12 @@ object GithubIntegration {
     }
 
     /**
-     * @param name: the name of the branch
-     * @param pullRequests: the pull requests associated with a given branch
-     */
-    data class BranchInfo(
-            val name: String,
-            val pullRequests: List<PullRequestInfo>,
-            val dependantPullRequests: List<PullRequestInfo>
-    )
-
-    data class PullRequestInfo(
-            val number: Int,
-            val merged: Boolean,
-            val closed: Boolean
-    )
-
-    /**
      * For each branch in branches, get some info about the pull requests associated to it
      */
-    fun getBranchInfo(
-            token: String? = null,
-            owner: String? = null,
-            repo: String? = null,
+    override fun getBranchInfo(
+            token: String?,
+            owner: String?,
+            repo: String?,
             branch: String): BranchInfo {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
@@ -114,10 +100,10 @@ object GithubIntegration {
         )
     }
 
-    fun deleteRef(
-            token: String? = null,
-            owner: String? = null,
-            repo: String? = null,
+    override fun deleteRef(
+            token: String?,
+            owner: String?,
+            repo: String?,
             ref: String
     ) {
         val token_ = token ?: retrieveToken()
@@ -138,10 +124,12 @@ object GithubIntegration {
 
     }
 
-    fun getAllBranches(
-            token: String? = null,
-            owner: String? = null,
-            repo: String? = null
+    override fun isConfigured() = GithubOauthClient.isConfigured()
+
+    override fun getAllBranches(
+            token: String?,
+            owner: String?,
+            repo: String?
     ) : List<String>{
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
@@ -203,7 +191,7 @@ object GithubIntegration {
         return repoDetails(uri)
     }
 
-    fun repoDetails(uriIsh: URIish): Repository {
+    private fun repoDetails(uriIsh: URIish): Repository {
         if (uriIsh.host != "github.com") {
             throw Exception("this script only works with github.com")
         }

@@ -1,6 +1,6 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
-import com.dailymotion.kinta.integration.googleplay.GooglePlayIntegration
+import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
 import java.io.FileOutputStream
@@ -9,7 +9,7 @@ import java.io.OutputStream
 import java.net.URL
 
 
-object GetPlayStorePreviews : CliktCommand(name = "pullPlayStorePreviews", help = "Pull images previews from the Google Play") {
+object PlayStorePullPreviews : CliktCommand(name = "pullPreviews", help = "Pull images previews from the Google Play") {
 
     private const val PREVIEWS_FOLDER = "kintaSrc/playStorePreviews/"
 

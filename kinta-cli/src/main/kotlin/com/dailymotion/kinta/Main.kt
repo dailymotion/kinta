@@ -2,7 +2,6 @@ package com.dailymotion.kinta
 
 import com.dailymotion.kinta.command.Bootstrap
 import com.dailymotion.kinta.command.Init
-import com.dailymotion.kinta.command.InitPlayStoreConfig
 import com.dailymotion.kinta.command.Update
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.github.ajalt.clikt.core.CliktCommand
@@ -38,8 +37,7 @@ val runtimeCommands by lazy {
 val compiledCommands = listOf(
         Init,
         Bootstrap,
-        Update,
-        InitPlayStoreConfig
+        Update
 )
 
 fun main(args: Array<String>) {
