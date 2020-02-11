@@ -10,7 +10,7 @@ object Installer {
         Constants.stagingDir.deleteRecursively()
         Constants.stagingDir.mkdirs()
 
-        val response = "https://dailymotion.github.io/kinta/kinta.zip".let {
+        val response = "https://dailymotion.github.io/kinta/zip/latest.zip".let {
             Request.Builder().url(it)
                     .get()
                     .build()

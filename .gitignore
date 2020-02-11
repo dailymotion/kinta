@@ -14,3 +14,5 @@ mkdocs.yml
 /docs/README.md
 /docs/zip
 /venv
+kinta.properties
+

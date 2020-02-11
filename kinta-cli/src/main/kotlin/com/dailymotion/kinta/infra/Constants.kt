@@ -12,12 +12,6 @@ object Constants {
     val currentDir = File(kintaDir, "current")
     val stagingDir = File(kintaDir, "staging")
 
-    val installedVersion = try {
-        Version(File(kintaDir, "current/version").readText())
-    } catch (e: Exception) {
-        null
-    }
-
     val latestVersion by lazy {
         Request.Builder().url("https://api.bintray.com/packages/dailymotion/com.dailymotion.kinta/kinta-lib/versions/_latest")
                 .get()
