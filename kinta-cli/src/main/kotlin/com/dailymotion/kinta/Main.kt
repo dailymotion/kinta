@@ -9,7 +9,6 @@ import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import java.io.File
-import java.lang.IllegalStateException
 import java.net.URLClassLoader
 import java.util.*
 import kotlin.system.exitProcess
@@ -18,7 +17,9 @@ import kotlin.system.exitProcess
 val runtimeCommands by lazy {
     // Update the project workflows if needed
     if (File("kintaSrc").exists()) {
-        Gradle(File("kintaSrc")).executeTask("shadowJar")
+        if(Gradle(File("kintaSrc")).executeTask("shadowJar") != 0){
+            throw Exception("Exception assembling kintaSrc.")
+        }
     }
 
     val jarFile = File("./kintaSrc/build/libs/kinta-workflows-custom.jar")
