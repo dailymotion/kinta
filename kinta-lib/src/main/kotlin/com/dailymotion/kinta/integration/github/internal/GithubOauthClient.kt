@@ -56,7 +56,7 @@ object GithubOauthClient {
 
     private fun acquireToken(): String {
         val state = randomString(16)
-        val url = "https://github.com/login/oauth/authorize?client_id=$clientId}&scope=repo&state=$state"
+        val url = "https://github.com/login/oauth/authorize?client_id=$clientId&scope=repo&state=$state"
         var token: String? = null
 
         Logger.d("acquiring oauth token")
@@ -68,8 +68,8 @@ object GithubOauthClient {
                 }
                 val code = session.parms["code"]
 
-                val postUrl = "https://github.com/login/oauth/access_token?client_id=$clientId}" +
-                        "&client_secret=$clientSecret}" +
+                val postUrl = "https://github.com/login/oauth/access_token?client_id=$clientId" +
+                        "&client_secret=$clientSecret" +
                         "&state=$state" +
                         "&code=$code"
 
