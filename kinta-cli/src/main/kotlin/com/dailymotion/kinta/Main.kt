@@ -60,10 +60,10 @@ fun main(args: Array<String>) {
             invokeWithoutSubcommand = true,
             printHelpOnEmptyArgs = true
     ) {
-        val version by option("--version", "-V").flag()
-        val debug by option(*LogType.Debug.options.toTypedArray()).flag()
-        val info by option(*LogType.Info.options.toTypedArray()).flag()
-        val error by option(*LogType.Error.options.toTypedArray()).flag()
+        val version by option("--version", "-v").flag()
+        val debug by option(*LogType.Debug.options.toTypedArray(), help = "set the logs to LOGLEVEL_DEBUG").flag()
+        val info by option(*LogType.Info.options.toTypedArray(), help = "set the logs to LOGLEVEL_INFO (default)").flag()
+        val error by option(*LogType.Error.options.toTypedArray(), help = "set the logs to LEVEL_ERROR (default)").flag()
 
         override fun run() {
             if (version) {
