@@ -17,7 +17,7 @@ import kotlin.system.exitProcess
 
 val kintaSrcCommands by lazy {
     // Update the project workflows if needed
-    if (Gradle(File("kintaSrc")).executeTask("assemble") != 0) {
+    if (Gradle(File("kintaSrc"), true).executeTask("assemble") != 0) {
         throw Exception("Exception assembling kintaSrc.")
     }
 
@@ -38,7 +38,16 @@ val mainCommands = listOf(
         Update
 )
 
+enum class LogType(val options: List<String>, val logLevel: Int) {
+    Debug(listOf("-d", "--debug"), logLevel = Logger.LEVEL_DEBUG),
+    Info(listOf("-i", "--info"), logLevel = Logger.LEVEL_INFO),
+    Error(listOf("-e", "--error"), logLevel = Logger.LEVEL_ERROR)
+}
+
 fun main(args: Array<String>) {
+    Logger.level = LogType.values().find { it.options.find { args.contains(it) } != null }?.logLevel
+            ?: Logger.LEVEL_INFO
+
     val allCommands = if (File("kintaSrc").exists()) {
         mainCommands + kintaSrcCommands
     } else {
@@ -51,7 +60,10 @@ fun main(args: Array<String>) {
             invokeWithoutSubcommand = true,
             printHelpOnEmptyArgs = true
     ) {
-        val version by option("--version", "-V").flag()
+        val version by option("--version", "-v").flag()
+        val debug by option(*LogType.Debug.options.toTypedArray(), help = "set the logs to LOGLEVEL_DEBUG").flag()
+        val info by option(*LogType.Info.options.toTypedArray(), help = "set the logs to LOGLEVEL_INFO (default)").flag()
+        val error by option(*LogType.Error.options.toTypedArray(), help = "set the logs to LEVEL_ERROR").flag()
 
         override fun run() {
             if (version) {

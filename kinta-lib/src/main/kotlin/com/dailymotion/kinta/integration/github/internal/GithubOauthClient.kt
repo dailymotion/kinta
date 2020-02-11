@@ -2,7 +2,7 @@ package com.dailymotion.kinta.integration.github.internal
 
 import com.dailymotion.kinta.KintaConfig
 import com.dailymotion.kinta.KintaEnv
-import com.dailymotion.kinta.Log
+import com.dailymotion.kinta.Logger
 import fi.iki.elonen.NanoHTTPD
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
@@ -59,7 +59,7 @@ object GithubOauthClient {
         val url = "https://github.com/login/oauth/authorize?client_id=$clientId}&scope=repo&state=$state"
         var token: String? = null
 
-        Log.d("acquiring oauth token")
+        Logger.d("acquiring oauth token")
 
         val server = object : NanoHTTPD(8941) {
             override fun serve(session: IHTTPSession): Response {

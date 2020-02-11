@@ -1,7 +1,7 @@
 package com.dailymotion.kinta.integration.jira
 
 import com.dailymotion.kinta.KintaEnv
-import com.dailymotion.kinta.Log
+import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.integration.jira.internal.*
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -46,7 +46,7 @@ object Jira {
         val service = service(jiraUrl, username, password)
         val response1 = service.getTransitions(issueId).execute()
         if (!response1.isSuccessful) {
-            Log.e("cannot get transistions for issue $issueId ==> ${response1.code()} / ${response1.errorBody()?.toString()}")
+            Logger.e("cannot get transistions for issue $issueId ==> ${response1.code()} / ${response1.errorBody()?.toString()}")
             return
         }
 
@@ -55,14 +55,14 @@ object Jira {
         val transition = transitionResult.transitions.firstOrNull { it.to?.name == state }
 
         if (transition == null) {
-            Log.e("cannot transition ticket $issueId :-/ ==> ${response1.code()} / ${response1.errorBody()?.toString()}")
+            Logger.e("cannot transition ticket $issueId :-/ ==> ${response1.code()} / ${response1.errorBody()?.toString()}")
             return
         }
 
         val response2 = service.setTransition(issueId, TransitionBody(Transition(transition.id))).execute()
 
         if (!response2.isSuccessful) {
-            Log.e("cannot change ticket $issueId status ==> ${response2.code()} / ${response2.errorBody()?.toString()}")
+            Logger.e("cannot change ticket $issueId status ==> ${response2.code()} / ${response2.errorBody()?.toString()}")
         }
     }
 
@@ -103,7 +103,7 @@ object Jira {
     ) {
         val response = service(jiraUrl, username, password).addComment(issueId, CommentBody(comment)).execute()
         if (!response.isSuccessful) {
-            Log.e("cannot add comment to ticket $issueId status ==> ${response.code()} / ${response.errorBody()?.string()}")
+            Logger.e("cannot add comment to ticket $issueId status ==> ${response.code()} / ${response.errorBody()?.string()}")
         }
     }
 

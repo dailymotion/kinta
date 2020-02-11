@@ -63,7 +63,7 @@ object GitlabIntegration : GitTool {
             "You cannot make a pull request with the same head and base ($head_)"
         }
 
-        Log.d("creating pull request to merge $head_ into $base_")
+        Logger.d("creating pull request to merge $head_ into $base_")
         val response = service(token_).openPullRequest(
                 projectId = "$owner_/$repo_",
                 mergeRequestBody = MergeRequestBody(head_, base_, title_)
@@ -75,7 +75,7 @@ object GitlabIntegration : GitTool {
         response.body()?.charStream()?.let {
             try {
                 val htmlUrl = Json.nonstrict.parseJson(it.readText()).jsonObject.getPrimitive("web_url").content
-                Log.d("-> $htmlUrl")
+                Logger.d("-> $htmlUrl")
             } catch (e: Exception) {
                 e.printStackTrace()
             }

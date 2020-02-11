@@ -1,7 +1,7 @@
 package com.dailymotion.kinta.integration.bitrise
 
 import com.dailymotion.kinta.KintaEnv
-import com.dailymotion.kinta.Log
+import com.dailymotion.kinta.Logger
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -55,7 +55,7 @@ object Bitrise {
                 val element = Json.nonstrict.parseJson(it)
 
                 val buildUrl = element.jsonObject["build_url"]
-                buildUrl?.let { Log.d("Build triggered : $it") }
+                buildUrl?.let { Logger.d("Build triggered : $it") }
             }
         }
     }
