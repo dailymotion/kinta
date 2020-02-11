@@ -12,7 +12,7 @@ fun cleanDocs() {
 }
 
 fun retrieveArchives() {
-    runCommand(command = "git clone --depth 1 https://github.com/dailymotion/kinta -b archives archives")
+    runCommand(command = "git clone --depth 1 git@github.com:dailymotion/kinta.git -b archives archives")
 
     File("archives/").copyRecursively(target = File("docs"), overwrite = true)
     File("archives").deleteRecursively()
@@ -142,7 +142,7 @@ val deployArchives = tasks.register("deployArchives") {
     })
 
     doLast {
-        runCommand(command = "git clone --depth 1 https://github.com/dailymotion/kinta -b archives archives")
+        runCommand(command = "git clone --depth 1 git@github.com:dailymotion/kinta.git -b archives archives")
 
         File("archives/kdoc/").mkdirs()
         File("build/kdoc").copyRecursively(File("archives/kdoc/${project.version}"))
