@@ -27,7 +27,7 @@ fun runCommand(vararg args: String): String {
 fun setCurrentVersion(version: String) {
     val file = File("build.gradle.kts")
     var newContent = file.readLines().map {
-        it.replace(Regex("^version = .*"), "version = $version")
+        it.replace(Regex("^version = \".*\""), "version = \"$version\"")
     }.joinToString(separator = "\n", postfix = "\n")
     file.writeText(newContent)
 }
@@ -35,7 +35,7 @@ fun setCurrentVersion(version: String) {
 fun getCurrentVersion(): String {
     val file = File("build.gradle.kts")
     var version = file.readLines().mapNotNull {
-        Regex("^version = (.*)-SNAPSHOT").matchEntire(it)?.groupValues?.get(1)
+        Regex("^version = \"(.*)-SNAPSHOT\"").matchEntire(it)?.groupValues?.get(1)
     }.firstOrNull()
 
     require(version != null) {
