@@ -89,7 +89,7 @@ while (tagVersion.isEmpty()) {
 setCurrentVersion(tagVersion)
 
 runCommand("git", "commit", "-a", "-m", "release $tagVersion")
-runCommand("git", "tag", "v$tagVersion")
+runCommand("git", "tag", "$tagVersion")
 
 val snapshot = "${getNextPatch(tagVersion)}-SNAPSHOT"
 setCurrentVersion(snapshot)
