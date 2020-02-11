@@ -1,5 +1,4 @@
 python3 -m venv venv
-export PATH="./venv/bin:$PATH"
 which pip
 pip install mkdocs-material
 mkdocs -V
