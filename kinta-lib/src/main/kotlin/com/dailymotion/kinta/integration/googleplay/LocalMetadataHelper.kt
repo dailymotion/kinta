@@ -7,11 +7,11 @@ import java.io.*
 
 object LocalMetadataHelper {
 
-    val ANDROID_METADATA_FOLDER = File("kintaSrc/metadata/android/")
+    val ANDROID_METADATA_FOLDER = File("metadata/android/")
 
     private fun checkMetaDataFolder() {
         check(ANDROID_METADATA_FOLDER.exists()) {
-            "$ANDROID_METADATA_FOLDER not found. Make sure to call 'kinta ${PlayStorePullMetadatas.commandName}' first or create the files tree manually"
+            "$ANDROID_METADATA_FOLDER not found. Make sure to call 'kinta playstore ${PlayStorePullMetadatas.commandName}' first or create the files tree manually"
         }
     }
 

@@ -17,7 +17,7 @@ import kotlin.system.exitProcess
 
 object BuiltInWorkflows {
 
-    private val playStoreWorkflows = object : CliktCommand(name = "playstore", help = "Play Store relative workflows") {
+    val playStoreWorkflows = object : CliktCommand(name = "playstore", help = "Play Store relative workflows") {
         override fun run() {
             if (context.invokedSubcommand != PlayStoreInit && !GooglePlayIntegration.isConfigured()) {
                 println("Your environment is not set up. Please run kinta $commandName ${PlayStoreInit.commandName}")
@@ -34,7 +34,7 @@ object BuiltInWorkflows {
             PlayStorePublish
     ))
 
-    private val gitHubWorkflows = object : CliktCommand(name = "github", help = "Github relative workflows") {
+    val gitHubWorkflows = object : CliktCommand(name = "github", help = "Github relative workflows") {
         override fun run() {
             if (context.invokedSubcommand != GithubInit && !GithubIntegration.isConfigured()) {
                 println("Your environment is not set up. Please run kinta $commandName ${GithubInit.commandName}")
@@ -48,7 +48,7 @@ object BuiltInWorkflows {
             GithubCleanRemote
     ))
 
-    private val gitlabWorkflows = object : CliktCommand(name = "gitlab", help = "Gitlab relative workflows") {
+    val gitlabWorkflows = object : CliktCommand(name = "gitlab", help = "Gitlab relative workflows") {
         override fun run() {
             if (context.invokedSubcommand != GitlabInit && !GitlabIntegration.isConfigured()) {
                 println("Your environment is not set up. Please run kinta $commandName ${GitlabInit.commandName}")
