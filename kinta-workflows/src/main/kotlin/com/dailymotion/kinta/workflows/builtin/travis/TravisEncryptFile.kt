@@ -4,14 +4,15 @@ import com.dailymotion.kinta.integration.crypto.Crypto
 import com.dailymotion.kinta.integration.crypto.toHex
 import com.dailymotion.kinta.integration.travis.TravisIntegration
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import java.io.File
 
 object TravisEncryptFile : CliktCommand(name = "encryptFile") {
-    val input by option("--input", help ="the file to encrypt").required()
-    val repo by option("--repo", help ="The repository to use for encryption in the form owner/name").required()
-
+    val input by option("--input", help = "the file to encrypt").required()
+    val repo by option("--repo", help = "The repository to use for encryption in the form owner/name").required()
+    val showKey by option("--showKey", help = "show the private key used for encryption on stdout").flag()
 
     fun String.toVar(): String {
         return toUpperCase().replace(".", "_").replace(Regex("[^A-Z_]"), "")
@@ -36,7 +37,9 @@ object TravisEncryptFile : CliktCommand(name = "encryptFile") {
         println("\nCommit this file to your repository, it contains the encrypted result:")
         println(output)
         println("\nAdd the decryption parameters to your .travis.yml:")
+        println("# $keyVar=${if (showKey) result.key else "[secure]"}")
         println("- secure: $encryptedKey")
+        println("# $ivVar=${if (showKey) result.iv else "[secure]"}")
         println("- secure: $encryptedIv")
         println("\nWhen you want to decrypt your file, run:")
         println("openssl aes-256-cbc -K \$$keyVar -iv \$$ivVar -in $output -out $input -d")
