@@ -26,7 +26,7 @@ fun determineLatestZip() {
     val latestZip = file("docs/zip").listFiles().sortedBy { it.name }.lastOrNull()
 
     if (latestZip != null) {
-        Regex("kinta-([0-9]*).zip").matchEntire(latestZip.name)?.groupValues?.get(1)?.let {
+        Regex("kinta-(.*).zip").matchEntire(latestZip.name)?.groupValues?.get(1)?.let {
             File("docs/zip/latest.txt").writeText(it)
         }
         latestZip.copyTo(File("docs/zip/latest.zip"))

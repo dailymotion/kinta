@@ -21,7 +21,6 @@ version = "0.1.4-SNAPSHOT"
 
 subprojects {
     repositories {
-        // mavenLocal()
         jcenter()
         maven {
             url = uri("https://repo.gradle.org/gradle/libs-releases-local/")
