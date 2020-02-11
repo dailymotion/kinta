@@ -9,5 +9,5 @@ then
   openssl aes-256-cbc -K $TRAVIS_KINTA_DEPLOY_KEY -iv $TRAVIS_KINTA_DEPLOY_KEY -in travis_kinta_deploy_key.enc -out travis_kinta_deploy_key -d
   ssh-agent add travis_kinta_deploy_key
   rm travis_kinta_deploy_key
-  git remote origin set-url git@github.com:dailymotion/kinta.git
+  git remote set-url origin git@github.com:dailymotion/kinta.git
 fi
