@@ -55,7 +55,7 @@ object Bitrise {
                 val element = Json.nonstrict.parseJson(it)
 
                 val buildUrl = element.jsonObject["build_url"]
-                buildUrl?.let { Logger.d("Build triggered : $it") }
+                buildUrl?.let { Logger.i("Build triggered : $it") }
             }
         }
     }

@@ -38,17 +38,17 @@ class Gradle(directory: File? = null, val useLoggingLevelQuiet: Boolean = Logger
 
     private fun logExecuteTasks(vararg taskName: String) {
         taskName.forEach {
-            Logger.d("\n==> Executing task: $it\n")
+            Logger.i("\n==> Executing task: $it\n")
         }
     }
 
     private fun logExecuteGroupTasks(groupName: String, taskList: List<String>) {
-        Logger.d("\n==> List of task to execute for group: $groupName")
-        Logger.d("==> {")
+        Logger.i("\n==> List of task to execute for group: $groupName")
+        Logger.i("==> {")
         taskList.forEach {
-            Logger.d("==>\t${it}")
+            Logger.i("==>\t${it}")
         }
-        Logger.d("==> }\n")
+        Logger.i("==> }\n")
     }
 
     private fun runGradleBuild(gradleLambda: (ProjectConnection) -> BuildLauncher): Int {

@@ -1,6 +1,5 @@
 package com.dailymotion.kinta.infra
 
-import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File

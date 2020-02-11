@@ -34,7 +34,7 @@ object AppCenter {
                 .url("https://api.appcenter.ms/v0.1/apps/$organisation_/$appId/release_uploads")
                 .build()
 
-        Logger.d("Getting AppCenter upload url...")
+        Logger.i("Getting AppCenter upload url...")
         val response = okHttpClient.newCall(request).execute()
         if (!response.isSuccessful) {
             Logger.e("Cannot get AppCenter upload url")
@@ -53,7 +53,7 @@ object AppCenter {
                 .url(uploadUrlData.getPrimitive("upload_url").content)
                 .build()
 
-        Logger.d("Uploading...")
+        Logger.i("Uploading...")
         val responseUpload = okHttpClient.newCall(requestUpload).execute()
         if (!responseUpload.isSuccessful) {
             Logger.e("Cannot upload file to AppCenter")
@@ -61,7 +61,7 @@ object AppCenter {
             return
         }
 
-        Logger.d("Upload OK ! Committing...")
+        Logger.i("Upload OK ! Committing...")
         val requestCommit = Request.Builder()
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
@@ -78,7 +78,7 @@ object AppCenter {
         }
         val releaseData = Json.nonstrict.parseJson(responseCommit.body()!!.string()).jsonObject
 
-        Logger.d("Commited ! Updating release notes...")
+        Logger.i("Commited ! Updating release notes...")
         val postData = JsonObject(
                 mapOf(
                         "destination_name" to JsonPrimitive("Everyone"),
@@ -100,6 +100,6 @@ object AppCenter {
             responseReleaseNotes.body()?.string()?.let { Logger.e(it) }
             return
         }
-        Logger.d("Release notes updated")
+        Logger.i("Release notes updated")
     }
 }

@@ -40,7 +40,7 @@ object Slack {
 
         val body = RequestBody.create(MediaType.parse("application/json"), Json.nonstrict.toJson(jsonObject).toString())
 
-        Logger.d("Sending slack notification")
+        Logger.i("Sending slack notification")
 
         val request = Request.Builder()
                 .url(webhookUrl_)

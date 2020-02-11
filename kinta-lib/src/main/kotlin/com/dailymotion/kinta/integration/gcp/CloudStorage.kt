@@ -31,7 +31,7 @@ object CloudStorage {
             verbose: Boolean = false) {
         bucket(cloudStorageJson, bucket).list(Storage.BlobListOption.prefix(name)).values.forEach {
             if (verbose) {
-                Logger.d("deleting ${it.name}")
+                Logger.i("deleting ${it.name}")
             }
             it.delete()
         }

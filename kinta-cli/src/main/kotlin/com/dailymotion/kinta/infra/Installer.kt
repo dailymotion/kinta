@@ -1,22 +1,24 @@
 package com.dailymotion.kinta.infra
 
+import com.dailymotion.kinta.Logger
+import com.dailymotion.kinta.Project
+import com.dailymotion.kinta.integration.commandline.CommandLine
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
 import java.util.zip.ZipInputStream
+import kotlin.system.exitProcess
 
 object Installer {
     private fun installUsingStagingDirectory() {
-        val response = "https://dailymotion.github.io/kinta/zip/latest.zip".let {
-            Request.Builder().url(it)
-                    .get()
-                    .build()
-                    .let {
-                        OkHttpClient().newCall(it).execute()
-                    }
-        }
+        Logger.i("Downloading version ${Constants.latestVersion.value}...")
 
-        ZipInputStream(response.body()!!.byteStream()).use { zipStream ->
+        // We use curl and not okhttp here to have the same process than install.sh
+        val process = ProcessBuilder("curl -L -# https://dailymotion.github.io/kinta/zip/latest.zip".split(" "))
+                .redirectError(ProcessBuilder.Redirect.INHERIT)
+                .start()
+
+        ZipInputStream(process.inputStream.buffered()).use { zipStream ->
             var entry = zipStream.nextEntry
             while (entry != null) {
                 val f = File(Constants.stagingDir, entry.name)
@@ -33,6 +35,10 @@ object Installer {
             zipStream.closeEntry()
         }
 
+        if (process.waitFor() != 0) {
+            exitProcess(1)
+        }
+
         check(Constants.stagingDir.listFiles()!!.size == 1) {
             "The distribution zip contained too many root files: ${Constants.stagingDir.listFiles().map { it.name }.joinToString("\n")}"
         }
@@ -44,6 +50,12 @@ object Installer {
 
         Constants.currentDir.deleteRecursively()
         dir.renameTo(Constants.currentDir)
+
+        // Zip has some extra entry attributes that can keep file permissions but it's easier
+        // to set them here manually
+        File(Constants.currentDir, "bin/kinta").setExecutable(true)
+        File(Constants.currentDir, "bin/kinta.bat").setExecutable(true)
+        Logger.i("Update successful")
     }
 
     fun installLatestVersion() {
