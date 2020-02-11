@@ -13,7 +13,7 @@ before_script:
   - ./scripts/before_script.sh
 
 script:
-  - "./gradlew clean assemble uploadIfNeeded deployDocsIfNeeded -i --stacktrace"
+  - "./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded deployArchivesIfNeeded -i --stacktrace"
 
 env:
   global:
