@@ -9,7 +9,7 @@ addons:
       - python3-venv
 before_script:
   - export PATH="./venv/bin:$PATH"
-  - echo "LogLevel DEBUG" >> ~/.ssh/config
+  - eval $(ssh-agent -s)
   - ./scripts/before_script.sh
 
 script:
