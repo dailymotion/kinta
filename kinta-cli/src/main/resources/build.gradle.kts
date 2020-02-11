@@ -1,8 +1,5 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
     id("org.jetbrains.kotlin.jvm").version("1.3.61")
-    id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 repositories {
@@ -34,11 +31,5 @@ tasks.withType<Jar> {
          * since we remove INDEX.LIST, it also looks like we need to remove signatures too. Not 100% sure why
          */
         exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/INDEX.LIST", "META-INF/*.kotlin_module")
-    }
-}
-
-tasks {
-    named<ShadowJar>("shadowJar") {
-        mergeServiceFiles()
     }
 }

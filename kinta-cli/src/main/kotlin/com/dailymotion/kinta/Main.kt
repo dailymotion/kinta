@@ -17,7 +17,7 @@ import kotlin.system.exitProcess
 
 val kintaSrcCommands by lazy {
     // Update the project workflows if needed
-    if (Gradle(File("kintaSrc")).executeTask("shadowJar") != 0) {
+    if (Gradle(File("kintaSrc")).executeTask("assemble") != 0) {
         throw Exception("Exception assembling kintaSrc.")
     }
 
