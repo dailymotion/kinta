@@ -28,15 +28,5 @@ object Logger {
     fun e(message: String) {
         doLog(message, LEVEL_ERROR)
     }
-
-    fun init(args: Array<String>) {
-        val logType = LogType.values().find { it.options.find { args.contains(it) } != null } ?: LogType.Info
-        level = logType.logLevel
-    }
 }
 
-enum class LogType(val options: List<String>, val logLevel: Int) {
-    Debug(listOf("-d", "--debug"), logLevel = LEVEL_DEBUG),
-    Info(listOf("-i", "--info"), logLevel = LEVEL_INFO),
-    Error(listOf("-e", "--error"), logLevel = LEVEL_ERROR)
-}

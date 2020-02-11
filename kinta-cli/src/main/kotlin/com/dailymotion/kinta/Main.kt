@@ -38,8 +38,15 @@ val mainCommands = listOf(
         Update
 )
 
+enum class LogType(val options: List<String>, val logLevel: Int) {
+    Debug(listOf("-d", "--debug"), logLevel = Logger.LEVEL_DEBUG),
+    Info(listOf("-i", "--info"), logLevel = Logger.LEVEL_INFO),
+    Error(listOf("-e", "--error"), logLevel = Logger.LEVEL_ERROR)
+}
+
 fun main(args: Array<String>) {
-    Logger.init(args)
+    Logger.level = LogType.values().find { it.options.find { args.contains(it) } != null }?.logLevel
+            ?: Logger.LEVEL_INFO
 
     val allCommands = if (File("kintaSrc").exists()) {
         mainCommands + kintaSrcCommands
@@ -54,6 +61,9 @@ fun main(args: Array<String>) {
             printHelpOnEmptyArgs = true
     ) {
         val version by option("--version", "-V").flag()
+        val debug by option(*LogType.Debug.options.toTypedArray()).flag()
+        val info by option(*LogType.Info.options.toTypedArray()).flag()
+        val error by option(*LogType.Error.options.toTypedArray()).flag()
 
         override fun run() {
             if (version) {
