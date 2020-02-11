@@ -5,7 +5,7 @@ import java.util.*
 
 object KintaConfig {
     private val properties = Properties()
-    private val file = File(Project.findBaseDir(), "kintaSrc/kinta.properties")
+    private val file = File(Project.findBaseDir(), "kinta.properties")
 
     init {
         try {
