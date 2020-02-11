@@ -6,10 +6,7 @@ import java.io.File
 import java.util.zip.ZipInputStream
 
 object Installer {
-    fun installLatestVersion() {
-        Constants.stagingDir.deleteRecursively()
-        Constants.stagingDir.mkdirs()
-
+    private fun installUsingStagingDirectory() {
         val response = "https://dailymotion.github.io/kinta/zip/latest.zip".let {
             Request.Builder().url(it)
                     .get()
@@ -47,6 +44,16 @@ object Installer {
 
         Constants.currentDir.deleteRecursively()
         dir.renameTo(Constants.currentDir)
-        Constants.stagingDir.delete()
+    }
+
+    fun installLatestVersion() {
+        Constants.stagingDir.deleteRecursively()
+        Constants.stagingDir.mkdirs()
+
+        try {
+            installUsingStagingDirectory()
+        } finally {
+            Constants.stagingDir.delete()
+        }
     }
 }

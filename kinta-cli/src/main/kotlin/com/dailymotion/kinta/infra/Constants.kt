@@ -13,13 +13,11 @@ object Constants {
     val stagingDir = File(kintaDir, "staging")
 
     val latestVersion by lazy {
-        Request.Builder().url("https://api.bintray.com/packages/dailymotion/com.dailymotion.kinta/kinta-lib/versions/_latest")
+        Request.Builder().url("https://dailymotion.github.io/kinta/zip/latest.txt")
                 .get()
                 .build()
                 .let {
                     OkHttpClient().newCall(it).execute().body()!!.string()
-                }.let {
-                    Json.nonstrict.parseJson(it).jsonObject.getPrimitive("name").content
                 }.let {
                     Version(it)
                 }
