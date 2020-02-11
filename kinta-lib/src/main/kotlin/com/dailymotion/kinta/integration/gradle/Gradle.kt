@@ -8,13 +8,12 @@ import org.gradle.tooling.model.GradleProject
 import java.io.File
 
 
-class Gradle(directory: File? = null) {
+class Gradle(directory: File? = null, val useLoggingLevelQuiet: Boolean = Logger.level > Logger.LEVEL_INFO) {
 
     private var gradleConnector = GradleConnector
             .newConnector()
             .forProjectDirectory(directory ?: File("."))
 
-    var useLoggingLevelQuiet = false
 
     fun executeTask(task: String) = executeTasks(task)
 
@@ -57,7 +56,6 @@ class Gradle(directory: File? = null) {
         return try {
             var buildLauncher = gradleLambda(projectConnection)
             buildLauncher = if (useLoggingLevelQuiet) {
-                Logger.d("==> <!> Running gradle in quiet mode ... <!>")
                 buildLauncher.withArguments("-q")
             } else {
                 buildLauncher.withArguments("--stacktrace")
