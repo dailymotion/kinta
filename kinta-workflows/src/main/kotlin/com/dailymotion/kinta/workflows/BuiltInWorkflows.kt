@@ -1,6 +1,5 @@
 package com.dailymotion.kinta.workflows
 
-import com.dailymotion.kinta.Workflows
 import com.dailymotion.kinta.integration.github.GithubIntegration
 import com.dailymotion.kinta.workflows.builtin.crypto.AesEncrypt
 import com.dailymotion.kinta.workflows.builtin.travis.Travis
@@ -16,7 +15,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import kotlin.system.exitProcess
 
-class BuiltInWorkflows : Workflows {
+object BuiltInWorkflows {
 
     private val playStoreWorkflows = object : CliktCommand(name = "playstore", help = "Play Store relative workflows") {
         override fun run() {
@@ -63,7 +62,7 @@ class BuiltInWorkflows : Workflows {
             GitlabCleanRemote
     ))
 
-    override fun all(): List<CliktCommand> =
+    fun all(): List<CliktCommand> =
             listOf(
                     playStoreWorkflows,
                     gitHubWorkflows,

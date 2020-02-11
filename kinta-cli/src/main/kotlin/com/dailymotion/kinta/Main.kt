@@ -4,6 +4,7 @@ import com.dailymotion.kinta.command.Bootstrap
 import com.dailymotion.kinta.command.Init
 import com.dailymotion.kinta.command.Update
 import com.dailymotion.kinta.integration.gradle.Gradle
+import com.dailymotion.kinta.workflows.BuiltInWorkflows
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.options.flag
@@ -14,18 +15,14 @@ import java.util.*
 import kotlin.system.exitProcess
 
 
-val runtimeCommands by lazy {
+val kintaSrcCommands by lazy {
     // Update the project workflows if needed
-    if (File("kintaSrc").exists()) {
-        if(Gradle(File("kintaSrc")).executeTask("shadowJar") != 0){
-            throw Exception("Exception assembling kintaSrc.")
-        }
+    if (Gradle(File("kintaSrc")).executeTask("shadowJar") != 0) {
+        throw Exception("Exception assembling kintaSrc.")
     }
 
     val jarFile = File("./kintaSrc/build/libs/kinta-workflows-custom.jar")
-
     val urlClassLoader = URLClassLoader(arrayOf(jarFile.toURI().toURL()))
-
     val loader = ServiceLoader.load(Workflows::class.java, urlClassLoader)
 
     try {
@@ -35,14 +32,19 @@ val runtimeCommands by lazy {
     }
 }
 
-val compiledCommands = listOf(
+val mainCommands = listOf(
         Init,
         Bootstrap,
         Update
 )
 
 fun main(args: Array<String>) {
-    val allCommands = runtimeCommands + compiledCommands
+    val allCommands = if (File("kintaSrc").exists()) {
+        mainCommands + kintaSrcCommands
+    } else {
+        mainCommands + BuiltInWorkflows.all()
+    }
+
     object : CliktCommand(
             name = "kinta",
             help = "mobile workflows automation. Read more at https://dailymotion.github.io/kinta/",
