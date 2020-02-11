@@ -11,7 +11,7 @@ import java.net.URL
 
 object PlayStorePullPreviews : CliktCommand(name = "pullPreviews", help = "Pull images previews from the Google Play") {
 
-    private const val PREVIEWS_FOLDER = "kintaSrc/playStorePreviews/"
+    private const val PREVIEWS_FOLDER = "playStorePreviews/"
 
     override fun run() {
 
