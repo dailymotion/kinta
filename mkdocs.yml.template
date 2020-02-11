@@ -1,7 +1,7 @@
 site_name: Kinta
 site_url: https://dailymotion.github.com/kinta
 repo_name: Kinta
-repo_url: https://github.com/dailymotion/kinta
+repo_url: git@github.com:dailymotion/kinta.git
 site_description: "Mobile Apps automation in Kotlin"
 site_author: Dailymotion
 remote_branch: gh-pages
