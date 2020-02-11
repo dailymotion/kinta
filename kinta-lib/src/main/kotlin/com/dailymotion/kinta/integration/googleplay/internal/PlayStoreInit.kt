@@ -1,6 +1,6 @@
 package com.dailymotion.kinta.integration.googleplay.internal
 
-import com.dailymotion.kinta.KintaConfig
+import com.dailymotion.kinta.LocalEnv
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.helper.CommandUtil
 import com.github.ajalt.clikt.core.CliktCommand
@@ -20,7 +20,7 @@ object PlayStoreInit : CliktCommand(
             //Check at least the file is a json file
             try {
                 val json = Json.nonstrict.parseJson(File(filePath).readText())
-                KintaConfig.put(KintaEnv.GOOGLE_PLAY_JSON, json.toString())
+                KintaEnv.put(KintaEnv.GOOGLE_PLAY_JSON, json.toString())
                 println("GOOGLE_PLAY_JSON has been set to your kinta.properties")
             } catch (e: JsonException) {
                 println("Error while parsing the json file.")
@@ -30,7 +30,7 @@ object PlayStoreInit : CliktCommand(
             // Recover the app package name
             val packageName = CommandUtil.prompt(message = "Provide your app package name :")
             if (packageName?.isNotBlank() == true) {
-                KintaConfig.put(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME, packageName)
+                KintaEnv.put(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME, packageName)
                 println("GOOGLE_PLAY_PACKAGE_NAME has been set to your kinta.properties")
 
                 // Ask for getting play store meta data

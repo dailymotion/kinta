@@ -21,14 +21,14 @@ object Project {
 
     fun file(path: String): File = File(projectDir, path)
 
-    private fun isBaseDir(dir: File) = dir.list().contains(".git")
+    private fun isBaseDir(dir: File) = dir.list().contains(".kinta")
 
     fun findBaseDir(): File? {
         var dir = File(".")
 
         while (!isBaseDir(dir)) {
             if (dir.parent == null) {
-                Logger.e("Cannot find git directory, please run 'kinta init'")
+                Logger.e("Cannot find project directory, please run 'kinta init'")
                 exitProcess(1)
             }
             dir = File(dir.parent)

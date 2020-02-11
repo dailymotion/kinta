@@ -1,6 +1,6 @@
 package com.dailymotion.kinta.integration.github.internal
 
-import com.dailymotion.kinta.KintaConfig
+import com.dailymotion.kinta.LocalEnv
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import fi.iki.elonen.NanoHTTPD
@@ -19,10 +19,10 @@ object GithubOauthClient {
     private val lock = Object()
 
     val clientId: String
-            get() = KintaConfig.get(KintaEnv.GITHUB_APP_CLIENT_ID) ?: KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_ID) ?: ""
+            get() = KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_ID) ?: ""
 
     val clientSecret: String
-        get() = KintaConfig.get(KintaEnv.GITHUB_APP_CLIENT_SECRET) ?: KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_SECRET) ?: ""
+        get() = KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_SECRET) ?: ""
 
     private fun randomString(len: Int): String {
         val sb = StringBuilder(len)
@@ -38,15 +38,10 @@ object GithubOauthClient {
         var username = KintaEnv.get(KintaEnv.GITHUB_USERNAME)
 
         if (token == null || username == null) {
-            token = KintaConfig.get(KintaEnv.GITHUB_TOKEN)
-            username = KintaConfig.get(KintaEnv.GITHUB_USERNAME)
-
-            if (token == null || username == null) {
-                username = "user"
-                token = acquireToken()
-                KintaConfig.put(KintaEnv.GITHUB_USERNAME, username!!)
-                KintaConfig.put(KintaEnv.GITHUB_TOKEN, token!!)
-            }
+            username = "user"
+            token = acquireToken()
+            KintaEnv.put(KintaEnv.GITHUB_USERNAME, username!!)
+            KintaEnv.put(KintaEnv.GITHUB_TOKEN, token!!)
         }
 
         GithubCredentials(username!!, token!!)
@@ -153,13 +148,13 @@ object GithubOauthClient {
     }
 
     fun getToken(): String {
-        var token = KintaConfig.get(KintaEnv.GITHUB_TOKEN)
+        var token = KintaEnv.get(KintaEnv.GITHUB_TOKEN)
         if (token != null) {
             return token
         }
 
         token = acquireToken()
-        KintaConfig.put(KintaEnv.GITHUB_TOKEN, token)
+        KintaEnv.put(KintaEnv.GITHUB_TOKEN, token)
 
         return token
     }

@@ -5,9 +5,10 @@ import com.dailymotion.kinta.integration.googleplay.internal.PlayStoreInit
 import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
 
-object Init : CliktCommand(name = "init", help = "Initialize a project. You can also configure the variables manually" +
-        " by editing .kinta/local.env.") {
+object Init : CliktCommand(name = "init", help = "Initialize a project.") {
     override fun run() {
+        File(".kinta").mkdir()
+
         //Ask for the PLAY API service account
         if (CommandUtil.prompt(
                         message = "Would you like to set up the Play Store config (Useful for GooglePlayIntegration) ?\n" +
