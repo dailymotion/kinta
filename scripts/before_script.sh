@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 python3 -m venv venv
 which pip
 pip install mkdocs-material
