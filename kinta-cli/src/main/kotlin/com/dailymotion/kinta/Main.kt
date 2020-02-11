@@ -63,7 +63,7 @@ fun main(args: Array<String>) {
         val version by option("--version", "-v").flag()
         val debug by option(*LogType.Debug.options.toTypedArray(), help = "set the logs to LOGLEVEL_DEBUG").flag()
         val info by option(*LogType.Info.options.toTypedArray(), help = "set the logs to LOGLEVEL_INFO (default)").flag()
-        val error by option(*LogType.Error.options.toTypedArray(), help = "set the logs to LEVEL_ERROR (default)").flag()
+        val error by option(*LogType.Error.options.toTypedArray(), help = "set the logs to LEVEL_ERROR").flag()
 
         override fun run() {
             if (version) {
