@@ -5,7 +5,8 @@ import com.dailymotion.kinta.integration.googleplay.internal.PlayStoreInit
 import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
 
-object Init : CliktCommand(name = "init", help = "Initializes kinta in a project.") {
+object Init : CliktCommand(name = "init", help = "Initialize a project. You can also configure the variables manually" +
+        " by editing .kinta/local.env.") {
     override fun run() {
         //Ask for the PLAY API service account
         if (CommandUtil.prompt(
@@ -22,14 +23,6 @@ object Init : CliktCommand(name = "init", help = "Initializes kinta in a project
                         options = listOf("yes", "no")) == "yes") {
 
             InitCustomWorkflows.main(emptyList())
-        }
-    }
-
-    private fun copyResource(resourceName: String, dirName: String) {
-        javaClass.classLoader.getResourceAsStream(resourceName)!!.use { inputStream ->
-            File(dirName).outputStream().use { outputStream ->
-                inputStream.copyTo(outputStream)
-            }
         }
     }
 }

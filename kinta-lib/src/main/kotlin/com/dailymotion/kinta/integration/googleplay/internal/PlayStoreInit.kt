@@ -4,8 +4,8 @@ import com.dailymotion.kinta.KintaConfig
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.helper.CommandUtil
 import com.github.ajalt.clikt.core.CliktCommand
-import org.json.JSONException
-import org.json.JSONObject
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonException
 import java.io.File
 
 object PlayStoreInit : CliktCommand(
@@ -19,10 +19,10 @@ object PlayStoreInit : CliktCommand(
         if (filePath != null) {
             //Check at least the file is a json file
             try {
-                val json = JSONObject(File(filePath).readText())
+                val json = Json.nonstrict.parseJson(File(filePath).readText())
                 KintaConfig.put(KintaEnv.GOOGLE_PLAY_JSON, json.toString())
-                println("GOOGLE_PLAY_JSON has been set to yout kinta.properties")
-            } catch (e: JSONException) {
+                println("GOOGLE_PLAY_JSON has been set to your kinta.properties")
+            } catch (e: JsonException) {
                 println("Error while parsing the json file.")
                 return
             }

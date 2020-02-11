@@ -32,12 +32,6 @@ val kintaSrcCommands by lazy {
     }
 }
 
-val mainCommands = listOf(
-        FirstTimeInstall,
-        Update,
-        Init
-)
-
 enum class LogType(val options: List<String>, val logLevel: Int) {
     Debug(listOf("-d", "--debug"), logLevel = Logger.LEVEL_DEBUG),
     Info(listOf("-i", "--info"), logLevel = Logger.LEVEL_INFO),
@@ -48,11 +42,12 @@ fun main(args: Array<String>) {
     Logger.level = LogType.values().find { it.options.find { args.contains(it) } != null }?.logLevel
             ?: Logger.LEVEL_INFO
 
-    val allCommands = if (File("kintaSrc").exists()) {
-        mainCommands + kintaSrcCommands
+    val additionalCommands = if (File("kintaSrc").exists()) {
+        kintaSrcCommands
     } else {
-        mainCommands + BuiltInWorkflows.all()
+        BuiltInWorkflows.all()
     }
+    val allCommands = listOf(Init) + additionalCommands + Update + FirstTimeInstall
 
     object : CliktCommand(
             name = "kinta",
@@ -71,7 +66,7 @@ fun main(args: Array<String>) {
                 exitProcess(0)
             }
         }
-    }.subcommands(allCommands.sortedBy { it.commandName })
+    }.subcommands(allCommands)
             .main(args)
 
     // The apollo threadpools are still busy so don't wait for them and just exit the program
