@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function die() {
+die() {
     echo $1
     exit 1
 }
