@@ -13,5 +13,4 @@ then
   ssh-add travis_kinta_deploy_key
   rm travis_kinta_deploy_key
   git remote set-url origin git@github.com:dailymotion/kinta.git
-  git push origin master
 fi

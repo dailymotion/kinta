@@ -81,5 +81,5 @@ val deployTask = tasks.register("deployDocs", Exec::class.java) {
   dependsOn(mkdocsYmlTask)
   dependsOn(copyZipTask)
 
-  commandLine = "mkdocs gh-deploy".split(" ")
+  commandLine = "mkdocs gh-deploy --force".split(" ")
 }
