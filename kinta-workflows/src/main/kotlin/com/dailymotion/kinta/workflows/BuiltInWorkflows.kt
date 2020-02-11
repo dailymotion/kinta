@@ -2,6 +2,8 @@ package com.dailymotion.kinta.workflows
 
 import com.dailymotion.kinta.Workflows
 import com.dailymotion.kinta.integration.github.GithubIntegration
+import com.dailymotion.kinta.workflows.builtin.crypto.AesEncrypt
+import com.dailymotion.kinta.workflows.builtin.travis.Travis
 import com.dailymotion.kinta.integration.github.internal.GithubInit
 import com.dailymotion.kinta.integration.gitlab.GitlabIntegration
 import com.dailymotion.kinta.integration.gitlab.internal.GitlabInit
@@ -65,7 +67,9 @@ class BuiltInWorkflows : Workflows {
             listOf(
                     playStoreWorkflows,
                     gitHubWorkflows,
-                    gitlabWorkflows
+                    gitlabWorkflows,
+                    Travis,
+                    AesEncrypt
             )
 }
 
