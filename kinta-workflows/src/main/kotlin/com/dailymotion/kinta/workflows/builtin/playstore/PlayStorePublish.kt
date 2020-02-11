@@ -1,5 +1,6 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
+import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.integration.googleplay.LocalMetadataHelper
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
@@ -15,6 +16,8 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
 
     private val archiveFile by option("--archiveFile")
 
+    private val versionName by option("--versionName")
+
     private val versionCodeParam by option("--versionCode").long()
 
     private val percent by option("--percent", help = "The user fraction receiving the update").double()
@@ -28,6 +31,7 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
     override fun run() {
 
         val versionCode = if (archiveFile != null) {
+            Logger.i("Uploading file...")
             GooglePlayIntegration.uploadDraft(
                     archiveFile = File(archiveFile),
                     track = track
@@ -35,6 +39,7 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
         } else {
             versionCodeParam
         }
+
 
         check(versionCode != null && versionCode > 0) {
             "Invalid version code : $versionCode"
@@ -52,12 +57,14 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
 
         GooglePlayIntegration.createRelease(
                 track = track,
+                releaseName = versionName ?: versionCode.toString(),
                 listVersionCodes = listOf(versionCode),
                 percent = percentToApply
         )
 
         val changeLogs = LocalMetadataHelper.getChangelog(versionCode)
         if(changeLogs.isNotEmpty()){
+            Logger.i("Uploading changelogs for version $versionCode...")
             GooglePlayIntegration.uploadWhatsNew(
                     versionCode = versionCode,
                     whatsNewProvider = { language ->
