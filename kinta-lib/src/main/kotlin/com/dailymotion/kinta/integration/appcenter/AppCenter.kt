@@ -1,7 +1,7 @@
 package com.dailymotion.kinta.integration.appcenter
 
 import com.dailymotion.kinta.KintaEnv
-import com.dailymotion.kinta.Log
+import com.dailymotion.kinta.Logger
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
@@ -34,11 +34,11 @@ object AppCenter {
                 .url("https://api.appcenter.ms/v0.1/apps/$organisation_/$appId/release_uploads")
                 .build()
 
-        Log.d("Getting AppCenter upload url...")
+        Logger.d("Getting AppCenter upload url...")
         val response = okHttpClient.newCall(request).execute()
         if (!response.isSuccessful) {
-            Log.e("Cannot get AppCenter upload url")
-            response.body()?.string()?.let { Log.e(it) }
+            Logger.e("Cannot get AppCenter upload url")
+            response.body()?.string()?.let { Logger.e(it) }
             return
         }
 
@@ -53,15 +53,15 @@ object AppCenter {
                 .url(uploadUrlData.getPrimitive("upload_url").content)
                 .build()
 
-        Log.d("Uploading...")
+        Logger.d("Uploading...")
         val responseUpload = okHttpClient.newCall(requestUpload).execute()
         if (!responseUpload.isSuccessful) {
-            Log.e("Cannot upload file to AppCenter")
-            response.body()?.string()?.let { Log.e(it) }
+            Logger.e("Cannot upload file to AppCenter")
+            response.body()?.string()?.let { Logger.e(it) }
             return
         }
 
-        Log.d("Upload OK ! Committing...")
+        Logger.d("Upload OK ! Committing...")
         val requestCommit = Request.Builder()
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
@@ -72,13 +72,13 @@ object AppCenter {
 
         val responseCommit = okHttpClient.newCall(requestCommit).execute()
         if (!responseCommit.isSuccessful) {
-            Log.e("Cannot commit upload")
-            responseCommit.body()?.string()?.let { Log.e(it) }
+            Logger.e("Cannot commit upload")
+            responseCommit.body()?.string()?.let { Logger.e(it) }
             return
         }
         val releaseData = Json.nonstrict.parseJson(responseCommit.body()!!.string()).jsonObject
 
-        Log.d("Commited ! Updating release notes...")
+        Logger.d("Commited ! Updating release notes...")
         val postData = JsonObject(
                 mapOf(
                         "destination_name" to JsonPrimitive("Everyone"),
@@ -96,10 +96,10 @@ object AppCenter {
 
         val responseReleaseNotes = okHttpClient.newCall(requestReleaseNotes).execute()
         if (!responseReleaseNotes.isSuccessful) {
-            Log.e("Cannot update release notes")
-            responseReleaseNotes.body()?.string()?.let { Log.e(it) }
+            Logger.e("Cannot update release notes")
+            responseReleaseNotes.body()?.string()?.let { Logger.e(it) }
             return
         }
-        Log.d("Release notes updated")
+        Logger.d("Release notes updated")
     }
 }

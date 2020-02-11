@@ -6,7 +6,7 @@ package com.dailymotion.kinta.integration.googleplay.internal
 
 import com.dailymotion.kinta.KintaConfig
 import com.dailymotion.kinta.KintaEnv
-import com.dailymotion.kinta.Log
+import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.integration.googleplay.GooglePlayRelease
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
@@ -48,7 +48,7 @@ object GooglePlayIntegration {
                 ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_JSON)
 
         val json = Json.nonstrict.parseJson(googlePlayJson_).jsonObject
-        Log.d(String.format("Authorizing using Service Account: %s", json.getPrimitive("client_email").content))
+        Logger.d(String.format("Authorizing using Service Account: %s", json.getPrimitive("client_email").content))
 
         val bytes = PemReader.readFirstSectionAndClose(StringReader(json.getPrimitive("private_key").content), "PRIVATE KEY").base64DecodedBytes
         val privKey = SecurityUtils.getRsaKeyFactory().generatePrivate(PKCS8EncodedKeySpec(bytes));
@@ -80,14 +80,14 @@ object GooglePlayIntegration {
         val editRequest = edits.insert(packageName, null)
         val edit = editRequest.execute()
         val editId = edit.getId()
-        Log.d(String.format("Created edit with id: %s", editId))
+        Logger.d(String.format("Created edit with id: %s", editId))
 
         body.invoke(edits, editId)
 
         // Commit changes for edit.
         val commitRequest = edits.commit(packageName, editId)
         val appEdit = commitRequest.execute()
-        Log.d(String.format("App edit with id %s has been comitted", appEdit.getId()))
+        Logger.d(String.format("App edit with id %s has been comitted", appEdit.getId()))
     }
 
     /**
@@ -106,19 +106,19 @@ object GooglePlayIntegration {
             versionCode = when (archiveFile.extension) {
                 "aab" -> {
                     val uploadRequest = edits.bundles().upload(packageName_, editId, file)
-                    Log.d(String.format("Uploading bundle..."))
+                    Logger.d(String.format("Uploading bundle..."))
                     uploadRequest.execute().versionCode.toLong()
                 }
                 "apk" -> {
                     val uploadRequest = edits.apks().upload(packageName_, editId, file)
-                    Log.d(String.format("Uploading APK..."))
+                    Logger.d(String.format("Uploading APK..."))
                     uploadRequest.execute().versionCode.toLong()
                 }
                 else -> {
                     throw IllegalArgumentException("The archive file provided is not supported (aab or apk authorized)")
                 }
             }
-            Log.d(String.format("Version code %d has been uploaded", versionCode))
+            Logger.d(String.format("Version code %d has been uploaded", versionCode))
 
             val release = TrackRelease().apply {
                 status = "draft"
@@ -169,9 +169,9 @@ object GooglePlayIntegration {
 
             val updateTrackRequest = edits.tracks().update(packageName_, editId, track.name,
                     Track().setReleases(listOf(release)))
-            Log.d("Creating release (name=${release.name}, versionCodes=$listVersionCodes, userFraction=$percent) on track $track")
+            Logger.d("Creating release (name=${release.name}, versionCodes=$listVersionCodes, userFraction=$percent) on track $track")
             updateTrackRequest.execute()
-            Log.d("Release ${release.name} created on track $track ")
+            Logger.d("Release ${release.name} created on track $track ")
         }
     }
 
@@ -180,7 +180,7 @@ object GooglePlayIntegration {
             packageName: String? = null,
             versionCode: Long,
             whatsNewProvider: (lang: String) -> String?) {
-        Log.d("uploading changelog for version $versionCode")
+        Logger.d("uploading changelog for version $versionCode")
 
         val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 
@@ -199,7 +199,7 @@ object GooglePlayIntegration {
             for (listing in list.listings) {
                 val content = whatsNewProvider(listing.language) ?: continue
                 listLocalText.add(LocalizedText().setLanguage(listing.language).setText(content))
-                Log.d("Set changelog for ${listing.language} to $content")
+                Logger.d("Set changelog for ${listing.language} to $content")
             }
 
             /**
@@ -209,7 +209,7 @@ object GooglePlayIntegration {
                 track.releases.filter { it.versionCodes.max() == versionCode }.forEach { release ->
                     edits.tracks().update(packageName_, editId, track.track, Track().setReleases(listOf(release.clone().setReleaseNotes(listLocalText)))).execute()
                 }
-                Log.d("Releases notes updated for trackRelease $versionCode on track beta")
+                Logger.d("Releases notes updated for trackRelease $versionCode on track beta")
             }
         }
     }
@@ -227,7 +227,7 @@ object GooglePlayIntegration {
             packageName: String? = null,
             resources: List<ListingResource>
     ) {
-        Log.d("uploading listing")
+        Logger.d("uploading listing")
 
         val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 
@@ -235,11 +235,11 @@ object GooglePlayIntegration {
 
         makeEdit(publisher, packageName_) { edits, editId ->
             for (resource in resources) {
-                Log.d("Set listing for ${resource.language}")
-                Log.d("   title: ${resource.title}")
-                Log.d("   shortDescription: ${resource.shortDescription}")
-                Log.d("   description: ${resource.description}")
-                Log.d("   video: ${resource.video}")
+                Logger.d("Set listing for ${resource.language}")
+                Logger.d("   title: ${resource.title}")
+                Logger.d("   shortDescription: ${resource.shortDescription}")
+                Logger.d("   description: ${resource.description}")
+                Logger.d("   video: ${resource.video}")
 
                 val listing = Listing().apply {
                     language = resource.language
@@ -252,7 +252,7 @@ object GooglePlayIntegration {
                 edits.listings()
                         .update(packageName_, editId, listing.language, listing)
                         .execute()
-                Log.d("Play store listing updated")
+                Logger.d("Play store listing updated")
             }
         }
     }
@@ -262,7 +262,7 @@ object GooglePlayIntegration {
             packageName: String? = null,
             languagesList: List<String>
     ) {
-        Log.d("uploading listing")
+        Logger.d("uploading listing")
 
         val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 
@@ -275,12 +275,12 @@ object GooglePlayIntegration {
                     }
 
             for (listing in existingListingsToRemove) {
-                Log.d("Removing language ${listing.language}")
+                Logger.d("Removing language ${listing.language}")
 
                 edits.listings()
                         .delete(packageName_, editId, listing.language)
                         .execute()
-                Log.d("Play store listing updated")
+                Logger.d("Play store listing updated")
             }
         }
     }
@@ -390,7 +390,7 @@ object GooglePlayIntegration {
             images: List<File>,
             overwrite: Boolean = false
     ) {
-        Log.d("uploading image")
+        Logger.d("uploading image")
 
         val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 

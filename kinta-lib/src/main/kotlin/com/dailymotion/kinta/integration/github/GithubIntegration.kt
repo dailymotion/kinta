@@ -52,7 +52,7 @@ object GithubIntegration: GitTool {
                 .post(body)
                 .build()
 
-        Log.d("creating pull request to merge $head_ into $base_")
+        Logger.d("creating pull request to merge $head_ into $base_")
         val response = httpClient(token_).newCall(request).execute()
         if (!response.isSuccessful) {
             throw Exception(response.body()?.string() ?: "")
@@ -61,7 +61,7 @@ object GithubIntegration: GitTool {
         response.body()?.charStream()?.let {
             try {
                 val htmlUrl = Json.nonstrict.parseJson(it.readText()).jsonObject.getPrimitive("html_url").content
-                Log.d("-> $htmlUrl")
+                Logger.d("-> $htmlUrl")
             } catch (e: Exception) {
                 e.printStackTrace()
             }

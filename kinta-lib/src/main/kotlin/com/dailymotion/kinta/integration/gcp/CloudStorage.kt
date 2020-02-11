@@ -1,7 +1,7 @@
 package com.dailymotion.kinta.integration.gcp
 
 import com.dailymotion.kinta.KintaEnv
-import com.dailymotion.kinta.Log
+import com.dailymotion.kinta.Logger
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.storage.Bucket
 import com.google.cloud.storage.Storage
@@ -31,7 +31,7 @@ object CloudStorage {
             verbose: Boolean = false) {
         bucket(cloudStorageJson, bucket).list(Storage.BlobListOption.prefix(name)).values.forEach {
             if (verbose) {
-                Log.d("deleting ${it.name}")
+                Logger.d("deleting ${it.name}")
             }
             it.delete()
         }

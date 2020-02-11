@@ -1,6 +1,6 @@
 package com.dailymotion.kinta.integration.gradle
 
-import com.dailymotion.kinta.Log
+import com.dailymotion.kinta.Logger
 import org.gradle.tooling.BuildLauncher
 import org.gradle.tooling.GradleConnector
 import org.gradle.tooling.ProjectConnection
@@ -39,17 +39,17 @@ class Gradle(directory: File? = null) {
 
     private fun logExecuteTasks(vararg taskName: String) {
         taskName.forEach {
-            Log.d("\n==> Executing task: $it\n")
+            Logger.d("\n==> Executing task: $it\n")
         }
     }
 
     private fun logExecuteGroupTasks(groupName: String, taskList: List<String>) {
-        Log.d("\n==> List of task to execute for group: $groupName")
-        Log.d("==> {")
+        Logger.d("\n==> List of task to execute for group: $groupName")
+        Logger.d("==> {")
         taskList.forEach {
-            Log.d("==>\t${it}")
+            Logger.d("==>\t${it}")
         }
-        Log.d("==> }\n")
+        Logger.d("==> }\n")
     }
 
     private fun runGradleBuild(gradleLambda: (ProjectConnection) -> BuildLauncher): Int {
@@ -57,7 +57,7 @@ class Gradle(directory: File? = null) {
         return try {
             var buildLauncher = gradleLambda(projectConnection)
             buildLauncher = if (useLoggingLevelQuiet) {
-                Log.d("==> <!> Running gradle in quiet mode ... <!>")
+                Logger.d("==> <!> Running gradle in quiet mode ... <!>")
                 buildLauncher.withArguments("-q")
             } else {
                 buildLauncher.withArguments("--stacktrace")

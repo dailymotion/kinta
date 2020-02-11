@@ -28,7 +28,7 @@ object Project {
 
         while (!isBaseDir(dir)) {
             if (dir.parent == null) {
-                Log.e("Cannot find git directory, please run 'kinta init'")
+                Logger.e("Cannot find git directory, please run 'kinta init'")
                 exitProcess(1)
             }
             dir = File(dir.parent)
