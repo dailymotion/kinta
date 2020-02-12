@@ -1,6 +1,6 @@
 package com.dailymotion.kinta
 
-import com.dailymotion.kinta.command.FirstTimeInstall
+import com.dailymotion.kinta.infra.FirstTimeInstall
 import com.dailymotion.kinta.command.Init
 import com.dailymotion.kinta.command.Update
 import com.dailymotion.kinta.integration.gradle.Gradle
@@ -42,12 +42,22 @@ fun main(args: Array<String>) {
     Logger.level = LogType.values().find { it.options.find { args.contains(it) } != null }?.logLevel
             ?: Logger.LEVEL_INFO
 
+    /*
+     * A small hack to hide the firstTimeInstall from the help
+     */
+    val filteredArgs = if (args.contains("firstTimeInstall")) {
+        FirstTimeInstall.run()
+        args.filter { it != "firstTimeInstall" }.toTypedArray()
+    } else {
+        args
+    }
+
     val additionalCommands = if (File("kintaSrc").exists()) {
         kintaSrcCommands
     } else {
         BuiltInWorkflows.all()
     }
-    val allCommands = listOf(Init) + additionalCommands + Update + FirstTimeInstall
+    val allCommands = listOf(Init) + additionalCommands + Update 
 
     object : CliktCommand(
             name = "kinta",
@@ -67,7 +77,7 @@ fun main(args: Array<String>) {
             }
         }
     }.subcommands(allCommands)
-            .main(args)
+            .main(filteredArgs)
 
     // The apollo threadpools are still busy so don't wait for them and just exit the program
     // See https://github.com/apollographql/apollo-android/issues/1896
