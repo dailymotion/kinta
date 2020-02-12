@@ -7,7 +7,7 @@ import com.dailymotion.kinta.infra.Version
 import com.github.ajalt.clikt.core.CliktCommand
 import kotlin.system.exitProcess
 
-object Update: CliktCommand(name = "update", help = "Update your kinta client") {
+object Update: CliktCommand(name = "update", help = "Update your kinta client.") {
     override fun run() {
         val installedVersion = Version(VERSION)
         if (latestVersion <= installedVersion) {

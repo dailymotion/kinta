@@ -166,8 +166,7 @@ object GitlabIntegration : GitTool {
     }
 
     private fun retrieveToken(): String {
-        return KintaConfig.get(KintaEnv.GITLAB_PERSONAL_TOKEN)
-                ?: KintaEnv.get(KintaEnv.GITLAB_PERSONAL_TOKEN)
+        return KintaEnv.get(KintaEnv.GITLAB_PERSONAL_TOKEN)
                 ?: throw Exception("Please provide GITLAB_PERSONAL_TOKEN env or put it in your kinta.properties")
     }
 

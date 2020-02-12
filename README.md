@@ -24,7 +24,9 @@ Kinta is 100% written in Kotlin and can run in your CI or on your laptop.
 Install kinta:
 
 ```
-curl -v -s 'https://dailymotion.github.io/kinta/install.sh' |sh
+curl -s 'https://dailymotion.github.io/kinta/install.sh' |sh
+
+source ~/.kinta/setup-environment.sh
 ```
 
 Then inside your app repo:

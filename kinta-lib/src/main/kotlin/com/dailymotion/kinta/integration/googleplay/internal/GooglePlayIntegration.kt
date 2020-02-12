@@ -4,7 +4,6 @@
 
 package com.dailymotion.kinta.integration.googleplay.internal
 
-import com.dailymotion.kinta.KintaConfig
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.integration.googleplay.GooglePlayRelease
@@ -44,7 +43,7 @@ object GooglePlayIntegration {
 
     private fun publisher(googlePlayJson: String?, applicationName: String): AndroidPublisher {
         val googlePlayJson_ = googlePlayJson
-                ?: KintaConfig.get(KintaEnv.GOOGLE_PLAY_JSON)
+                ?: KintaEnv.get(KintaEnv.GOOGLE_PLAY_JSON)
                 ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_JSON)
 
         val json = Json.nonstrict.parseJson(googlePlayJson_).jsonObject
@@ -97,7 +96,7 @@ object GooglePlayIntegration {
                     packageName: String? = null,
                     track: GooglePlayTrack,
                     archiveFile: File): Long {
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
         val publisher = publisher(googlePlayJson, packageName_)
         var versionCode: Long = -1
         makeEdit(publisher, packageName_) { edits, editId ->
@@ -135,7 +134,7 @@ object GooglePlayIntegration {
                         packageName: String? = null,
                         track: GooglePlayTrack): List<GooglePlayRelease>? {
 
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
         val publisher = publisher(googlePlayJson, packageName_)
         var listReleases: List<TrackRelease>? = null
         makeEdit(publisher, packageName_) { edits, editId ->
@@ -152,7 +151,7 @@ object GooglePlayIntegration {
             track: GooglePlayTrack,
             releaseName: String? = null,
             percent: Double = 100.0) {
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 
         val publisher = publisher(googlePlayJson, packageName_)
         makeEdit(publisher, packageName_) { edits, editId ->
@@ -182,7 +181,7 @@ object GooglePlayIntegration {
             whatsNewProvider: (lang: String) -> String?) {
         Logger.i("uploading changelog for version $versionCode")
 
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 
         val publisher = publisher(googlePlayJson, packageName_)
 
@@ -229,7 +228,7 @@ object GooglePlayIntegration {
     ) {
         Logger.i("uploading listing")
 
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 
         val publisher = publisher(googlePlayJson, packageName_)
 
@@ -264,7 +263,7 @@ object GooglePlayIntegration {
     ) {
         Logger.i("uploading listing")
 
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 
         val publisher = publisher(googlePlayJson, packageName_)
 
@@ -290,7 +289,7 @@ object GooglePlayIntegration {
             packageName: String? = null
     ): List<ListingResource> {
         println("Getting listings from Google Play. Please wait.")
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
         val publisher = publisher(googlePlayJson, packageName_)
         val resources = mutableListOf<ListingResource>()
 
@@ -319,7 +318,7 @@ object GooglePlayIntegration {
             packageName: String? = null
     ): List<ChangelogResource> {
         println("Getting changelogs from Google Play. Please wait.")
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
         val publisher = publisher(googlePlayJson, packageName_)
         val resources = mutableListOf<ChangelogResource>()
 
@@ -340,7 +339,7 @@ object GooglePlayIntegration {
             packageName: String? = null
     ): List<PreviewImageData> {
 
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
         val publisher = publisher(googlePlayJson, packageName_)
         val resources = mutableListOf<PreviewImageData>()
 
@@ -392,7 +391,7 @@ object GooglePlayIntegration {
     ) {
         Logger.i("uploading image")
 
-        val packageName_ = packageName ?: KintaConfig.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
+        val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)
 
         val publisher = publisher(googlePlayJson, packageName_)
 
@@ -439,6 +438,6 @@ object GooglePlayIntegration {
     }
 
     fun isConfigured() =
-            (KintaConfig.get(KintaEnv.GOOGLE_PLAY_JSON) ?: KintaEnv.get(KintaEnv.GOOGLE_PLAY_JSON))?.isNotBlank() == true
-                    && KintaConfig.get(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)?.isNotBlank() == true
+            KintaEnv.get(KintaEnv.GOOGLE_PLAY_JSON)?.isNotBlank() == true
+                    && KintaEnv.get(KintaEnv.GOOGLE_PLAY_PACKAGE_NAME)?.isNotBlank() == true
 }

@@ -1,6 +1,6 @@
 package com.dailymotion.kinta
 
-import com.dailymotion.kinta.command.FirstTimeInstall
+import com.dailymotion.kinta.infra.FirstTimeInstall
 import com.dailymotion.kinta.command.Init
 import com.dailymotion.kinta.command.Update
 import com.dailymotion.kinta.integration.gradle.Gradle
@@ -17,7 +17,7 @@ import kotlin.system.exitProcess
 
 val kintaSrcCommands by lazy {
     // Update the project workflows if needed
-    if (Gradle(File("kintaSrc"), true).executeTask("assemble") != 0) {
+    if (Gradle(File("kintaSrc")).executeTask("assemble") != 0) {
         throw Exception("Exception assembling kintaSrc.")
     }
 
@@ -32,12 +32,6 @@ val kintaSrcCommands by lazy {
     }
 }
 
-val mainCommands = listOf(
-        FirstTimeInstall,
-        Update,
-        Init
-)
-
 enum class LogType(val options: List<String>, val logLevel: Int) {
     Debug(listOf("-d", "--debug"), logLevel = Logger.LEVEL_DEBUG),
     Info(listOf("-i", "--info"), logLevel = Logger.LEVEL_INFO),
@@ -48,11 +42,22 @@ fun main(args: Array<String>) {
     Logger.level = LogType.values().find { it.options.find { args.contains(it) } != null }?.logLevel
             ?: Logger.LEVEL_INFO
 
-    val allCommands = if (File("kintaSrc").exists()) {
-        mainCommands + kintaSrcCommands
+    /*
+     * A small hack to hide the firstTimeInstall from the help
+     */
+    val filteredArgs = if (args.contains("firstTimeInstall")) {
+        FirstTimeInstall.run()
+        args.filter { it != "firstTimeInstall" }.toTypedArray()
     } else {
-        mainCommands + BuiltInWorkflows.all()
+        args
     }
+
+    val additionalCommands = if (File("kintaSrc").exists()) {
+        kintaSrcCommands
+    } else {
+        BuiltInWorkflows.all()
+    }
+    val allCommands = listOf(Init) + additionalCommands + Update 
 
     object : CliktCommand(
             name = "kinta",
@@ -71,8 +76,8 @@ fun main(args: Array<String>) {
                 exitProcess(0)
             }
         }
-    }.subcommands(allCommands.sortedBy { it.commandName })
-            .main(args)
+    }.subcommands(allCommands)
+            .main(filteredArgs)
 
     // The apollo threadpools are still busy so don't wait for them and just exit the program
     // See https://github.com/apollographql/apollo-android/issues/1896

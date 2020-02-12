@@ -25,15 +25,23 @@ object KintaEnv {
     const val JIRA_URL = "JIRA_URL"
 
     fun get(key: String): String? {
+        val local = EnvProperties.get(key)
+        if (local != null) {
+            return local
+        }
         return System.getenv(key)
     }
 
     fun getOrFail(key: String): String {
-        val v = System.getenv(key)
+        val v = get(key)
         check(!v.isNullOrBlank()) {
             "Cannot find $v, please set it in your environment or pass it explicitly."
         }
 
         return v
+    }
+
+    fun put(key:String, value: String?) {
+        EnvProperties.put(key, value)
     }
 }
