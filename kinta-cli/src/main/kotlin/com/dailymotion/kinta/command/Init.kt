@@ -5,12 +5,20 @@ import com.dailymotion.kinta.integration.git.GitIntegration
 import com.dailymotion.kinta.integration.googleplay.internal.PlayStoreInit
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.options.flag
+import com.github.ajalt.clikt.parameters.options.option
 import java.io.File
 
 object Init : CliktCommand(name = "init", help = "Initialize a project.") {
+    val dontAsk by option().flag()
+
     override fun run() {
         File(".kinta").mkdir()
 
+        if (dontAsk) {
+            return
+        }
+        
         if (CommandUtil.prompt(
                         message = "Would you like to set up the Play Store config (Useful for GooglePlayIntegration) ?\n" +
                                 "Please refer to https://developers.google.com/android-publisher/getting_started and use a service_account.",
