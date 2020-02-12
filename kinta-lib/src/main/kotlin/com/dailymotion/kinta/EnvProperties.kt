@@ -3,9 +3,9 @@ package com.dailymotion.kinta
 import java.io.File
 import java.util.*
 
-object LocalEnv {
+object EnvProperties {
     private val properties = Properties()
-    private val file = File(Project.findBaseDir(), "local.env")
+    private val file = File(Project.findBaseDir(), ".kinta/env.properties")
 
     init {
         try {

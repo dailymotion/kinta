@@ -25,7 +25,7 @@ object KintaEnv {
     const val JIRA_URL = "JIRA_URL"
 
     fun get(key: String): String? {
-        val local = LocalEnv.get(key)
+        val local = EnvProperties.get(key)
         if (local != null) {
             return local
         }
@@ -42,6 +42,6 @@ object KintaEnv {
     }
 
     fun put(key:String, value: String?) {
-        LocalEnv.put(key, value)
+        EnvProperties.put(key, value)
     }
 }

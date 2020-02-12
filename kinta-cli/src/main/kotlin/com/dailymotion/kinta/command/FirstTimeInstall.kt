@@ -6,7 +6,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import java.io.File
 
 object FirstTimeInstall : CliktCommand(name = "firstTimeInstall", help = "Create activation scripts for kinta." +
-        " This is called by the install script and you shouldn't need to call it manually") {
+        " This is called by the install script and you shouldn't need to call it manually.") {
     override fun run() {
         val initFile = File(kintaDir, "setup-environment.sh")
 

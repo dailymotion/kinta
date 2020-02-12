@@ -1,6 +1,5 @@
 package com.dailymotion.kinta.integration.github.internal
 
-import com.dailymotion.kinta.LocalEnv
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import fi.iki.elonen.NanoHTTPD

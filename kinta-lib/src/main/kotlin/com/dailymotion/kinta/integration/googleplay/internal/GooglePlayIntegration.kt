@@ -4,7 +4,6 @@
 
 package com.dailymotion.kinta.integration.googleplay.internal
 
-import com.dailymotion.kinta.LocalEnv
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.integration.googleplay.GooglePlayRelease

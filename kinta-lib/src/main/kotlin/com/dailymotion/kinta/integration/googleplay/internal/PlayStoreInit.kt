@@ -1,6 +1,5 @@
 package com.dailymotion.kinta.integration.googleplay.internal
 
-import com.dailymotion.kinta.LocalEnv
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.helper.CommandUtil
 import com.github.ajalt.clikt.core.CliktCommand
