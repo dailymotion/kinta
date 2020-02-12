@@ -17,7 +17,7 @@ fun isMaster(): Boolean {
 }
 
 
-version = "0.1.4-SNAPSHOT"
+version = "0.1.4"
 
 subprojects {
     repositories {
