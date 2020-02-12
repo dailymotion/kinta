@@ -55,7 +55,7 @@ class Gradle(directory: File? = null) {
         val projectConnection = gradleConnector.connect()
         return try {
             var buildLauncher = gradleLambda(projectConnection)
-            buildLauncher = if (Logger.level > Logger.LEVEL_INFO) {
+            buildLauncher = if (Logger.level >= Logger.LEVEL_INFO) {
                 buildLauncher.withArguments("-q")
             } else {
                 buildLauncher.withArguments("--stacktrace")
