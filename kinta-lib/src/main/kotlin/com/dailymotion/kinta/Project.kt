@@ -23,7 +23,7 @@ object Project {
 
     private fun isBaseDir(dir: File) = dir.list().contains(".kinta")
 
-    fun findBaseDir(): File? {
+    fun findBaseDir(): File {
         var dir = File(".")
 
         while (!isBaseDir(dir)) {
