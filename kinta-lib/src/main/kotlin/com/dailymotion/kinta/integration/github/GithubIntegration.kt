@@ -222,7 +222,7 @@ object GithubIntegration: GitTool {
 
         val request = Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/json"), JsonObject(input).toString()))
-                .url("https://api.github.com/repos/Hearthsim/HSTracker/releases?access_token=${token}")
+                .url("https://api.github.com/repos/Hearthsim/HSTracker/releases?access_token=${token_}")
                 .build()
 
         val response = OkHttpClient().newCall(request).execute()
