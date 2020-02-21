@@ -23,7 +23,7 @@ query GetRefs($owner: String!, $name: String!) {
   }
 }
 
-query GetPullRequestByName($owner: String!, $name: String!, $branchName: String!) {
+query GetPullRequestWithHead($owner: String!, $name: String!, $branchName: String!) {
   repository(owner: $owner, name: $name) {
     pullRequests(headRefName: $branchName, first: 100) {
       nodes {
@@ -36,26 +36,16 @@ query GetPullRequestByName($owner: String!, $name: String!, $branchName: String!
   }
 }
 
-query GetBranchInfos($owner: String!, $name: String!, $branchName: String!) {
-    repository(owner: $owner, name: $name) {
-        ref(qualifiedName: $branchName){
-            name
-            associatedPullRequests(first:100){
-                nodes{
-                    number
-                    merged
-                    closed
-                }
-            }
-        }
-        pullRequests(baseRefName: $branchName, first:100){
-            nodes{
-                headRefName
-                number
-                merged
-                closed
-            }
-        }
+query GetPullRequestWithBase($owner: String!, $name: String!, $branchName: String!) {
+  repository(owner: $owner, name: $name) {
+    pullRequests(baseRefName: $branchName, first: 100) {
+      nodes {
+        number
+        title
+        merged
+        closed
+      }
     }
+  }
 }
 

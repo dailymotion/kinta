@@ -1,13 +1,14 @@
 package com.dailymotion.kinta.workflows.builtin.gittool
 
 import com.dailymotion.kinta.GitTool
+import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.integration.git.GitIntegration
 import com.dailymotion.kinta.integration.github.GithubIntegration
 import com.dailymotion.kinta.integration.gitlab.GitlabIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 
-object GithubCleanLocal: GitCleanLocal(GithubIntegration)
-object GitlabCleanLocal: GitCleanLocal(GitlabIntegration)
+object GithubCleanLocal : GitCleanLocal(GithubIntegration)
+object GitlabCleanLocal : GitCleanLocal(GitlabIntegration)
 
 open class GitCleanLocal(val gitTool: GitTool) : CliktCommand(name = "cleanLocal", help = """
     Clean up branches in your local repository:
@@ -19,6 +20,7 @@ open class GitCleanLocal(val gitTool: GitTool) : CliktCommand(name = "cleanLocal
 """.trimIndent()) {
     override fun run() {
         GitIntegration.fetch(prune = true)
+        Logger.i("Fetching branchs infos, Please wait...")
         val branchesInfo = GitIntegration.getBranches()
                 .filter { it != "master" }
                 .map { gitTool.getBranchInfo(branch = it) }
@@ -44,7 +46,8 @@ open class GitCleanLocal(val gitTool: GitTool) : CliktCommand(name = "cleanLocal
         }.map {
             it.name
         }
-
-        GitIntegration.deleteBranches(branchesToDelete)
+        Logger.i("Deleting ${branchesToDelete.count()} local branchs...")
+        GitIntegration.deleteBranches(branchesToDelete, force = true)
+        Logger.i("Clean local done!")
     }
 }
