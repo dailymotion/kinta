@@ -35,7 +35,7 @@ open class GitCleanRemote(val gitTool: GitTool) : CliktCommand(name = "cleanRemo
                 return@filter false
             }
 
-            if (it.dependantPullRequests.count { !it.merged && !it.closed } > 0) {
+            if (it.dependentPullRequests.count { !it.merged && !it.closed } > 0) {
                 // This ref is used as a base for another one, don't delete it
                 return@filter false
             }
