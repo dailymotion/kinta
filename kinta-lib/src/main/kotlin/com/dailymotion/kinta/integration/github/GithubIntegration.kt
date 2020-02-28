@@ -80,7 +80,7 @@ object GithubIntegration : GitTool {
         val owner_ = owner ?: repository().owner
         val repo_ = repo ?: repository().name
 
-        val depdendingPullRequestsData = runBlocking {
+        val depdendentPullRequestsData = runBlocking {
             val query = GetPullRequestWithBase(owner_, repo_, branch)
             apolloClient(token_).query(query)
                     .toDeferred()
@@ -103,7 +103,7 @@ object GithubIntegration : GitTool {
                 pullRequests = (pullRequestsData?.pullRequests?.nodes?.mapNotNull {
                     it?.let { PullRequestInfo(it.number, it.merged, it.closed) }
                 }) ?: listOf(),
-                dependantPullRequests = (depdendingPullRequestsData?.pullRequests?.nodes?.mapNotNull {
+                dependentPullRequests = (depdendentPullRequestsData?.pullRequests?.nodes?.mapNotNull {
                     it?.let { PullRequestInfo(it.number, it.merged, it.closed) }
                 }) ?: listOf()
         )

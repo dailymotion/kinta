@@ -23,9 +23,9 @@ query GetRefs($owner: String!, $name: String!) {
   }
 }
 
-query GetPullRequestWithHead($owner: String!, $name: String!, $branchName: String!) {
+query GetPullRequestWithHead($owner: String!, $name: String!, $headRefName: String!) {
   repository(owner: $owner, name: $name) {
-    pullRequests(headRefName: $branchName, first: 100) {
+    pullRequests(headRefName: $headRefName, first: 100) {
       nodes {
         number
         title
@@ -36,9 +36,9 @@ query GetPullRequestWithHead($owner: String!, $name: String!, $branchName: Strin
   }
 }
 
-query GetPullRequestWithBase($owner: String!, $name: String!, $branchName: String!) {
+query GetPullRequestWithBase($owner: String!, $name: String!, $baseRefName: String!) {
   repository(owner: $owner, name: $name) {
-    pullRequests(baseRefName: $branchName, first: 100) {
+    pullRequests(baseRefName: $baseRefName, first: 100) {
       nodes {
         number
         title

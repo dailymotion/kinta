@@ -105,7 +105,7 @@ object GitlabIntegration : GitTool {
 
         return BranchInfo(
                 name = branch,
-                dependantPullRequests = response1.body()!!.map {
+                dependentPullRequests = response1.body()!!.map {
                     PullRequestInfo(
                             number = it.iid,
                             merged = it.state == "merged",
