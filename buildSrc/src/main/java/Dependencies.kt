@@ -7,6 +7,7 @@ object Versions {
 }
 
 object Libs {
+    const val handyUriTemplates = "com.damnhandy:handy-uri-templates:2.1.7"
     const val googlePlayPublisher = "com.google.apis:google-api-services-androidpublisher:v3-rev20191113-1.30.3"
     const val googleCloudStorage = "com.google.cloud:google-cloud-storage:1.12.0"
 

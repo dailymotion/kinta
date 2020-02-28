@@ -6,6 +6,7 @@ import com.dailymotion.kinta.*
 import com.dailymotion.kinta.integration.git.model.BranchInfo
 import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.github.internal.GithubOauthClient
+import com.damnhandy.uri.template.UriTemplate
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -16,6 +17,7 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
+import java.io.File
 
 object GithubIntegration: GitTool {
     override fun openPullRequest(token: String?,
@@ -203,5 +205,51 @@ object GithubIntegration: GitTool {
         val repoName = s[1].removeSuffix(".git")
 
         return Repository(s[0], repoName)
+    }
+
+    fun uploadRelease(token: String? = null,
+                      owner: String? = null,
+                      repo: String? = null,
+                      versionName: String,
+                      changelogMarkdown: String,
+                      asset: File) {
+        val token_ = token ?: retrieveToken()
+        val owner_ = owner ?: repository().owner
+        val repo_ = repo ?: repository().name
+
+        val input = mapOf(
+                "tag_name" to JsonPrimitive(versionName),
+                "body" to JsonPrimitive(changelogMarkdown),
+                "draft" to JsonPrimitive(false),
+                "prerelease" to JsonPrimitive(false)
+        )
+
+        val request = Request.Builder()
+                .post(RequestBody.create(MediaType.parse("application/json"), JsonObject(input).toString()))
+                .url("https://api.github.com/repos/$owner_/$repo_/releases?access_token=${token_}")
+                .build()
+
+        val response = OkHttpClient().newCall(request).execute()
+        if (!response.isSuccessful) {
+            throw Exception("cannot create github release: ${response.body()?.string()}")
+        }
+
+        val responseString = response.body()!!.string()
+
+        val release = Json.nonstrict.parseJson(responseString)
+
+        val uploadUrl = UriTemplate.fromTemplate(release.jsonObject.getPrimitive("upload_url").content)
+                .set("name", asset.name)
+                .expand()
+
+        val request2 = Request.Builder()
+                .post(RequestBody.create(MediaType.parse("application/zip"), asset))
+                .url("$uploadUrl&access_token=$token")
+                .build()
+
+        val response2 = OkHttpClient().newCall(request2).execute()
+        check(response2.isSuccessful) {
+            "cannot upload asset: ${response2.body()?.string()}"
+        }
     }
 }

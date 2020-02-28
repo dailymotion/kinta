@@ -11,6 +11,7 @@ dependencies {
     implementation(Libs.googleCloudStorage)
     implementation(Libs.jgit)
     implementation(Libs.slf4j)
+    implementation(Libs.handyUriTemplates)
 
     implementation(Libs.coroutines)
     implementation(Libs.apollo)
