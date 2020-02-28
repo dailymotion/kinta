@@ -24,6 +24,9 @@ object KintaEnv {
     const val BITRISE_PERSONAL_TOKEN = "BITRISE_PERSONAL_TOKEN"
     const val JIRA_URL = "JIRA_URL"
 
+    const val APPLE_PASSWORD = "APPLE_PASSWORD"
+    const val APPLE_USERNAME = "APPLE_USERNAME"
+
     fun get(key: String): String? {
         val local = EnvProperties.get(key)
         if (local != null) {
