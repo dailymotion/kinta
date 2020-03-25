@@ -21,7 +21,7 @@ object Bitrise {
             repoName: String,
             workflowId: String) {
 
-        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.BITRISE_PERSONAL_TOKEN)
+        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Env.BITRISE_PERSONAL_TOKEN)
 
         val appSlug = findAppSlug(token_, repoName)
 
@@ -87,7 +87,7 @@ object Bitrise {
             repoName: String
     ): List<String> {
 
-        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.BITRISE_PERSONAL_TOKEN)
+        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Env.BITRISE_PERSONAL_TOKEN)
 
         val appSlug = findAppSlug(token_, repoName)
 

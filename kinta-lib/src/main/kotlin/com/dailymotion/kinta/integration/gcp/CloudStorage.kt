@@ -13,9 +13,9 @@ object CloudStorage {
 
 
     private fun bucket(cloudStorageJson: String?, bucketName: String?): Bucket {
-        val cloudStorageJson_ = cloudStorageJson ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_CLOUD_STORAGE_JSON)
+        val cloudStorageJson_ = cloudStorageJson ?: KintaEnv.getOrFail(KintaEnv.Env.GOOGLE_CLOUD_STORAGE_JSON)
 
-        val bucket_ = bucketName ?: KintaEnv.getOrFail(KintaEnv.GOOGLE_CLOUD_STORAGE_BUCKET)
+        val bucket_ = bucketName ?: KintaEnv.getOrFail(KintaEnv.Env.GOOGLE_CLOUD_STORAGE_BUCKET)
 
         val credentials = GoogleCredentials.fromStream(cloudStorageJson_.byteInputStream())
                 .createScoped(listOf("https://www.googleapis.com/auth/cloud-platform"))

@@ -1,6 +1,9 @@
 package com.dailymotion.kinta.integration.gitlab
 
-import com.dailymotion.kinta.*
+import com.dailymotion.kinta.GitTool
+import com.dailymotion.kinta.KintaEnv
+import com.dailymotion.kinta.Logger
+import com.dailymotion.kinta.Project
 import com.dailymotion.kinta.integration.git.model.BranchInfo
 import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.gitlab.internal.GitlabService
@@ -21,7 +24,7 @@ object GitlabIntegration : GitTool {
     private const val GITLAB_API = "https://gitlab.com/api/$GITLAB_API_VERSION/"
 
     private fun service(token: String?): GitlabService {
-        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.GITLAB_PERSONAL_TOKEN)
+        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Env.GITLAB_PERSONAL_TOKEN)
 
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(AuthInterceptor(token_))
@@ -166,7 +169,7 @@ object GitlabIntegration : GitTool {
     }
 
     private fun retrieveToken(): String {
-        return KintaEnv.get(KintaEnv.GITLAB_PERSONAL_TOKEN)
+        return KintaEnv.get(KintaEnv.Env.GITLAB_PERSONAL_TOKEN)
                 ?: throw Exception("Please provide GITLAB_PERSONAL_TOKEN env or put it in your kinta.properties")
     }
 

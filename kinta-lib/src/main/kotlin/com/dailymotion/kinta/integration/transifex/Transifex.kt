@@ -19,7 +19,7 @@ object Transifex {
             resource: String,
             content: String
     ) {
-        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.TRANSIFEX_PROJECT)
+        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.Env.TRANSIFEX_PROJECT)
 
         val response = service(user, password).pushSource(project_, resource, TxTranslation(content = content)).execute()
 
@@ -36,7 +36,7 @@ object Transifex {
             lang: String,
             content: String
     ) {
-        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.TRANSIFEX_PROJECT)
+        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.Env.TRANSIFEX_PROJECT)
 
         val response = service(user, password).pushTranslation(project_, resource, lang, TxTranslation(content = content)).execute()
 
@@ -55,7 +55,7 @@ object Transifex {
             password: String? = null,
             project: String? = null
     ): List<String> {
-        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.TRANSIFEX_PROJECT)
+        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.Env.TRANSIFEX_PROJECT)
 
         val response = service(user, password).getLanguages(project_).execute()
 
@@ -73,7 +73,7 @@ object Transifex {
             lang: String,
             mode: String? = null
     ): String {
-        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.TRANSIFEX_PROJECT)
+        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.Env.TRANSIFEX_PROJECT)
         return service(user, password).getTranslation(project_, resource, lang, mode).execute().body()!!.content!!
     }
 
@@ -82,8 +82,8 @@ object Transifex {
             password: String?
     ): TransifexService {
 
-        val user_ = user ?: KintaEnv.getOrFail(KintaEnv.TRANSIFEX_USER)
-        val password_ = password ?: KintaEnv.getOrFail(KintaEnv.TRANSIFEX_PASSWORD)
+        val user_ = user ?: KintaEnv.getOrFail(KintaEnv.Env.TRANSIFEX_USER)
+        val password_ = password ?: KintaEnv.getOrFail(KintaEnv.Env.TRANSIFEX_PASSWORD)
         val okHttpClient = OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor { chain ->

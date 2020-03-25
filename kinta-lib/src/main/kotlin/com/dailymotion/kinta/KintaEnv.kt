@@ -1,31 +1,36 @@
 package com.dailymotion.kinta
 
 object KintaEnv {
-    const val GOOGLE_PLAY_PACKAGE_NAME = "GOOGLE_PLAY_PACKAGE_NAME"
-    const val GOOGLE_CLOUD_STORAGE_BUCKET = "GOOGLE_CLOUD_STORAGE_BUCKET"
-    const val APPCENTER_ORGANIZATION = "APPCENTER_ORGANIZATION"
-    const val SLACK_WEBHOOK_URL = "SLACK_WEBHOOK_URL"
-    const val GITLAB_PERSONAL_TOKEN = "GITLAB_PERSONAL_TOKEN"
-    const val GITHUB_TOKEN = "GITHUB_TOKEN"
-    const val GITHUB_USERNAME = "GITHUB_USERNAME"
-    const val APPCENTER_TOKEN = "APPCENTER_TOKEN"
-    const val CI_BACKEND_TOKEN = "CI_BACKEND_TOKEN"
-    const val GITHUB_APP_CLIENT_ID = "GITHUB_APP_CLIENT_ID"
-    const val GITHUB_APP_CLIENT_SECRET = "GITHUB_APP_CLIENT_SECRET"
 
-    const val TRANSIFEX_USER = "TRANSIFEX_USER"
-    const val TRANSIFEX_PASSWORD = "TRANSIFEX_PASSWORD"
-    const val TRANSIFEX_PROJECT = "TRANSIFEX_PROJECT"
+    enum class Env {
+        GOOGLE_PLAY_PACKAGE_NAME,
+        GOOGLE_CLOUD_STORAGE_BUCKET,
+        APPCENTER_ORGANIZATION,
+        SLACK_WEBHOOK_URL,
+        GITLAB_PERSONAL_TOKEN,
+        GITHUB_TOKEN,
+        GITHUB_USERNAME,
+        APPCENTER_TOKEN,
+        GITHUB_APP_CLIENT_ID,
+        GITHUB_APP_CLIENT_SECRET,
+        TRANSIFEX_USER,
+        TRANSIFEX_PASSWORD,
+        TRANSIFEX_PROJECT,
+        GOOGLE_PLAY_JSON,
+        GOOGLE_CLOUD_STORAGE_JSON,
+        JIRA_USERNAME,
+        JIRA_PASSWORD,
+        BITRISE_PERSONAL_TOKEN,
+        JIRA_URL,
+        APPLE_PASSWORD,
+        APPLE_USERNAME
+    }
 
-    const val GOOGLE_PLAY_JSON = "GOOGLE_PLAY_JSON"
-    const val GOOGLE_CLOUD_STORAGE_JSON = "GOOGLE_CLOUD_STORAGE_JSON"
-    const val JIRA_USERNAME = "JIRA_USERNAME"
-    const val JIRA_PASSWORD = "JIRA_PASSWORD"
-    const val BITRISE_PERSONAL_TOKEN = "BITRISE_PERSONAL_TOKEN"
-    const val JIRA_URL = "JIRA_URL"
+    init {
+        updateAvailableBuiltInEnvs()
+    }
 
-    const val APPLE_PASSWORD = "APPLE_PASSWORD"
-    const val APPLE_USERNAME = "APPLE_USERNAME"
+    fun get(env: Env): String? = get(env.name)
 
     fun get(key: String): String? {
         val local = EnvProperties.get(key)
@@ -34,6 +39,8 @@ object KintaEnv {
         }
         return System.getenv(key)
     }
+
+    fun getOrFail(env: Env) = getOrFail(env.name)
 
     fun getOrFail(key: String): String {
         val v = get(key)
@@ -44,7 +51,13 @@ object KintaEnv {
         return v
     }
 
-    fun put(key:String, value: String?) {
+    fun put(env: Env, value: String?) = put(env.name, value)
+
+    fun put(key: String, value: String?) {
         EnvProperties.put(key, value)
+    }
+
+    fun updateAvailableBuiltInEnvs(){
+        EnvProperties.updateAvailableBuiltInEnvs(Env.values().map { it.name })
     }
 }

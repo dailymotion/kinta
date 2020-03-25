@@ -1,5 +1,6 @@
 package com.dailymotion.kinta.command
 
+import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.VERSION
 import com.dailymotion.kinta.infra.Constants.latestVersion
 import com.dailymotion.kinta.infra.Installer
@@ -16,5 +17,6 @@ object Update: CliktCommand(name = "update", help = "Update your kinta client.")
         }
 
         Installer.installLatestVersion()
+        KintaEnv.updateAvailableBuiltInEnvs()
     }
 }
