@@ -19,7 +19,7 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
 import java.io.File
 
-object GithubIntegration: GitTool {
+object GithubIntegration : GitTool {
     override fun openPullRequest(token: String?,
                                  owner: String?,
                                  repo: String?,
@@ -71,7 +71,7 @@ object GithubIntegration: GitTool {
     }
 
     /**
-     * For each branch in branches, get some info about the pull requests associated to it
+     * Get some info about the pull requests associated to the branch
      */
     override fun getBranchInfo(
             token: String?,
@@ -82,8 +82,17 @@ object GithubIntegration: GitTool {
         val owner_ = owner ?: repository().owner
         val repo_ = repo ?: repository().name
 
-        val branchData = runBlocking {
-            val query = GetBranchInfos(owner_, repo_, branch)
+        val depdendentPullRequestsData = runBlocking {
+            val query = GetPullRequestWithBase(owner_, repo_, branch)
+            apolloClient(token_).query(query)
+                    .toDeferred()
+                    .await()
+                    .data()
+                    ?.repository
+        }
+
+        val pullRequestsData = runBlocking {
+            val query = GetPullRequestWithHead(owner_, repo_, branch)
             apolloClient(token_).query(query)
                     .toDeferred()
                     .await()
@@ -93,10 +102,10 @@ object GithubIntegration: GitTool {
 
         return BranchInfo(
                 name = branch,
-                pullRequests = (branchData?.ref?.associatedPullRequests?.nodes?.mapNotNull {
+                pullRequests = (pullRequestsData?.pullRequests?.nodes?.mapNotNull {
                     it?.let { PullRequestInfo(it.number, it.merged, it.closed) }
                 }) ?: listOf(),
-                dependantPullRequests = (branchData?.pullRequests?.nodes?.mapNotNull {
+                dependentPullRequests = (depdendentPullRequestsData?.pullRequests?.nodes?.mapNotNull {
                     it?.let { PullRequestInfo(it.number, it.merged, it.closed) }
                 }) ?: listOf()
         )
@@ -132,7 +141,7 @@ object GithubIntegration: GitTool {
             token: String?,
             owner: String?,
             repo: String?
-    ) : List<String>{
+    ): List<String> {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
         val repo_ = repo ?: repository().name

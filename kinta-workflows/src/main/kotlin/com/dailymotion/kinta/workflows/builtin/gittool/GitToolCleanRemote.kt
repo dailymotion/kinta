@@ -1,6 +1,7 @@
 package com.dailymotion.kinta.workflows.builtin.gittool
 
 import com.dailymotion.kinta.GitTool
+import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.integration.github.GithubIntegration
 import com.dailymotion.kinta.integration.gitlab.GitlabIntegration
 import com.github.ajalt.clikt.core.CliktCommand
@@ -16,6 +17,7 @@ open class GitCleanRemote(val gitTool: GitTool) : CliktCommand(name = "cleanRemo
     private val dontAsk by option("--dont-ask").flag()
 
     override fun run() {
+        Logger.i("Fetching branchs infos, Please wait...")
         val branchesInfo = gitTool.getAllBranches()
                 .filter { it != "master" }
                 .map { gitTool.getBranchInfo(branch = it) }
@@ -33,7 +35,7 @@ open class GitCleanRemote(val gitTool: GitTool) : CliktCommand(name = "cleanRemo
                 return@filter false
             }
 
-            if (it.dependantPullRequests.count { !it.merged && !it.closed } > 0) {
+            if (it.dependentPullRequests.count { !it.merged && !it.closed } > 0) {
                 // This ref is used as a base for another one, don't delete it
                 return@filter false
             }
@@ -54,8 +56,10 @@ open class GitCleanRemote(val gitTool: GitTool) : CliktCommand(name = "cleanRemo
             it.name
         }
 
+        Logger.i("Deleting ${branchesToDelete.count()} remote branchs...")
         branchesToDelete.forEach {
             gitTool.deleteRef(ref = it)
         }
+        Logger.i("Clean remote done!")
     }
 }
