@@ -19,7 +19,7 @@ object PlayStoreInit : CliktCommand(
             //Check at least the file is a json file
             try {
                 val json = Json.nonstrict.parseJson(File(filePath).readText())
-                KintaEnv.put(KintaEnv.Env.GOOGLE_PLAY_JSON, json.toString())
+                KintaEnv.put(KintaEnv.Var.GOOGLE_PLAY_JSON, json.toString())
                 println("GOOGLE_PLAY_JSON has been set to your kinta.properties")
             } catch (e: JsonException) {
                 println("Error while parsing the json file.")
@@ -29,7 +29,7 @@ object PlayStoreInit : CliktCommand(
             // Recover the app package name
             val packageName = CommandUtil.prompt(message = "Provide your app package name :")
             if (packageName?.isNotBlank() == true) {
-                KintaEnv.put(KintaEnv.Env.GOOGLE_PLAY_PACKAGE_NAME, packageName)
+                KintaEnv.put(KintaEnv.Var.GOOGLE_PLAY_PACKAGE_NAME, packageName)
                 println("GOOGLE_PLAY_PACKAGE_NAME has been set to your kinta.properties")
 
                 // Ask for getting play store meta data

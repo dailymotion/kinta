@@ -24,7 +24,7 @@ object GitlabIntegration : GitTool {
     private const val GITLAB_API = "https://gitlab.com/api/$GITLAB_API_VERSION/"
 
     private fun service(token: String?): GitlabService {
-        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Env.GITLAB_PERSONAL_TOKEN)
+        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Var.GITLAB_PERSONAL_TOKEN)
 
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(AuthInterceptor(token_))
@@ -169,7 +169,7 @@ object GitlabIntegration : GitTool {
     }
 
     private fun retrieveToken(): String {
-        return KintaEnv.get(KintaEnv.Env.GITLAB_PERSONAL_TOKEN)
+        return KintaEnv.get(KintaEnv.Var.GITLAB_PERSONAL_TOKEN)
                 ?: throw Exception("Please provide GITLAB_PERSONAL_TOKEN env or put it in your kinta.properties")
     }
 

@@ -2,7 +2,7 @@ package com.dailymotion.kinta
 
 object KintaEnv {
 
-    enum class Env {
+    enum class Var {
         GOOGLE_PLAY_PACKAGE_NAME,
         GOOGLE_CLOUD_STORAGE_BUCKET,
         APPCENTER_ORGANIZATION,
@@ -30,7 +30,7 @@ object KintaEnv {
         updateAvailableBuiltInEnvs()
     }
 
-    fun get(env: Env): String? = get(env.name)
+    fun get(variable: Var): String? = get(variable.name)
 
     fun get(key: String): String? {
         val local = EnvProperties.get(key)
@@ -40,7 +40,7 @@ object KintaEnv {
         return System.getenv(key)
     }
 
-    fun getOrFail(env: Env) = getOrFail(env.name)
+    fun getOrFail(variable: Var) = getOrFail(variable.name)
 
     fun getOrFail(key: String): String {
         val v = get(key)
@@ -51,13 +51,13 @@ object KintaEnv {
         return v
     }
 
-    fun put(env: Env, value: String?) = put(env.name, value)
+    fun put(variable: Var, value: String?) = put(variable.name, value)
 
     fun put(key: String, value: String?) {
         EnvProperties.put(key, value)
     }
 
     fun updateAvailableBuiltInEnvs(){
-        EnvProperties.updateAvailableBuiltInEnvs(Env.values().map { it.name })
+        EnvProperties.updateAvailableBuiltInEnvs(Var.values().map { it.name })
     }
 }

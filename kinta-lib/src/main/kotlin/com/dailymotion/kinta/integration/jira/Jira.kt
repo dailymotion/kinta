@@ -19,9 +19,9 @@ object Jira {
             username: String?,
             password: String?
     ): JiraService {
-        val jiraUrl_ = jiraUrl ?: KintaEnv.getOrFail(KintaEnv.Env.JIRA_URL)
-        val username_ = username ?: KintaEnv.getOrFail(KintaEnv.Env.JIRA_USERNAME)
-        val password_ = password ?: KintaEnv.getOrFail(KintaEnv.Env.JIRA_PASSWORD)
+        val jiraUrl_ = jiraUrl ?: KintaEnv.getOrFail(KintaEnv.Var.JIRA_URL)
+        val username_ = username ?: KintaEnv.getOrFail(KintaEnv.Var.JIRA_USERNAME)
+        val password_ = password ?: KintaEnv.getOrFail(KintaEnv.Var.JIRA_PASSWORD)
 
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(AuthInterceptor(username_, password_))

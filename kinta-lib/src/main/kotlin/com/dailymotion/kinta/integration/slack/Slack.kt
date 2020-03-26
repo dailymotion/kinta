@@ -27,7 +27,7 @@ object Slack {
             username: String = "Release Bot",
             iconEmoji: String = ":robot_face:") {
 
-        val webhookUrl_ = webhookUrl ?: KintaEnv.getOrFail(KintaEnv.Env.SLACK_WEBHOOK_URL)
+        val webhookUrl_ = webhookUrl ?: KintaEnv.getOrFail(KintaEnv.Var.SLACK_WEBHOOK_URL)
 
         val jsonObject = JsonObject(
                 mapOf(

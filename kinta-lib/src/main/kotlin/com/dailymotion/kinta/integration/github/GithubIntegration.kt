@@ -173,7 +173,7 @@ object GithubIntegration: GitTool {
     }
 
     fun retrieveToken(): String {
-        return KintaEnv.get(KintaEnv.Env.GITHUB_TOKEN)
+        return KintaEnv.get(KintaEnv.Var.GITHUB_TOKEN)
                 ?: GithubOauthClient.getToken()
     }
 
