@@ -18,10 +18,10 @@ object GithubOauthClient {
     private val lock = Object()
 
     val clientId: String
-            get() = KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_ID) ?: ""
+            get() = KintaEnv.get(KintaEnv.Var.GITHUB_APP_CLIENT_ID) ?: ""
 
     val clientSecret: String
-        get() = KintaEnv.get(KintaEnv.GITHUB_APP_CLIENT_SECRET) ?: ""
+        get() = KintaEnv.get(KintaEnv.Var.GITHUB_APP_CLIENT_SECRET) ?: ""
 
     private fun randomString(len: Int): String {
         val sb = StringBuilder(len)
@@ -33,14 +33,14 @@ object GithubOauthClient {
     class GithubCredentials(val username: String, val token: String)
 
     val githubCredentials by lazy {
-        var token = KintaEnv.get(KintaEnv.GITHUB_TOKEN)
-        var username = KintaEnv.get(KintaEnv.GITHUB_USERNAME)
+        var token = KintaEnv.get(KintaEnv.Var.GITHUB_TOKEN)
+        var username = KintaEnv.get(KintaEnv.Var.GITHUB_USERNAME)
 
         if (token == null || username == null) {
             username = "user"
             token = acquireToken()
-            KintaEnv.put(KintaEnv.GITHUB_USERNAME, username!!)
-            KintaEnv.put(KintaEnv.GITHUB_TOKEN, token!!)
+            KintaEnv.put(KintaEnv.Var.GITHUB_USERNAME, username!!)
+            KintaEnv.put(KintaEnv.Var.GITHUB_TOKEN, token!!)
         }
 
         GithubCredentials(username!!, token!!)
@@ -147,13 +147,13 @@ object GithubOauthClient {
     }
 
     fun getToken(): String {
-        var token = KintaEnv.get(KintaEnv.GITHUB_TOKEN)
+        var token = KintaEnv.get(KintaEnv.Var.GITHUB_TOKEN)
         if (token != null) {
             return token
         }
 
         token = acquireToken()
-        KintaEnv.put(KintaEnv.GITHUB_TOKEN, token)
+        KintaEnv.put(KintaEnv.Var.GITHUB_TOKEN, token)
 
         return token
     }

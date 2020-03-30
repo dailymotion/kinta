@@ -9,8 +9,8 @@ object Notarization {
                             bundleId: String,
                             itcProvider: String,
                             file: File): String {
-        val password_ = password ?: KintaEnv.get(KintaEnv.APPLE_PASSWORD)
-        val username_ = username ?: KintaEnv.get(KintaEnv.APPLE_USERNAME)
+        val password_ = password ?: KintaEnv.get(KintaEnv.Var.APPLE_PASSWORD)
+        val username_ = username ?: KintaEnv.get(KintaEnv.Var.APPLE_USERNAME)
 
         val command = "xcrun altool --notarize-app --verbose --primary-bundle-id $bundleId --username $username_ --password $password_ --file ${file.absolutePath} -itc_provider $itcProvider"
 
@@ -43,8 +43,8 @@ object Notarization {
     fun showNotarizationHistory(username: String? = null,
                                 password: String? = null,
                                 itcProvider: String) {
-        val password_ = password ?: KintaEnv.get(KintaEnv.APPLE_PASSWORD)
-        val username_ = username ?: KintaEnv.get(KintaEnv.APPLE_USERNAME)
+        val password_ = password ?: KintaEnv.get(KintaEnv.Var.APPLE_PASSWORD)
+        val username_ = username ?: KintaEnv.get(KintaEnv.Var.APPLE_USERNAME)
 
         val command = "xcrun altool --notarization-history 0 -u $username_ --password $password_ -itc_provider $itcProvider"
 
@@ -57,8 +57,8 @@ object Notarization {
     fun waitForNotarization(username: String? = null,
                             password: String? = null,
                             requestId: String) {
-        val password_ = password ?: KintaEnv.get(KintaEnv.APPLE_PASSWORD)
-        val username_ = username ?: KintaEnv.get(KintaEnv.APPLE_USERNAME)
+        val password_ = password ?: KintaEnv.get(KintaEnv.Var.APPLE_PASSWORD)
+        val username_ = username ?: KintaEnv.get(KintaEnv.Var.APPLE_USERNAME)
 
         while (true) {
             val command = "xcrun altool --notarization-info $requestId -u $username_ --password $password_"

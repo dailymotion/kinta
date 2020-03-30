@@ -10,7 +10,7 @@ object GitlabInit : CliktCommand(name = "init", help = "Set up Gitlab to use it 
     override fun run() {
         val personalToken = CommandUtil.prompt(message = "Provide your Gitlab personal token :")
         if (personalToken?.isNotBlank() == true) {
-            KintaEnv.put(KintaEnv.GITLAB_PERSONAL_TOKEN, personalToken)
+            KintaEnv.put(KintaEnv.Var.GITLAB_PERSONAL_TOKEN, personalToken)
             println("GITLAB_PERSONAL_TOKEN has been set to your kinta.properties")
         }
     }

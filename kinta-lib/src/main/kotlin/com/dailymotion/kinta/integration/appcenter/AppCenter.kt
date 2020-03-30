@@ -17,8 +17,8 @@ object AppCenter {
             file: File,
             changelog: String?) {
 
-        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.APPCENTER_TOKEN)
-        val organisation_ = organization ?: KintaEnv.getOrFail(KintaEnv.APPCENTER_ORGANIZATION)
+        val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Var.APPCENTER_TOKEN)
+        val organisation_ = organization ?: KintaEnv.getOrFail(KintaEnv.Var.APPCENTER_ORGANIZATION)
 
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.NONE
