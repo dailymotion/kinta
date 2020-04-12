@@ -11,12 +11,12 @@ object CommandLine {
      * @param commandLine the commandline. It is expected that all arguments in commandline
      * do not contain spaces. If they do, use @[execute]
      */
-    fun execute(workingDir: File = projectDir, command: String) {
-        execute(workingDir, *command.split(" ").toTypedArray())
+    fun execute(workingDir: File = projectDir, command: String): Int {
+        return execute(workingDir, *command.split(" ").toTypedArray())
     }
 
-    fun execute(workingDir: File = projectDir, vararg args: String) {
-        ProcessBuilder(*args)
+    fun execute(workingDir: File = projectDir, vararg args: String): Int {
+        return ProcessBuilder(*args)
                 .directory(workingDir)
                 .redirectOutput(ProcessBuilder.Redirect.INHERIT)
                 .redirectError(ProcessBuilder.Redirect.INHERIT)
