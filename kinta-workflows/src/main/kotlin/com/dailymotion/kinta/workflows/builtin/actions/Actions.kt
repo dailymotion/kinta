@@ -7,7 +7,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
-import com.sun.org.apache.xml.internal.security.utils.Base64
+import java.util.*
 
 object ConfigureKeystore : CliktCommand(name = "configureKeystore", help = "configure keystore secrets in github actions. You can later use retrieveKeystore on the CI.") {
     override fun run() {
