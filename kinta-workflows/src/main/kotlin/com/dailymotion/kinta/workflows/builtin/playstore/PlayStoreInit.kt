@@ -1,4 +1,4 @@
-package com.dailymotion.kinta.integration.googleplay.internal
+package com.dailymotion.kinta.workflows.builtin.playstore
 
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.helper.CommandUtil

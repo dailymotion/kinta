@@ -1,7 +1,6 @@
-package com.dailymotion.kinta.integration.googleplay
+package com.dailymotion.kinta.workflows.builtin.playstore
 
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
-import com.dailymotion.kinta.integration.googleplay.internal.PlayStorePullMetadatas
 import java.io.*
 
 
@@ -11,7 +10,7 @@ object LocalMetadataHelper {
 
     private fun checkMetaDataFolder() {
         check(ANDROID_METADATA_FOLDER.exists()) {
-            "$ANDROID_METADATA_FOLDER not found. Make sure to call 'kinta playstore ${PlayStorePullMetadatas.commandName}' first or create the files tree manually"
+            "$ANDROID_METADATA_FOLDER not found. Make sure to call 'kinta playstore pullMetadatas' first or create the files tree manually"
         }
     }
 
@@ -49,7 +48,8 @@ object LocalMetadataHelper {
                     if (changelogFile != null) {
                         GooglePlayIntegration.ChangelogResource(
                                 language = languageFolder.name,
-                                description = getStringFromFile(changelogFile) ?: "",
+                                description = getStringFromFile(changelogFile)
+                                    ?: "",
                                 versionCode = versionCode
                         )
                     } else {

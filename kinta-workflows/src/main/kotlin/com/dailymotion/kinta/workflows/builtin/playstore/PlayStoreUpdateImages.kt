@@ -1,6 +1,5 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
-import com.dailymotion.kinta.integration.googleplay.LocalMetadataHelper
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option

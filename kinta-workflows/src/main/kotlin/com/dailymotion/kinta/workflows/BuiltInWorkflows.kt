@@ -1,14 +1,12 @@
 package com.dailymotion.kinta.workflows
 
 import com.dailymotion.kinta.integration.github.GithubIntegration
-import com.dailymotion.kinta.workflows.builtin.crypto.AesEncrypt
 import com.dailymotion.kinta.workflows.builtin.travis.Travis
 import com.dailymotion.kinta.integration.github.internal.GithubInit
 import com.dailymotion.kinta.integration.gitlab.GitlabIntegration
 import com.dailymotion.kinta.integration.gitlab.internal.GitlabInit
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
-import com.dailymotion.kinta.integration.googleplay.internal.PlayStoreInit
-import com.dailymotion.kinta.integration.googleplay.internal.PlayStorePullMetadatas
+import com.dailymotion.kinta.workflows.builtin.playstore.PlayStoreInit
 import com.dailymotion.kinta.workflows.builtin.gittool.*
 import com.dailymotion.kinta.workflows.builtin.playstore.*
 import com.github.ajalt.clikt.core.CliktCommand
@@ -25,7 +23,7 @@ object BuiltInWorkflows {
             }
         }
     }.subcommands(listOf(
-            PlayStoreInit,
+        PlayStoreInit,
             PlayStorePullMetadatas,
             PlayStorePullPreviews,
             PlayStoreUpdateListings,
