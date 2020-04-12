@@ -18,7 +18,7 @@ object ConfigureKeystore : CliktCommand(name = "configureKeystore", help = "conf
 
         GithubIntegration.setSecret(
             name = KintaEnv.Var.KINTA_KEYSTORE.name,
-            value = Base64.encode(keystore.readBytes())
+            value = Base64.getEncoder().encodeToString(keystore.readBytes())
         )
     }
 }
