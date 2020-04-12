@@ -18,6 +18,8 @@ object ConfigureKeystore : CliktCommand(name = "configureKeystore", help = "conf
         val keyAlias = console.prompt("Key alias:")
         val keyPassword = console.prompt("Key password:")
 
+        console.println("encrypting and uploading secrets...")
+
         GithubIntegration.setSecret(
             name = KintaEnv.Var.KINTA_KEYSTORE.name,
             value = Base64.getEncoder().encodeToString(keystore.readBytes())
@@ -34,6 +36,17 @@ object ConfigureKeystore : CliktCommand(name = "configureKeystore", help = "conf
             name = KintaEnv.Var.KINTA_KEY_PASSWORD.name,
             value = keyPassword
         )
+
+        console.println("4 secrets have been set in your Github repo. Add the following to .github/workflows/your_workflow_name.yml, in your step:")
+        console.println("env:")
+
+        listOf(
+            KintaEnv.Var.KINTA_KEYSTORE.name,
+            KintaEnv.Var.KINTA_KEYSTORE_PASSWORD.name,
+            KintaEnv.Var.KINTA_KEY_ALIAS.name,
+            KintaEnv.Var.KINTA_KEY_PASSWORD.name).forEach {
+            console.println("  $it: \${{ secrets.$it }}")
+        }
     }
 }
 

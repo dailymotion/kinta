@@ -4,7 +4,7 @@ import java.io.File
 
 class Console {
     fun println(str: String) {
-        println(str)
+        kotlin.io.println(str)
     }
 
     /**
