@@ -19,6 +19,7 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
 import java.io.File
 
+@Suppress("NAME_SHADOWING")
 object GithubIntegration : GitTool {
     override fun openPullRequest(token: String?,
                                  owner: String?,
@@ -40,19 +41,19 @@ object GithubIntegration : GitTool {
         }
 
         val jsonObject = JsonObject(
-                mapOf(
-                        "title" to JsonPrimitive(title_),
-                        "head" to JsonPrimitive(head_),
-                        "base" to JsonPrimitive(base_)
-                )
+            mapOf(
+                "title" to JsonPrimitive(title_),
+                "head" to JsonPrimitive(head_),
+                "base" to JsonPrimitive(base_)
+            )
         )
 
         val body = RequestBody.create(MediaType.parse("application/json"), Json.Companion.nonstrict.toJson(jsonObject).toString())
 
         val request = Request.Builder()
-                .url("https://api.github.com/repos/$owner_/$repo_/pulls")
-                .post(body)
-                .build()
+            .url("https://api.github.com/repos/$owner_/$repo_/pulls")
+            .post(body)
+            .build()
 
         Logger.i("creating pull request to merge $head_ into $base_")
         val response = httpClient(token_).newCall(request).execute()
@@ -74,10 +75,10 @@ object GithubIntegration : GitTool {
      * Get some info about the pull requests associated to the branch
      */
     override fun getBranchInfo(
-            token: String?,
-            owner: String?,
-            repo: String?,
-            branch: String): BranchInfo {
+        token: String?,
+        owner: String?,
+        repo: String?,
+        branch: String): BranchInfo {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
         val repo_ = repo ?: repository().name
@@ -85,37 +86,37 @@ object GithubIntegration : GitTool {
         val depdendentPullRequestsData = runBlocking {
             val query = GetPullRequestWithBase(owner_, repo_, branch)
             apolloClient(token_).query(query)
-                    .toDeferred()
-                    .await()
-                    .data()
-                    ?.repository
+                .toDeferred()
+                .await()
+                .data()
+                ?.repository
         }
 
         val pullRequestsData = runBlocking {
             val query = GetPullRequestWithHead(owner_, repo_, branch)
             apolloClient(token_).query(query)
-                    .toDeferred()
-                    .await()
-                    .data()
-                    ?.repository
+                .toDeferred()
+                .await()
+                .data()
+                ?.repository
         }
 
         return BranchInfo(
-                name = branch,
-                pullRequests = (pullRequestsData?.pullRequests?.nodes?.mapNotNull {
-                    it?.let { PullRequestInfo(it.number, it.merged, it.closed) }
-                }) ?: listOf(),
-                dependentPullRequests = (depdendentPullRequestsData?.pullRequests?.nodes?.mapNotNull {
-                    it?.let { PullRequestInfo(it.number, it.merged, it.closed) }
-                }) ?: listOf()
+            name = branch,
+            pullRequests = (pullRequestsData?.pullRequests?.nodes?.mapNotNull {
+                it?.let { PullRequestInfo(it.number, it.merged, it.closed) }
+            }) ?: listOf(),
+            dependentPullRequests = (depdendentPullRequestsData?.pullRequests?.nodes?.mapNotNull {
+                it?.let { PullRequestInfo(it.number, it.merged, it.closed) }
+            }) ?: listOf()
         )
     }
 
     override fun deleteRef(
-            token: String?,
-            owner: String?,
-            repo: String?,
-            ref: String
+        token: String?,
+        owner: String?,
+        repo: String?,
+        ref: String
     ) {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
@@ -124,9 +125,9 @@ object GithubIntegration : GitTool {
         println("deleting $ref...")
 
         val request = Request.Builder()
-                .url("https://api.github.com/repos/$owner_/$repo_/git/refs/heads/$ref")
-                .delete()
-                .build()
+            .url("https://api.github.com/repos/$owner_/$repo_/git/refs/heads/$ref")
+            .delete()
+            .build()
 
         val response = httpClient(token_).newCall(request).execute()
         if (!response.isSuccessful) {
@@ -138,9 +139,9 @@ object GithubIntegration : GitTool {
     override fun isConfigured() = GithubOauthClient.isConfigured()
 
     override fun getAllBranches(
-            token: String?,
-            owner: String?,
-            repo: String?
+        token: String?,
+        owner: String?,
+        repo: String?
     ): List<String> {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
@@ -149,41 +150,41 @@ object GithubIntegration : GitTool {
         return runBlocking {
             val query = GetRefs(owner_, repo_)
             apolloClient(token_).query(query)
-                    .toDeferred()
-                    .await()
-                    .data()
-                    ?.repository
-                    ?.refs
-                    ?.edges
-                    ?.map { it?.node?.name }
-                    ?.filterNotNull() ?: emptyList()
+                .toDeferred()
+                .await()
+                .data()
+                ?.repository
+                ?.refs
+                ?.edges
+                ?.map { it?.node?.name }
+                ?.filterNotNull() ?: emptyList()
 
         }
     }
 
     fun apolloClient(token: String): ApolloClient {
         return ApolloClient.builder()
-                .serverUrl("https://api.github.com/graphql")
-                .okHttpClient(httpClient(token))
-                .build()
+            .serverUrl("https://api.github.com/graphql")
+            .okHttpClient(httpClient(token))
+            .build()
     }
 
 
     private fun httpClient(token: String): OkHttpClient {
         return OkHttpClient.Builder()
-                .addInterceptor { chain ->
-                    chain.proceed(chain.request()
-                            .newBuilder()
-                            .addHeader("Authorization", "Bearer ${token}")
-                            .build()
-                    )
-                }
-                .build()
+            .addInterceptor { chain ->
+                chain.proceed(chain.request()
+                    .newBuilder()
+                    .addHeader("Authorization", "Bearer ${token}")
+                    .build()
+                )
+            }
+            .build()
     }
 
     fun retrieveToken(): String {
         return KintaEnv.get(KintaEnv.Var.GITHUB_TOKEN)
-                ?: GithubOauthClient.getToken()
+            ?: GithubOauthClient.getToken()
     }
 
     data class Repository(val owner: String, val name: String)
@@ -216,27 +217,27 @@ object GithubIntegration : GitTool {
         return Repository(s[0], repoName)
     }
 
-    fun uploadRelease(token: String? = null,
+    fun createRelease(token: String? = null,
                       owner: String? = null,
                       repo: String? = null,
-                      versionName: String,
+                      tagName: String,
                       changelogMarkdown: String,
-                      asset: File) {
-        val token_ = token ?: retrieveToken()
-        val owner_ = owner ?: repository().owner
-        val repo_ = repo ?: repository().name
+                      assets: List<File>) {
+        val token = token ?: retrieveToken()
+        val owner = owner ?: repository().owner
+        val repo = repo ?: repository().name
 
         val input = mapOf(
-                "tag_name" to JsonPrimitive(versionName),
-                "body" to JsonPrimitive(changelogMarkdown),
-                "draft" to JsonPrimitive(false),
-                "prerelease" to JsonPrimitive(false)
+            "tag_name" to JsonPrimitive(tagName),
+            "body" to JsonPrimitive(changelogMarkdown),
+            "draft" to JsonPrimitive(false),
+            "prerelease" to JsonPrimitive(false)
         )
 
         val request = Request.Builder()
-                .post(RequestBody.create(MediaType.parse("application/json"), JsonObject(input).toString()))
-                .url("https://api.github.com/repos/$owner_/$repo_/releases?access_token=${token_}")
-                .build()
+            .post(RequestBody.create(MediaType.parse("application/json"), JsonObject(input).toString()))
+            .url("https://api.github.com/repos/$owner/$repo/releases?access_token=${token}")
+            .build()
 
         val response = OkHttpClient().newCall(request).execute()
         if (!response.isSuccessful) {
@@ -247,18 +248,21 @@ object GithubIntegration : GitTool {
 
         val release = Json.nonstrict.parseJson(responseString)
 
-        val uploadUrl = UriTemplate.fromTemplate(release.jsonObject.getPrimitive("upload_url").content)
+        assets.forEach { asset ->
+            println("uploading ${asset.name}")
+            val uploadUrl = UriTemplate.fromTemplate(release.jsonObject.getPrimitive("upload_url").content)
                 .set("name", asset.name)
                 .expand()
 
-        val request2 = Request.Builder()
+            val request2 = Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/zip"), asset))
                 .url("$uploadUrl&access_token=$token")
                 .build()
 
-        val response2 = OkHttpClient().newCall(request2).execute()
-        check(response2.isSuccessful) {
-            "cannot upload asset: ${response2.body()?.string()}"
+            val response2 = OkHttpClient().newCall(request2).execute()
+            check(response2.isSuccessful) {
+                "cannot upload asset: ${response2.body()?.string()}"
+            }
         }
     }
 }
