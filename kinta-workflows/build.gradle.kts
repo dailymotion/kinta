@@ -1,5 +1,6 @@
 plugins {
     id("org.jetbrains.kotlin.jvm")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 dependencies {
@@ -13,7 +14,9 @@ dependencies {
     implementation(Libs.retrofit)
     implementation(Libs.retrofitConverter)
     implementation(project(":kinta-lib"))
+    implementation(project(":console"))
     implementation(Libs.clikt)
+    implementation(Libs.kotlinSerialization)
 
     implementation(Libs.jgit)
     implementation(Libs.googleCloudStorage)

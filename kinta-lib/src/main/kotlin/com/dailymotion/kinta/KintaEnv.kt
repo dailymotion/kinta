@@ -23,7 +23,11 @@ object KintaEnv {
         BITRISE_PERSONAL_TOKEN,
         JIRA_URL,
         APPLE_PASSWORD,
-        APPLE_USERNAME
+        APPLE_USERNAME,
+        KINTA_KEYSTORE,
+        KINTA_KEYSTORE_PASSWORD,
+        KINTA_KEY_ALIAS,
+        KINTA_KEY_PASSWORD
     }
 
     init {

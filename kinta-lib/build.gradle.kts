@@ -26,6 +26,8 @@ dependencies {
     implementation(Libs.gradle)
     api(Libs.clikt)
     implementation(Libs.kotlinSerialization)
+    implementation(Libs.lazySodium)
+    implementation(Libs.jna)
 
     testImplementation(Libs.jUnit)
 }

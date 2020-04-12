@@ -11,7 +11,7 @@ dependencies {
     implementation(Libs.googleCloudStorage)
     implementation(Libs.jgit)
     // had to add SLF4J: upgrading JGIT results in "SLF4J: Failed to load class org.slf4j.impl.StaticLoggerBinder"
-    implementation(Libs.slf4j)
+    api(Libs.slf4j)
 
     implementation(Libs.coroutines)
 

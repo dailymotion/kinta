@@ -1,10 +1,9 @@
 rootProject.name = "kinta"
 
-include(":kinta-cli", ":kinta-lib", "kinta-workflows")
+include(":kinta-cli", ":kinta-lib", "kinta-workflows", "console")
 
 pluginManagement {
     repositories {
-        // mavenLocal()
         mavenCentral()
         google()
         jcenter()

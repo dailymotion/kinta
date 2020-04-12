@@ -1,8 +1,8 @@
 package com.dailymotion.kinta
 
-import com.dailymotion.kinta.infra.FirstTimeInstall
 import com.dailymotion.kinta.command.Init
 import com.dailymotion.kinta.command.Update
+import com.dailymotion.kinta.infra.FirstTimeInstall
 import com.dailymotion.kinta.integration.gradle.Gradle
 import com.dailymotion.kinta.workflows.BuiltInWorkflows
 import com.github.ajalt.clikt.core.CliktCommand

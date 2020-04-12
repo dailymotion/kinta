@@ -12,7 +12,7 @@ object Libs {
     const val googleCloudStorage = "com.google.cloud:google-cloud-storage:1.12.0"
 
     const val jgit = "org.eclipse.jgit:org.eclipse.jgit:5.3.0.201903130848-r"
-    const val slf4j = "org.slf4j:slf4j-simple:1.7.25"
+    const val slf4j = "org.slf4j:slf4j-nop:1.8.0-beta4"
 
     const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
@@ -32,6 +32,8 @@ object Libs {
     const val gradle = "org.gradle:gradle-tooling-api:6.0.1"
 
     const val clikt = "com.github.ajalt:clikt:2.4.0"
+    const val lazySodium = "com.goterl.lazycode:lazysodium-java:4.2.6"
+    const val jna = "net.java.dev.jna:jna:5.5.0"
 
     const val jUnit = "junit:junit:4.12"
 }

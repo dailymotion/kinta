@@ -28,8 +28,10 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.ImplicitReflectionSerializer"
-        kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.UnstableDefault"
+        plugins.withId("org.jetbrains.kotlin.plugin.serialization") {
+            kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.ImplicitReflectionSerializer"
+            kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.UnstableDefault"
+        }
         kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
         kotlinOptions {
             allWarningsAsErrors = true

@@ -27,9 +27,8 @@ object Project {
         var dir = File(".")
 
         while (!isBaseDir(dir)) {
-            if (dir.parent == null) {
+            check (dir.parent != null) {
                 Logger.e("Cannot find project directory, please run 'kinta init'")
-                exitProcess(1)
             }
             dir = File(dir.parent)
         }
