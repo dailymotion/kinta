@@ -17,7 +17,8 @@ object AndroidIntegration {
         val file = File.createTempFile("keystore", null)
         try {
             val keystore = keystore ?: let {
-                file.writeBytes(Base64.getDecoder().decode(KintaEnv.get(KintaEnv.Var.KINTA_KEYSTORE)))
+                val base64 = KintaEnv.get(KintaEnv.Var.KINTA_KEYSTORE)
+                file.writeBytes(Base64.getDecoder().decode(base64))
                 file
             }
             val keystorePassword = keystorePassword ?: KintaEnv.get(KintaEnv.Var.KINTA_KEYSTORE_PASSWORD)

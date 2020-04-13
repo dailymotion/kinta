@@ -5,7 +5,7 @@ import java.util.*
 
 object EnvProperties {
     private val properties = Properties()
-    private val file = File(Project.findBaseDir(), ".kinta/env.properties")
+    private val file = File(".kinta/env.properties")
 
     init {
         try {
@@ -32,15 +32,17 @@ object EnvProperties {
      * This method should be called during a kinta update for example
      */
     fun updateAvailableBuiltInEnvs(keys: List<String>) {
-        properties.store(file.outputStream(), "Kinta Configuration file")
+        if (file.exists()) {
+            properties.store(file.outputStream(), "Kinta Configuration file")
 
-        //Write envs comments
-        val undefinedEnvs = keys.filter { !properties.containsKey(it) }
-        val comments = undefinedEnvs.joinToString(separator = "\n", prefix = "\n") { "#${it}={${it}}" }
-        file.writeText(file.readText() + comments)
+            //Write envs comments
+            val undefinedEnvs = keys.filter { !properties.containsKey(it) }
+            val comments = undefinedEnvs.joinToString(separator = "\n", prefix = "\n") { "#${it}={${it}}" }
+            file.writeText(file.readText() + comments)
 
-        //Sync property file
-        properties.load(file.inputStream())
+            //Sync property file
+            properties.load(file.inputStream())
+        }
     }
 
 }
