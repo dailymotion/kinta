@@ -17,18 +17,26 @@ object Project {
     val git by lazy {
         Git(repository)
     }
-    val projectDir by lazy { findBaseDir() }
+    val projectDir by lazy { getBaseDir() }
 
     fun file(path: String): File = File(projectDir, path)
 
     private fun isBaseDir(dir: File) = dir.list().contains(".kinta")
 
-    fun findBaseDir(): File {
+    fun getBaseDir(): File {
+        val dir = findBaseDir()
+        check(dir != null) {
+            "Cannot find a .kinta directory"
+        }
+        return dir
+    }
+
+    fun findBaseDir(): File? {
         var dir = File(".")
 
         while (!isBaseDir(dir)) {
-            check (dir.parent != null) {
-                Logger.e("Cannot find project directory, please run 'kinta init'")
+            if (dir.parent == null) {
+                return null
             }
             dir = File(dir.parent)
         }

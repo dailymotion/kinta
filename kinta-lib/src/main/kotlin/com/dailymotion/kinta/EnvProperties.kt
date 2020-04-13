@@ -5,7 +5,15 @@ import java.util.*
 
 object EnvProperties {
     private val properties = Properties()
-    private val file = File(".kinta/env.properties")
+    private val file by lazy {
+        val projectDir = Project.findBaseDir()
+
+        if (projectDir != null) {
+            File(projectDir, ".kinta/env.properties")
+        } else {
+            File(".kinta/env.properties")
+        }
+    }
 
     init {
         try {
