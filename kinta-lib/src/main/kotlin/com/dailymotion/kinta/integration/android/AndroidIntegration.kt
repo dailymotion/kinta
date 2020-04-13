@@ -25,7 +25,7 @@ object AndroidIntegration {
             val keyAlias = keyAlias ?: KintaEnv.get(KintaEnv.Var.KINTA_KEY_ALIAS)
             val keyPassword = keyPassword ?: KintaEnv.get(KintaEnv.Var.KINTA_KEY_PASSWORD)
 
-            val code = ProcessBuilder("which", "apksigner")
+            var code = ProcessBuilder("which", "apksigner")
                 .redirectOutput(ProcessBuilder.Redirect.INHERIT)
                 .redirectError(ProcessBuilder.Redirect.INHERIT)
                 .start()
@@ -51,7 +51,7 @@ object AndroidIntegration {
 
             //println("found apksigner at $apksignerCommand")
 
-            ProcessBuilder(
+            code = ProcessBuilder(
                 apksignerCommand,
                 "sign",
                 "--ks",
@@ -70,6 +70,10 @@ object AndroidIntegration {
                 .redirectError(ProcessBuilder.Redirect.INHERIT)
                 .start()
                 .waitFor()
+
+            check(code == 0) {
+                "Cannot sign apk"
+            }
         } finally {
             file.delete()
         }
