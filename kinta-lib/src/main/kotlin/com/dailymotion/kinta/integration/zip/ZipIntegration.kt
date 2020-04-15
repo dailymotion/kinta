@@ -13,10 +13,12 @@ object ZipIntegration {
      */
     fun zip(input: File, output: File, baseDir: File? = null) {
         val workingDir = baseDir ?: input.parentFile
-        val exitCode = ProcessBuilder("zip", "-r", "-y", output.absolutePath, input.absolutePath)
-            .directory(workingDir)
-            .start()
-            .waitFor()
+        val args = listOf("zip", "-r", "-y", output.relativeTo(workingDir).path, input.relativeTo(workingDir).path)
+
+        val exitCode = ProcessBuilder(*args.toTypedArray())
+                .directory(workingDir)
+                .start()
+                .waitFor()
         check(exitCode == 0) {
             "Cannot zip: ${input.absoluteFile}"
         }
