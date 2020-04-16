@@ -145,14 +145,14 @@ object LocalMetadataHelper {
     }
 
     private fun getStringFromFile(file: File): String? {
-        val fin = FileInputStream(file)
+        var fin: FileInputStream? = null
         return try {
+            fin = FileInputStream(file)
             convertStreamToString(fin)
         } catch (e: Exception) {
-            e.printStackTrace()
             null
         } finally {
-            fin.close()
+            fin?.close()
         }
     }
 
