@@ -2,8 +2,8 @@ package com.dailymotion.kinta.command
 
 import com.dailymotion.kinta.helper.CommandUtil
 import com.dailymotion.kinta.integration.git.GitIntegration
-import com.dailymotion.kinta.workflows.builtin.playstore.PlayStoreInit
 import com.dailymotion.kinta.integration.gradle.Gradle
+import com.dailymotion.kinta.workflows.builtin.playstore.PlayStoreInit
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
@@ -59,8 +59,6 @@ object Init : CliktCommand(name = "init", help = "Initialize a project.") {
             writeText(readText().replace("{KINTA_VERSION}", com.dailymotion.kinta.VERSION))
         }
         copyResource("gitignore", "kintaSrc/.gitignore")
-        copyResource("kinta.properties", "kinta.properties")
-
 
         Gradle(File("kintaSrc")).executeTask("assemble")
         GitIntegration.add(File("kintaSrc").path)
