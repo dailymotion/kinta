@@ -72,21 +72,34 @@ object GooglePlayIntegration {
 
     }
 
-    private fun makeEdit(publisher: AndroidPublisher, packageName: String, body: (edits: AndroidPublisher.Edits, editId: String) -> Unit) {
+    /**
+     * Create an editId and use it for read operations
+     */
+    private fun useEdit(publisher: AndroidPublisher, packageName: String, body: (edits: AndroidPublisher.Edits, editId: String) -> Unit) {
         val edits = publisher.edits()
 
-        // Create a new edit to make changes to your listing.
+        // Read or write operations need an editId
         val editRequest = edits.insert(packageName, null)
         val edit = editRequest.execute()
         val editId = edit.getId()
         Logger.i(String.format("Created edit with id: %s", editId))
 
         body.invoke(edits, editId)
+    }
 
-        // Commit changes for edit.
-        val commitRequest = edits.commit(packageName, editId)
-        val appEdit = commitRequest.execute()
-        Logger.i(String.format("App edit with id %s has been comitted", appEdit.getId()))
+    /**
+     * Create an editId and use it for read/write operations, finally commit edits
+     */
+    private fun makeEdit(publisher: AndroidPublisher, packageName: String, body: (edits: AndroidPublisher.Edits, editId: String) -> Unit) {
+       useEdit(publisher, packageName){ edits, editId ->
+
+           body.invoke(edits, editId)
+
+           // Commit changes for edit.
+           val commitRequest = edits.commit(packageName, editId)
+           val appEdit = commitRequest.execute()
+           Logger.i(String.format("App edit with id %s has been comitted", appEdit.getId()))
+       }
     }
 
     /**
@@ -137,7 +150,7 @@ object GooglePlayIntegration {
         val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.Var.GOOGLE_PLAY_PACKAGE_NAME)
         val publisher = publisher(googlePlayJson, packageName_)
         var listReleases: List<TrackRelease>? = null
-        makeEdit(publisher, packageName_) { edits, editId ->
+        useEdit(publisher, packageName_) { edits, editId ->
             val releasesRequest = edits.tracks().get(packageName_, editId, track.name)
             listReleases = releasesRequest.execute().releases
         }
@@ -293,7 +306,7 @@ object GooglePlayIntegration {
         val publisher = publisher(googlePlayJson, packageName_)
         val resources = mutableListOf<ListingResource>()
 
-        makeEdit(publisher, packageName_) { edits, editId ->
+        useEdit(publisher, packageName_) { edits, editId ->
             resources.addAll(edits.listings().list(packageName_, editId).execute().listings.map {
                 ListingResource(it.language, it.title, it.shortDescription, it.fullDescription, it.video)
             })
@@ -322,7 +335,7 @@ object GooglePlayIntegration {
         val publisher = publisher(googlePlayJson, packageName_)
         val resources = mutableListOf<ChangelogResource>()
 
-        makeEdit(publisher, packageName_) { edits, editId ->
+        useEdit(publisher, packageName_) { edits, editId ->
             resources.addAll(edits.tracks().list(packageName_, editId).execute().tracks.flatMap { track ->
                 track.releases.flatMap { release ->
                     release.releaseNotes?.mapNotNull {
@@ -343,7 +356,7 @@ object GooglePlayIntegration {
         val publisher = publisher(googlePlayJson, packageName_)
         val resources = mutableListOf<PreviewImageData>()
 
-        makeEdit(publisher, packageName_) { edits, editId ->
+        useEdit(publisher, packageName_) { edits, editId ->
             //Retrieve supported languages
             edits.listings().list(packageName_, editId).execute().listings.map { it.language }.map { lang ->
                 //Cover any imageType

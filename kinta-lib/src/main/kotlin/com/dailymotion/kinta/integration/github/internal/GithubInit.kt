@@ -11,12 +11,12 @@ object GithubInit : CliktCommand(name = "initGithub", help = "Set up Github to u
         val clientId = CommandUtil.prompt(message = "Provide your GitHub app client id :")
         if (clientId?.isNotBlank() == true) {
             KintaEnv.put(KintaEnv.Var.GITHUB_APP_CLIENT_ID, clientId)
-            println("GITHUB_APP_CLIENT_ID has been set to your kinta.properties")
+            println("GITHUB_APP_CLIENT_ID has been set to your .kinta/.env.properties file")
 
             val clientSecret = CommandUtil.prompt(message = "Provide your Gitlab app client secret :")
             if (clientSecret?.isNotBlank() == true) {
                 KintaEnv.put(KintaEnv.Var.GITHUB_APP_CLIENT_SECRET, clientSecret)
-                println("GITHUB_APP_CLIENT_SECRET has been set to your kinta.properties")
+                println("GITHUB_APP_CLIENT_SECRET has been set to your .kinta/.env.properties file")
             }
         }
     }

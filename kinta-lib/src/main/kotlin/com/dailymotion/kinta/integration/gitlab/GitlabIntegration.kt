@@ -170,7 +170,7 @@ object GitlabIntegration : GitTool {
 
     private fun retrieveToken(): String {
         return KintaEnv.get(KintaEnv.Var.GITLAB_PERSONAL_TOKEN)
-                ?: throw Exception("Please provide GITLAB_PERSONAL_TOKEN env or put it in your kinta.properties")
+                ?: throw Exception("Please provide GITLAB_PERSONAL_TOKEN env or put it in your .kinta/.env.properties file")
     }
 
     data class Repository(val owner: String, val name: String)
