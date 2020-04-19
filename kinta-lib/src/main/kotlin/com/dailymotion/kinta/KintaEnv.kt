@@ -49,7 +49,7 @@ object KintaEnv {
     fun getOrFail(key: String): String {
         val v = get(key)
         check(!v.isNullOrBlank()) {
-            "Cannot find $v, please set it in your environment or pass it explicitly."
+            "Cannot find $key, please set it in your environment or pass it explicitly."
         }
 
         return v

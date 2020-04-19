@@ -5,22 +5,62 @@ import com.dailymotion.kinta.Project.projectDir
 import java.io.File
 
 object CommandLine {
+    private fun parse(command: String): Array<String> {
+        return command.split(" ").toTypedArray()
+    }
+
+    private fun unparse(vararg args: String): String {
+        return args.joinToString(",")
+    }
+
     /**
      * Execute the given process
      *
-     * @param commandLine the commandline. It is expected that all arguments in commandline
-     * do not contain spaces. If they do, use @[execute]
+     * @param commandLine the commandline. The parser used to tokenize `commandLine` is very basic.
+     * If your arguments contains spaces, use @[execute]
      */
-    fun execute(workingDir: File = projectDir, command: String): Int {
-        return execute(workingDir, *command.split(" ").toTypedArray())
+    fun exitCode(workingDir: File = File("."), command: String): Int {
+        return exitCode(workingDir, *parse(command))
     }
 
-    fun execute(workingDir: File = projectDir, vararg args: String): Int {
+    fun exitCode(workingDir: File = File("."), vararg args: String): Int {
         return ProcessBuilder(*args)
                 .directory(workingDir)
-                .redirectOutput(ProcessBuilder.Redirect.INHERIT)
-                .redirectError(ProcessBuilder.Redirect.INHERIT)
+                .inheritIO()
                 .start()
                 .waitFor()
+    }
+
+    fun executeOrFail(workingDir: File = File("."), command: String) {
+        executeOrFail(workingDir, *parse(command))
+    }
+
+    fun executeOrFail(workingDir: File = File("."), vararg args: String) {
+        val exitCode = ProcessBuilder(*args)
+                .directory(workingDir)
+                .inheritIO()
+                .start()
+                .waitFor()
+        check(exitCode == 0) {
+            "Cannot execute ${unparse(*args)}: $exitCode"
+        }
+    }
+
+    fun output(workingDir: File = File("."), command: String): String {
+        return output(workingDir, *parse(command))
+    }
+
+    fun output(workingDir: File = File("."), vararg args: String): String {
+        val process = ProcessBuilder(*args)
+                .directory(workingDir)
+                .redirectError(ProcessBuilder.Redirect.INHERIT)
+                .start()
+
+        val exitCode = process.waitFor()
+        check(exitCode == 0) {
+            "Cannot execute ${unparse(*args)}: $exitCode"
+        }
+
+        return process.inputStream.reader().readText()
     }
 }
