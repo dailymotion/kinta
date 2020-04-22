@@ -87,7 +87,7 @@ object DeleteSecret : CliktCommand(name = "deleteSecret", help = "deletes a secr
 }
 
 
-val actions = object : CliktCommand(name = "actions") {
+val actions = object : CliktCommand(name = "actions", help = "Helper methods for Github Actions") {
     override fun run() {
 
     }
