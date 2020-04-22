@@ -61,7 +61,7 @@ private val toShell = object : CliktCommand(name = "toShell", help = "export the
     }
 }
 
-private val toProperties = object : CliktCommand(name = "export the current Kinta env to a properties file") {
+private val toProperties = object : CliktCommand(name = "toProperties", help = "export the current Kinta env to a properties file") {
     val output by argument()
     private val fromProperties by option()
 
