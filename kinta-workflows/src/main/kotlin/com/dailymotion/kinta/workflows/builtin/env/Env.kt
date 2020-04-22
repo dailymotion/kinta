@@ -42,7 +42,7 @@ private fun definedVars(filename: String?): List<Pair<String, String>> {
 
 private val toShell = object : CliktCommand(name = "toShell", help = "export the current Kinta env to a shell script that you can source later on") {
     val output by argument()
-    private val fromProperties by option()
+    private val from by option(help = "use this properties file instead of the current environment")
 
     private fun String.escape(): String {
         // this is very rudimentary and should certainly be improved
@@ -52,7 +52,7 @@ private val toShell = object : CliktCommand(name = "toShell", help = "export the
     }
 
     override fun run() {
-        definedVars(fromProperties).map {
+        definedVars(from).map {
             "${it.first}=${it.second.escape()}"
         }.joinToString(separator = "\n", postfix = "\n")
                 .let {
@@ -63,11 +63,11 @@ private val toShell = object : CliktCommand(name = "toShell", help = "export the
 
 private val toProperties = object : CliktCommand(name = "toProperties", help = "export the current Kinta env to a properties file") {
     val output by argument()
-    private val fromProperties by option()
+    private val from by option(help = "use this properties file instead of the current environment")
 
     override fun run() {
         val properties = Properties()
-        properties.putAll(definedVars(fromProperties))
+        properties.putAll(definedVars(from))
 
         File(output).bufferedWriter().use {
             properties.store(it, "")
@@ -76,9 +76,9 @@ private val toProperties = object : CliktCommand(name = "toProperties", help = "
 }
 
 private val toGithub = object : CliktCommand(name = "toGithub", help = "export the current Kinta env to github secrets") {
-    private val fromProperties by option()
+    private val from by option(help = "use this properties file instead of the current environment")
     override fun run() {
-        definedVars(fromProperties).forEach {
+        definedVars(from).forEach {
             GithubIntegration.setSecret(name = it.first, value = it.second)
         }
     }
