@@ -20,7 +20,7 @@ dependencies {
     implementation(Libs.nanoHttp)
 
     implementation(Libs.okHttp)
-    implementation(Libs.okHttpInterceptor)
+    api(Libs.okHttpInterceptor)
     implementation(Libs.retrofit)
     implementation(Libs.retrofitConverter)
     implementation(Libs.gradle)
