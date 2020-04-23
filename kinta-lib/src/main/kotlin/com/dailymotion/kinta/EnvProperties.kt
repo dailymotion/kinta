@@ -4,14 +4,16 @@ import java.io.File
 import java.util.*
 
 object EnvProperties {
+    const val filename = "env.properties"
+
     private val properties = Properties()
     private val file by lazy {
         val projectDir = Project.findBaseDir()
 
         if (projectDir != null) {
-            File(projectDir, ".kinta/env.properties")
+            File(projectDir, ".kinta/$filename")
         } else {
-            File(".kinta/env.properties")
+            File(".kinta/$filename")
         }
     }
 

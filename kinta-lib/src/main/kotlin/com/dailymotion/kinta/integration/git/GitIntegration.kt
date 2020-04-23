@@ -13,7 +13,7 @@ object GitIntegration {
         val src_ = src ?: currentBranch()
         val dst_ = dst ?: src_
 
-        CommandLine.execute(command = "git push $remote_ $src_:$dst_")
+        CommandLine.executeOrFail(command = "git push $remote_ $src_:$dst_")
     }
 
     fun currentBranch(): String {
@@ -28,7 +28,7 @@ object GitIntegration {
     }
 
     fun pull() {
-        CommandLine.execute(command = "git pull")
+        CommandLine.executeOrFail(command = "git pull")
     }
 
     fun createBranch(branchName: String) {
@@ -52,7 +52,7 @@ object GitIntegration {
         val remote_ = remote ?: "origin"
 
         val prune_ = if (prune) "-p" else ""
-        CommandLine.execute(command = "git fetch $remote_ $prune_")
+        CommandLine.executeOrFail(command = "git fetch $remote_ $prune_")
     }
 
     fun tag(tagName: String) {
