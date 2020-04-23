@@ -7,6 +7,7 @@ import com.dailymotion.kinta.integration.gitlab.GitlabIntegration
 import com.dailymotion.kinta.integration.gitlab.internal.GitlabInit
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.dailymotion.kinta.workflows.builtin.actions.actions
+import com.dailymotion.kinta.workflows.builtin.env.envCommand
 import com.dailymotion.kinta.workflows.builtin.playstore.PlayStoreInit
 import com.dailymotion.kinta.workflows.builtin.gittool.*
 import com.dailymotion.kinta.workflows.builtin.playstore.*
@@ -67,7 +68,8 @@ object BuiltInWorkflows {
                     gitHubWorkflows,
                     gitlabWorkflows,
                     Travis,
-                    actions
+                    actions,
+                    envCommand
             )
 }
 
