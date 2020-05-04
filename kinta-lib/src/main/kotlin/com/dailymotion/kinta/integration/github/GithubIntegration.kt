@@ -236,6 +236,7 @@ object GithubIntegration : GitTool {
 
         val input = mapOf(
             "tag_name" to JsonPrimitive(tagName),
+            "name" to JsonPrimitive(tagName),
             "body" to JsonPrimitive(changelogMarkdown),
             "draft" to JsonPrimitive(false),
             "prerelease" to JsonPrimitive(false)

@@ -53,7 +53,7 @@ object CommandLine {
     fun output(workingDir: File = File("."), vararg args: String): String {
         val process = ProcessBuilder(*args)
                 .directory(workingDir)
-                .redirectError(ProcessBuilder.Redirect.INHERIT)
+                .redirectError(ProcessBuilder.Redirect.INHERIT) // by default the stderr is piped and may block
                 .start()
 
         val exitCode = process.waitFor()
