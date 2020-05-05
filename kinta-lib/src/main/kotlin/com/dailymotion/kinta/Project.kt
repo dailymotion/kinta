@@ -3,7 +3,6 @@ package com.dailymotion.kinta
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import java.io.File
-import kotlin.system.exitProcess
 
 object Project {
 
@@ -17,7 +16,18 @@ object Project {
     val git by lazy {
         Git(repository)
     }
+
     val projectDir by lazy { getBaseDir() }
+
+    fun repositoryName(): String {
+        /*
+         * Get the repository details by parsing the remote url
+         */
+        val remoteConfigList = git.remoteList().call()
+        val uri = remoteConfigList.filter { it.name == "origin" }.first().urIs[0]
+        val s = uri.path.trim('/').split("/")
+        return s[1].removeSuffix(".git")
+    }
 
     fun file(path: String): File = File(projectDir, path)
 

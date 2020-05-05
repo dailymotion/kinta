@@ -19,7 +19,8 @@ object Bitrise {
     fun triggerBuild(
             token: String? = null,
             repoName: String,
-            workflowId: String) {
+            workflowId: String,
+            branch: String) {
 
         val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Var.BITRISE_PERSONAL_TOKEN)
 
@@ -31,7 +32,7 @@ object Bitrise {
                                 "type" to JsonPrimitive("bitrise")
                         )),
                         "build_params" to JsonObject(mapOf(
-                                "branch" to JsonPrimitive("master"),
+                                "branch" to JsonPrimitive(branch),
                                 "workflow_id" to JsonPrimitive(workflowId)
                         ))
                 ))
@@ -90,9 +91,8 @@ object Bitrise {
         val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Var.BITRISE_PERSONAL_TOKEN)
 
         val appSlug = findAppSlug(token_, repoName)
-
         val request = Request.Builder()
-                .header("Authorization", "token $token")
+                .header("Authorization", "token $token_")
                 .url("$BITRISE_API_URL/$appSlug/build-workflows")
                 .get()
                 .build()
