@@ -19,16 +19,6 @@ object Project {
 
     val projectDir by lazy { getBaseDir() }
 
-    fun repositoryName(): String {
-        /*
-         * Get the repository details by parsing the remote url
-         */
-        val remoteConfigList = git.remoteList().call()
-        val uri = remoteConfigList.filter { it.name == "origin" }.first().urIs[0]
-        val s = uri.path.trim('/').split("/")
-        return s[1].removeSuffix(".git")
-    }
-
     fun file(path: String): File = File(projectDir, path)
 
     private fun isBaseDir(dir: File) = dir.list().contains(".kinta")

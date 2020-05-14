@@ -20,7 +20,7 @@ object Bitrise {
             token: String? = null,
             repoName: String,
             workflowId: String,
-            branch: String) {
+            branch: String = "master") {
 
         val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Var.BITRISE_PERSONAL_TOKEN)
 
