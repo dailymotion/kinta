@@ -1,6 +1,6 @@
 package com.dailymotion.kinta.workflows.builtin.bitrise
 
-import com.dailymotion.kinta.Project
+import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.integration.bitrise.Bitrise
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
@@ -15,13 +15,14 @@ object BitriseTrigger : CliktCommand(name = "trigger", help = "Create and checko
     private val branchName by option("--branch").default("master")
 
     override fun run() {
+        val repositoryName = KintaEnv.getOrFail(KintaEnv.Var.REPOSITORY_NAME)
         if (workflowId == null) {
             println("\nYou have to specify workflow_id : kinta trigger [WORKFLOW_ID]\nAvailables ones for your repo are :\n\n")
-            Bitrise.getAvailableWorkflows(repoName = Project.repositoryName()).forEach { println(it) }
+            Bitrise.getAvailableWorkflows(repoName = repositoryName).forEach { println(it) }
             println("\n")
         } else {
             Bitrise.triggerBuild(
-                    repoName = Project.repositoryName(),
+                    repoName = repositoryName,
                     workflowId = workflowId!!,
                     branch = branchName
             )
