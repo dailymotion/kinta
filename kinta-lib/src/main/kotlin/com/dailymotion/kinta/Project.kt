@@ -3,7 +3,6 @@ package com.dailymotion.kinta
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import java.io.File
-import kotlin.system.exitProcess
 
 object Project {
 
@@ -17,6 +16,7 @@ object Project {
     val git by lazy {
         Git(repository)
     }
+
     val projectDir by lazy { getBaseDir() }
 
     fun file(path: String): File = File(projectDir, path)

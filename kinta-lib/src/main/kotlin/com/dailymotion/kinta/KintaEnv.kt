@@ -27,7 +27,8 @@ object KintaEnv {
         KINTA_KEYSTORE,
         KINTA_KEYSTORE_PASSWORD,
         KINTA_KEY_ALIAS,
-        KINTA_KEY_PASSWORD
+        KINTA_KEY_PASSWORD,
+        REPOSITORY_NAME
     }
 
     init {
