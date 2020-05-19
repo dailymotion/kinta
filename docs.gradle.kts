@@ -1,3 +1,5 @@
+import kotlin.math.pow
+
 val DOCUMENTATION_GROUP = "documentation"
 
 fun cleanDocs() {
@@ -23,7 +25,7 @@ fun copyCurrentKdoc() {
 }
 
 fun determineLatestZip() {
-    val latestZip = file("docs/zip").listFiles().sortedBy { it.name }.lastOrNull()
+    val latestZip = file("docs/zip").listFiles().maxBy { it.getVersionComparator("kinta-(.*).zip") }
 
     if (latestZip != null) {
         Regex("kinta-(.*).zip").matchEntire(latestZip.name)?.groupValues?.get(1)?.let {
@@ -46,6 +48,22 @@ fun createIndexMd() {
             }
 }
 
+fun File.getVersionComparator(regex: String): Double {
+    val version = Regex(regex).matchEntire(name)?.groupValues?.get(1)
+    return if (version == null) {
+        0.0
+    } else {
+        val numbers = version.split(".")
+                .reversed()
+                .map { it.toIntOrNull() ?: 0 }
+        var weight = 0.0
+        numbers.forEachIndexed { index, number ->
+            weight += number * (10.toDouble().pow(index * 2))
+        }
+        weight
+    }
+}
+
 fun createMkdocsYml() {
     val outputDir = file("docs/kdoc/")
 
@@ -58,7 +76,9 @@ fun createMkdocsYml() {
     val kdocEntries = outputDir
             .listFiles()
             .filter { it.isDirectory }
-            .sortedByDescending { it.name }
+            .sortedByDescending {
+                if (it.name == "master") Double.MAX_VALUE else it.getVersionComparator("(.*)")
+            }
             .flatMap { version ->
                 listOf("      - ${version.name}:") +
                         version.listFiles()
@@ -117,7 +137,7 @@ fun runCommand(workingDirectory: File = File("."), vararg args: String) {
             .redirectErrorStream(true)
             .start()
     val output = process.inputStream
-    while(true) {
+    while (true) {
         // Somehow bufferedReader.readLine() deosn't work
         val b = ByteArray(200)
         val read = output.read(b)

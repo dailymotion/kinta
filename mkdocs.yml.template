@@ -9,8 +9,6 @@ copyright: 'Copyright &copy; 2020 Dailymotion'
 
 theme:
   name: 'material'
-  logo:
-    icon: 'build'
   palette:
     primary: 'deep purple'
 
