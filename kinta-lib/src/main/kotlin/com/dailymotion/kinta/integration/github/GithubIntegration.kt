@@ -182,7 +182,7 @@ object GithubIntegration : GitTool {
             .addInterceptor { chain ->
                 chain.proceed(chain.request()
                     .newBuilder()
-                    .addHeader("Authorization", "Bearer ${token}")
+                    .addHeader("Authorization", "Bearer $token")
                     .build()
                 )
             }
@@ -244,10 +244,10 @@ object GithubIntegration : GitTool {
 
         val request = Request.Builder()
             .post(RequestBody.create(MediaType.parse("application/json"), JsonObject(input).toString()))
-            .url("https://api.github.com/repos/$owner/$repo/releases?access_token=${token}")
+            .url("https://api.github.com/repos/$owner/$repo/releases")
             .build()
 
-        val response = OkHttpClient().newCall(request).execute()
+        val response = httpClient(token).newCall(request).execute()
         if (!response.isSuccessful) {
             throw Exception("cannot create github release: ${response.body()?.string()}")
         }
@@ -264,10 +264,10 @@ object GithubIntegration : GitTool {
 
             val request2 = Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/zip"), asset))
-                .url("$uploadUrl&access_token=$token")
+                .url(uploadUrl)
                 .build()
 
-            val response2 = OkHttpClient().newCall(request2).execute()
+            val response2 = httpClient(token).newCall(request2).execute()
             check(response2.isSuccessful) {
                 "cannot upload asset: ${response2.body()?.string()}"
             }
