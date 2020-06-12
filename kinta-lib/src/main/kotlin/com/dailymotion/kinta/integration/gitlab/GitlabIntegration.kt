@@ -92,6 +92,7 @@ object GitlabIntegration : GitTool {
             token: String?,
             owner: String?,
             repo: String?,
+            remote: String,
             branch: String): BranchInfo {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
@@ -143,7 +144,7 @@ object GitlabIntegration : GitTool {
             throw Exception(response.body()?.string() ?: "")
         }
     }
-    
+
     override fun getAllBranches(
             token: String?,
             owner: String?,

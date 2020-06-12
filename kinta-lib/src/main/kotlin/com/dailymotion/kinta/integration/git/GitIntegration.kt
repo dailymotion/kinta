@@ -81,7 +81,9 @@ object GitIntegration {
         val git = Git(Project.repository)
 
         return git.branchList().call()
-                .map { it.name.substring("refs/heads/".length) }
+                .map {
+                    it.name.substring("refs/heads/".length)
+                }
     }
 
     fun deleteBranches(branches: List<String>, force: Boolean = false) {

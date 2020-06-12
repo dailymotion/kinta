@@ -86,10 +86,11 @@ object GithubIntegration : GitTool {
         token: String?,
         owner: String?,
         repo: String?,
+        remote: String,
         branch: String): BranchInfo {
         val token_ = token ?: retrieveToken()
-        val owner_ = owner ?: repository().owner
-        val repo_ = repo ?: repository().name
+        val owner_ = owner ?: repository(remote).owner
+        val repo_ = repo ?: repository(remote).name
 
         val depdendentPullRequestsData = runBlocking {
             val query = GetPullRequestWithBase(owner_, repo_, branch)
@@ -194,7 +195,7 @@ object GithubIntegration : GitTool {
 
     data class Repository(val owner: String, val name: String)
 
-    fun repository(): Repository {
+    fun repository(remote: String = "origin"): Repository {
         val git = Git(Project.repository)
 
         /*
@@ -203,7 +204,7 @@ object GithubIntegration : GitTool {
          */
         val remoteConfigList = git.remoteList().call()
 
-        val uri = remoteConfigList.filter { it.name == "origin" }.first().urIs[0]
+        val uri = remoteConfigList.filter { it.name == remote }.first().urIs[0]
 
         return repoDetails(uri)
     }

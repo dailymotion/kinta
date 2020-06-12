@@ -14,6 +14,7 @@ interface GitTool {
             token: String? = null,
             owner: String? = null,
             repo: String? = null,
+            remote: String = "origin",
             branch: String): BranchInfo
 
     fun openPullRequest(token: String? = null,
