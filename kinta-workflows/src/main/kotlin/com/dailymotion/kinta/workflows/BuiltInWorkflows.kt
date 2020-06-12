@@ -36,10 +36,6 @@ object BuiltInWorkflows {
 
     val gitHubWorkflows = object : CliktCommand(name = "github", help = "Manage your Github pull requests.") {
         override fun run() {
-            if (context.invokedSubcommand != GithubInit && !GithubIntegration.isConfigured()) {
-                println("Your environment is not set up. Please run kinta $commandName ${GithubInit.commandName}")
-                exitProcess(0)
-            }
         }
     }.subcommands(listOf(
             GithubInit,
@@ -50,10 +46,6 @@ object BuiltInWorkflows {
 
     val gitlabWorkflows = object : CliktCommand(name = "gitlab", help = "Manage your Gitlab pull requests.") {
         override fun run() {
-            if (context.invokedSubcommand != GitlabInit && !GitlabIntegration.isConfigured()) {
-                println("Your environment is not set up. Please run kinta $commandName ${GitlabInit.commandName}")
-                exitProcess(0)
-            }
         }
     }.subcommands(listOf(
             GitlabInit,

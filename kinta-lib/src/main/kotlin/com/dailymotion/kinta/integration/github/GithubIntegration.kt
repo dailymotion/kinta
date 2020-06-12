@@ -144,8 +144,6 @@ object GithubIntegration : GitTool {
 
     }
 
-    override fun isConfigured() = GithubOauthClient.isConfigured()
-
     override fun getAllBranches(
         token: String?,
         owner: String?,

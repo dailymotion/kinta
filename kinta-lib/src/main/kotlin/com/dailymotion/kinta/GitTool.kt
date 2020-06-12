@@ -30,6 +30,4 @@ interface GitTool {
             repo: String? = null,
             ref: String
     )
-
-    fun isConfigured(): Boolean
 }

@@ -143,15 +143,7 @@ object GitlabIntegration : GitTool {
             throw Exception(response.body()?.string() ?: "")
         }
     }
-
-    override fun isConfigured() =
-            try {
-                retrieveToken()
-                true
-            } catch (e: Exception) {
-                false
-            }
-
+    
     override fun getAllBranches(
             token: String?,
             owner: String?,

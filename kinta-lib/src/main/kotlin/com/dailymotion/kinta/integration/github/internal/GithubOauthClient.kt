@@ -46,8 +46,6 @@ object GithubOauthClient {
         GithubCredentials(username!!, token!!)
     }
 
-    fun isConfigured() = !clientId.isBlank() && !clientSecret.isBlank()
-
     private fun acquireToken(): String {
         val state = randomString(16)
         val url = "https://github.com/login/oauth/authorize?client_id=$clientId&scope=repo&state=$state"
