@@ -67,11 +67,15 @@ object RetrieveKeystore : CliktCommand(name = "retrieveKeystore", help = "retrie
 object SetSecret : CliktCommand(name = "setSecret", help = "adds a secret") {
     val secretName by option().required()
     val value by option().required()
+    val owner by option()
+    val repo by option()
 
     override fun run() {
         GithubIntegration.setSecret(
             name = secretName,
-            value = value
+            value = value,
+            owner = owner,
+            repo = repo
         )
     }
 }
