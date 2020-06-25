@@ -7,7 +7,8 @@ import java.io.File
 object Project {
 
     val repository by lazy {
-        FileRepositoryBuilder().setGitDir(file(".git"))
+        val root = findParentContaining(".git")
+        FileRepositoryBuilder().setGitDir(File(root, ".git"))
                 .readEnvironment()
                 .findGitDir()
                 .build()!!
@@ -21,8 +22,6 @@ object Project {
 
     fun file(path: String): File = File(projectDir, path)
 
-    private fun isBaseDir(dir: File) = dir.list().contains(".kinta")
-
     fun getBaseDir(): File {
         val dir = findBaseDir()
         check(dir != null) {
@@ -31,16 +30,20 @@ object Project {
         return dir
     }
 
-    fun findBaseDir(): File? {
+    fun findParentContaining(dirName: String): File? {
         var dir = File(".")
 
-        while (!isBaseDir(dir)) {
+        while (true) {
+            if (dir.listFiles().find { it.isDirectory && it.name == dirName } != null) {
+                return dir
+            }
             if (dir.parent == null) {
                 return null
             }
             dir = File(dir.parent)
         }
-
-        return dir
+    }
+    fun findBaseDir(): File? {
+        return findParentContaining(".kinta")
     }
 }
