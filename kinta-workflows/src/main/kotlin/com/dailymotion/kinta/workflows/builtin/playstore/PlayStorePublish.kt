@@ -4,9 +4,12 @@ import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
+import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.choice
 import com.github.ajalt.clikt.parameters.types.double
+import com.github.ajalt.clikt.parameters.types.int
 import com.github.ajalt.clikt.parameters.types.long
 import java.io.File
 
@@ -20,6 +23,8 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
     private val versionCodeParam by option("--versionCode").long()
 
     private val percent by option("--percent", help = "The user fraction receiving the update").double()
+
+    private val updatePriority by option("--updatePriority").int().default(0).validate { it in 0..5 }
 
     private val track by argument("--track", help = "The Play Store track").choice(
             mapOf(*GooglePlayIntegration.GooglePlayTrack.values().map {
@@ -58,7 +63,8 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
                 track = track,
                 releaseName = versionName ?: versionCode.toString(),
                 listVersionCodes = listOf(versionCode),
-                percent = percentToApply
+                percent = percentToApply,
+                updatePriority = updatePriority
         )
 
         val changeLogs = LocalMetadataHelper.getChangelog(versionCode)
