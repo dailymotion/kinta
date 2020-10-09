@@ -163,7 +163,8 @@ object GooglePlayIntegration {
             listVersionCodes: List<Long>,
             track: GooglePlayTrack,
             releaseName: String? = null,
-            percent: Double = 100.0) {
+            percent: Double = 100.0,
+            updatePriority: Int = 0) {
         val packageName_ = packageName ?: KintaEnv.getOrFail(KintaEnv.Var.GOOGLE_PLAY_PACKAGE_NAME)
 
         val publisher = publisher(googlePlayJson, packageName_)
@@ -171,6 +172,7 @@ object GooglePlayIntegration {
             val release = TrackRelease().apply {
                 name = releaseName ?: listVersionCodes.max().toString()
                 versionCodes = listVersionCodes
+                inAppUpdatePriority = updatePriority
                 if (percent == 100.0) {
                     status = "completed"
                 } else {
