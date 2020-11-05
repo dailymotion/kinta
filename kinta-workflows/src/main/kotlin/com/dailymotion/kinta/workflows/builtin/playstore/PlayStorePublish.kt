@@ -1,6 +1,7 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
 import com.dailymotion.kinta.Logger
+import com.dailymotion.kinta.helper.CommandUtil
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
@@ -22,9 +23,14 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
 
     private val versionCodeParam by option("--versionCode").long()
 
-    private val percent by option("--percent", help = "The user fraction receiving the update").double()
+    private val percent by option("--percent", help = "The user fraction receiving the update")
+            .double()
+            .default(100.0)
+            .validate { it > 0 && it <= 100 }
 
-    private val updatePriority by option("--updatePriority").int().default(0).validate { it in 0..5 }
+    private val updatePriority by option("--updatePriority")
+            .int()
+            .validate { it in 0..5 }
 
     private val track by argument("--track", help = "The Play Store track").choice(
             mapOf(*GooglePlayIntegration.GooglePlayTrack.values().map {
@@ -49,26 +55,25 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
             "Invalid version code : $versionCode"
         }
 
-
-        val percentToApply = percent ?: 100.0
-        println("You are going to a publish a new release to the track $track with version $versionCode (percent = $percentToApply) Are you sure you want to proceed? [yes/no]?")
-        loop@ while (true) {
-            when (readLine()) {
-                "yes" -> break@loop
-                "no" -> return
-            }
+        if (CommandUtil.prompt(
+                        message = "You are going to a publish a new release to the track $track with version $versionCode." +
+                                " (percent = $percent}, updatePriority = ${updatePriority ?: "not set"}" +
+                                " Are you sure you want to proceed?",
+                        options = listOf("yes", "no")
+                ) != "yes") {
+            return
         }
 
         GooglePlayIntegration.createRelease(
                 track = track,
                 releaseName = versionName ?: versionCode.toString(),
                 listVersionCodes = listOf(versionCode),
-                percent = percentToApply,
+                percent = percent,
                 updatePriority = updatePriority
         )
 
         val changeLogs = LocalMetadataHelper.getChangelog(versionCode)
-        if(changeLogs.isNotEmpty()){
+        if (changeLogs.isNotEmpty()) {
             Logger.i("Uploading changelogs for version $versionCode...")
             GooglePlayIntegration.uploadWhatsNew(
                     versionCode = versionCode,
