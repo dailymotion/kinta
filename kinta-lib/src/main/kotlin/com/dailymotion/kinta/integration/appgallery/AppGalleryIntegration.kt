@@ -38,7 +38,7 @@ object AppGalleryIntegration {
         val fileName = file.absolutePath.substring(file.absolutePath.lastIndexOf("/") + 1)
         val uploadData = getUploadUrl(clientId, token, appId, file.extension)
         val fileUrl = uploadFile(clientId, token, uploadData, fileName, file)
-        updateAppFileInfo(clientId, token, appId, fileUrl, fileName)
+        updateAppFileInfo(clientId, token, appId, fileName, fileUrl)
     }
 
     /**
@@ -76,6 +76,10 @@ object AppGalleryIntegration {
         val response = OkHttpClient.Builder().build().newCall(request).execute()
         check(response.isSuccessful) {
             "Error releasing app to AppGallery : ${response.body()?.string()}"
+        }
+        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
+            "Error releasing app to AppGallery : $jsonResult"
         }
     }
 
@@ -123,7 +127,9 @@ object AppGalleryIntegration {
             "Error uploading listing : ${response.body()?.string()}"
         }
         val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
-        Logger.d(jsonResult.toString())
+        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
+            "Error uploading listing : $jsonResult"
+        }
     }
 
     /**
@@ -169,7 +175,9 @@ object AppGalleryIntegration {
             "Error uploading changelog : ${response.body()?.string()}"
         }
         val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
-        Logger.d(jsonResult.toString())
+        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
+            "Error uploading changelog : $jsonResult"
+        }
     }
 
     /**
@@ -208,7 +216,9 @@ object AppGalleryIntegration {
             "Error deleting language : ${response.body()?.string()}"
         }
         val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
-        Logger.d(jsonResult.toString())
+        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
+            "Error deleting language : $jsonResult"
+        }
     }
 
     private fun updateAppFileInfo(
@@ -246,7 +256,10 @@ object AppGalleryIntegration {
         check(response.isSuccessful) {
             "Error updating app : ${response.body()?.string()}"
         }
-        Logger.d(response.body()?.string() ?: "")
+        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
+            "Error updating app : $jsonResult"
+        }
     }
 
     private fun getAppId(
@@ -269,6 +282,9 @@ object AppGalleryIntegration {
             "Error retrieving AppGallery app id : ${response.body()?.string()}"
         }
         val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
+            "Error retrieving AppGallery app id : $jsonResult"
+        }
         return jsonResult["appids"]!!.jsonArray[0].jsonObject["value"]?.content!!
     }
 
@@ -293,6 +309,9 @@ object AppGalleryIntegration {
             "Error getting upload url : ${response.code()} ${response.message()}"
         }
         val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
+            "Error getting upload url : $jsonResult"
+        }
         return UploadData(jsonResult["uploadUrl"]!!.content, jsonResult["authCode"]!!.content)
     }
 
@@ -331,7 +350,6 @@ object AppGalleryIntegration {
             "Error uploading to AppGallery : ${response.body()?.string()}"
         }
         val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
-        Logger.d(jsonResult.toString())
         val filesArray = jsonResult["result"]!!.jsonObject["UploadFileRsp"]!!.jsonObject.getArray("fileInfoList")
         return filesArray[0].jsonObject["disposableURL"]!!.content
     }
@@ -367,13 +385,15 @@ object AppGalleryIntegration {
             "Error retrieving app infos : ${response.body()?.string()}"
         }
         val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
-        Logger.d(jsonResult.toString())
+        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
+            "Error retrieving app infos : $jsonResult"
+        }
         return jsonResult.getArray("languages").map {
             GooglePlayIntegration.ListingResource(
-                    language = it.jsonObject.getPrimitiveOrNull("lang").toString(),
-                    title = it.jsonObject.getPrimitiveOrNull("appName").toString(),
-                    shortDescription = it.jsonObject.getPrimitiveOrNull("briefInfo").toString(),
-                    description = it.jsonObject.getPrimitiveOrNull("appDesc").toString(),
+                    language = it.jsonObject.getPrimitiveOrNull("lang")?.content ?: "",
+                    title = it.jsonObject.getPrimitiveOrNull("appName")?.content ?: "",
+                    shortDescription = it.jsonObject.getPrimitiveOrNull("briefInfo")?.content ?: "",
+                    description = it.jsonObject.getPrimitiveOrNull("appDesc")?.content ?: "",
                     video = null
             )
         }

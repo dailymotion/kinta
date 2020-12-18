@@ -44,7 +44,7 @@ object AppGalleryUpdateListings : CliktCommand(name = "updateListings", help = "
         }
 
         if(CommandUtil.prompt(
-                message = "Are you sure you want to proceed? [yes/no]?",
+                message = "Are you sure you want to proceed?",
                 options = listOf("yes", "no")
         ) != "yes"){
             return
