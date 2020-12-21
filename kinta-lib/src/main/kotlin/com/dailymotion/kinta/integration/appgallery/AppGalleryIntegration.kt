@@ -2,6 +2,7 @@ package com.dailymotion.kinta.integration.appgallery
 
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
+import com.dailymotion.kinta.helper.executeOrFail
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import kotlinx.serialization.json.*
 import okhttp3.*
@@ -73,13 +74,11 @@ object AppGalleryIntegration {
                 .post(RequestBody.create(JSON, data.toString()))
                 .build()
 
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error releasing app to AppGallery : ${response.body()?.string()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail("Error submitting app to AppGallery")
+
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error releasing app to AppGallery : $jsonResult"
+            "Error submitting app to AppGallery : $jsonResult"
         }
     }
 
@@ -122,11 +121,9 @@ object AppGalleryIntegration {
                 .build()
 
         Logger.i("Uploading listing ${listing.language} to AppGallery...")
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error uploading listing : ${response.body()?.string()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail("Error uploading listing")
+
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
             "Error uploading listing : $jsonResult"
         }
@@ -170,11 +167,9 @@ object AppGalleryIntegration {
                 .build()
 
         Logger.i("Uploading changelog for $lang to AppGallery...")
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error uploading changelog : ${response.body()?.string()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail("Error uploading changelog")
+
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
             "Error uploading changelog : $jsonResult"
         }
@@ -211,11 +206,9 @@ object AppGalleryIntegration {
                 .build()
 
         Logger.i("Deleting language $lang from AppGallery...")
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error deleting language : ${response.body()?.string()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail("Error deleting language")
+
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
             "Error deleting language : $jsonResult"
         }
@@ -252,11 +245,9 @@ object AppGalleryIntegration {
                 .put(RequestBody.create(JSON, data.toString()))
                 .build()
 
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error updating app : ${response.body()?.string()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail( "Error updating app")
+
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
             "Error updating app : $jsonResult"
         }
@@ -277,11 +268,9 @@ object AppGalleryIntegration {
                 .build()
 
         Logger.i("Getting app id from AppGallery...")
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error retrieving AppGallery app id : ${response.body()?.string()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail("Error retrieving AppGallery app id")
+
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
             "Error retrieving AppGallery app id : $jsonResult"
         }
@@ -304,11 +293,9 @@ object AppGalleryIntegration {
                 .build()
 
         Logger.i("Getting upload url from AppGallery...")
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error getting upload url : ${response.code()} ${response.message()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail("Error getting upload url")
+
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
             "Error getting upload url : $jsonResult"
         }
@@ -345,11 +332,11 @@ object AppGalleryIntegration {
                 .build()
 
         Logger.i("Uploading file to AppGallery...")
-        val response = okHttp.newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error uploading to AppGallery : ${response.body()?.string()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail(
+                errorMessage = "Error uploading to AppGallery",
+                okHttpClient = okHttp
+        )
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         val filesArray = jsonResult["result"]!!.jsonObject["UploadFileRsp"]!!.jsonObject.getArray("fileInfoList")
         return filesArray[0].jsonObject["disposableURL"]!!.content
     }
@@ -380,11 +367,9 @@ object AppGalleryIntegration {
                 .build()
 
         Logger.i("Getting app info from AppGallery...")
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
-        check(response.isSuccessful) {
-            "Error retrieving app infos : ${response.body()?.string()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val response = request.executeOrFail("Error retrieving app infos")
+
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
             "Error retrieving app infos : $jsonResult"
         }
@@ -418,12 +403,9 @@ object AppGalleryIntegration {
                 .build()
 
         Logger.i("Getting token from AppGallery...")
-        val response = OkHttpClient.Builder().build().newCall(request).execute()
+        val response = request.executeOrFail("Error retrieving AppGallery token")
 
-        check(response.isSuccessful) {
-            "Error retrieving AppGallery token : ${response.body()}"
-        }
-        val jsonResult = Json.nonstrict.parseJson(response.body()?.string().orEmpty()).jsonObject
+        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
         val token = jsonResult["access_token"]!!.content
         KintaEnv.put(KintaEnv.Var.APPGALLERY_TOKEN, token)
         return token
