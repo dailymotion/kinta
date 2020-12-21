@@ -1,5 +1,6 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
+import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.helper.CommandUtil
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
@@ -54,6 +55,6 @@ object PlayStoreUpdateListings : CliktCommand(name = "updateListings", help = "P
         if (removeList.isNotEmpty()) {
             GooglePlayIntegration.removeListings(languagesList = removeList.map { it.language })
         }
-        println("Done!")
+        Logger.i("Done!")
     }
 }

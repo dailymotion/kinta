@@ -1,5 +1,7 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
+import com.dailymotion.kinta.Logger
+import com.dailymotion.kinta.helper.CommandUtil
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
@@ -23,19 +25,16 @@ object PlayStoreUpdateImages : CliktCommand(name = "updateImages", help = "Push 
          */
         val listImages = localMetadataHelper.getImages(languageCode, imageTypeValue)
 
-        println("This will DELETE all images with type and language specified from PLAY STORE")
-        println("Are you sure you want to proceed? [yes/no]?")
-        loop@ while (true) {
-            when (readLine()) {
-                "yes" -> break@loop
-                "no" -> return
-            }
+        if(CommandUtil.prompt(
+                        message = "This will DELETE all images with type and language specified from PLAY STORE. Are you sure you want to proceed?",
+                        options = listOf("yes", "no")) != "yes"){
+            return
         }
 
         listImages.groupBy {
             Pair(it.languageCode, it.imageType)
         }.forEach { entry ->
-            println("Updating ${entry.key.second} images for ${entry.key.first}")
+            Logger.i("Updating ${entry.key.second} images for ${entry.key.first}")
             GooglePlayIntegration.uploadImages(
                     languageCode = entry.key.first,
                     imageType = entry.key.second,
@@ -43,6 +42,6 @@ object PlayStoreUpdateImages : CliktCommand(name = "updateImages", help = "Push 
                     overwrite = true
             )
         }
-        println("Done!")
+        Logger.i("Done!")
     }
 }
