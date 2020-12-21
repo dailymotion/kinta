@@ -7,11 +7,13 @@ import com.github.ajalt.clikt.core.CliktCommand
 
 object PlayStoreUpdateListings : CliktCommand(name = "updateListings", help = "Push listings to the Google Play") {
 
+    private val localMetadataHelper = LocalMetadataHelper.getDefault()
+
     override fun run() {
         /**
          * Get local listings
          */
-        val localResources = LocalMetadataHelper.getAllListing()
+        val localResources = localMetadataHelper.getAllListing()
         /**
          * Get Play Store listings
          */

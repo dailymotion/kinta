@@ -10,13 +10,15 @@ object PlayStoreUpdateChangeLogs : CliktCommand(name = "updateChangeLogs", help 
 
     private val versionCode by argument("--versionCode", help = "The release version code to update").long()
 
+    private val localMetadataHelper = LocalMetadataHelper.getDefault()
+
     override fun run() {
 
         check(versionCode > 0) {
             "Invalid version code : $versionCode"
         }
 
-        val changeLogs = LocalMetadataHelper.getChangelog(versionCode)
+        val changeLogs = localMetadataHelper.getChangelog(versionCode)
         if (changeLogs.isNotEmpty()) {
             GooglePlayIntegration.uploadWhatsNew(
                     versionCode = versionCode,

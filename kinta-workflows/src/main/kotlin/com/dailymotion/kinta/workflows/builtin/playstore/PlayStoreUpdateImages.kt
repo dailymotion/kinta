@@ -15,11 +15,13 @@ object PlayStoreUpdateImages : CliktCommand(name = "updateImages", help = "Push 
 
     private val languageCode by option("-language", help = "the language code you want to update. Else all supported.")
 
+    private val localMetadataHelper = LocalMetadataHelper.getDefault()
+
     override fun run() {
         /**
          * Retrieve local files
          */
-        val listImages = LocalMetadataHelper.getImages(languageCode, imageTypeValue)
+        val listImages = localMetadataHelper.getImages(languageCode, imageTypeValue)
 
         println("This will DELETE all images with type and language specified from PLAY STORE")
         println("Are you sure you want to proceed? [yes/no]?")

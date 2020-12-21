@@ -11,13 +11,15 @@ object AppGalleryUpdateChangeLogs : CliktCommand(name = "updateChangeLogs", help
 
     private val versionCode by argument("--versionCode", help = "The version code changelog to upload").long()
 
+    private val localMetadataHelper = LocalMetadataHelper.getDefault()
+
     override fun run() {
 
         check(versionCode > 0) {
             "Invalid version code : $versionCode"
         }
 
-        val changeLogs = LocalMetadataHelper.getChangelog(versionCode)
+        val changeLogs = localMetadataHelper.getChangelog(versionCode)
         if (changeLogs.isNotEmpty()) {
             changeLogs.forEach {
                 AppGalleryIntegration.uploadChangelog(

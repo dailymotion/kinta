@@ -4,9 +4,9 @@ import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegrati
 import java.io.*
 
 
-object LocalMetadataHelper {
+class LocalMetadataHelper(metadataFolderPath: String = "metadata/android/") {
 
-    val ANDROID_METADATA_FOLDER = File("metadata/android/")
+    internal val ANDROID_METADATA_FOLDER = File(metadataFolderPath)
 
     private fun checkMetaDataFolder() {
         check(ANDROID_METADATA_FOLDER.exists()) {
@@ -160,5 +160,9 @@ object LocalMetadataHelper {
         val writer = PrintWriter(file, "UTF-8")
         writer.println(text.trim())
         writer.close()
+    }
+
+    companion object {
+        fun getDefault() = LocalMetadataHelper()
     }
 }

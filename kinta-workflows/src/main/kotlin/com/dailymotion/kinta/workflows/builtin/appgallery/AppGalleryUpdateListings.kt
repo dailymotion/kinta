@@ -9,12 +9,14 @@ import com.github.ajalt.clikt.core.CliktCommand
 
 object AppGalleryUpdateListings : CliktCommand(name = "updateListings", help = "Push listings to AppGallery") {
 
+    private val localMetadataHelper = LocalMetadataHelper.getDefault()
+
     override fun run() {
         Logger.i("Task ==> Update App Gallery listings...")
         /**
          * Get local listings
          */
-        val localResources = LocalMetadataHelper.getAllListing()
+        val localResources = localMetadataHelper.getAllListing()
         /**
          * Get Play Store listings
          */
