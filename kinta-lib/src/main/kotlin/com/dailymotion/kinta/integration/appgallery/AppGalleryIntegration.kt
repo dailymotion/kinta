@@ -2,17 +2,42 @@ package com.dailymotion.kinta.integration.appgallery
 
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
-import com.dailymotion.kinta.helper.executeOrFail
+import com.dailymotion.kinta.helper.ProgressRequestBody
+import com.dailymotion.kinta.integration.appgallery.internal.*
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.*
 import okhttp3.*
+import retrofit2.Retrofit
 import java.io.File
-import java.time.Duration
 
 object AppGalleryIntegration {
 
     private val JSON = MediaType.parse("application/json; charset=utf-8")
-    private const val API_URL = "https://connect-api.cloud.huawei.com/api"
+    private const val API_URL = "https://connect-api.cloud.huawei.com/api/"
+
+    private fun service(
+            clientId: String? = null,
+            token: String? = null
+    ): AppGalleryService {
+
+        val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor {
+                    val builder = it.request().newBuilder()
+                    token?.let { builder.header("Authorization", "Bearer $it") }
+                    clientId?.let { builder.header("client_id", it) }
+                    it.proceed(builder.build())
+                }
+                .build()
+
+        val retrofit = Retrofit.Builder()
+                .baseUrl(API_URL)
+                .client(okHttpClient)
+                .addConverterFactory(Json.nonstrict.asConverterFactory(MediaType.get("application/json")))
+                .build()
+
+        return retrofit.create(AppGalleryService::class.java)
+    }
 
     /**
      * Upload a new archive file
@@ -27,6 +52,7 @@ object AppGalleryIntegration {
         val clientId = client_id ?: KintaEnv.getOrFail(KintaEnv.Var.APPGALLERY_CLIENT_ID)
         val clientSecret = client_secret ?: KintaEnv.getOrFail(KintaEnv.Var.APPGALLERY_CLIENT_SECRET)
         val packageName = package_name ?: KintaEnv.getOrFail(KintaEnv.Var.APPGALLERY_PACKAGE_NAME)
+
         val appId = try {
             getAppId(clientId, clientSecret, packageName)
         } catch (e: Exception) {
@@ -63,22 +89,12 @@ object AppGalleryIntegration {
         }
         val token = KintaEnv.get(KintaEnv.Var.APPGALLERY_TOKEN) ?: acquireToken(clientId, clientSecret)
 
-        val data = JsonObject(mapOf())
+        Logger.i("Submitting app to AppGallery...")
+        val result = service(clientId, token).submit(appId, "1", RequestBody.create(JSON, JsonObject(mapOf()).toString())).execute()
 
-        val request = getRequest(clientId, token)
-                .url(HttpUrl.parse("$API_URL/publish/v2/app-submit")!!.newBuilder()
-                        .addQueryParameter("appId", appId)
-                        .addQueryParameter("releaseType", "1")
-                        .build()
-                )
-                .post(RequestBody.create(JSON, data.toString()))
-                .build()
-
-        val response = request.executeOrFail("Error submitting app to AppGallery")
-
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error submitting app to AppGallery : $jsonResult"
+        if(result.body()?.isSuccess() ?: false == false){
+            val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+            throw IllegalStateException("Error submitting app to AppGallery : $error")
         }
     }
 
@@ -103,29 +119,17 @@ object AppGalleryIntegration {
         }
         val token = KintaEnv.get(KintaEnv.Var.APPGALLERY_TOKEN) ?: acquireToken(clientId, clientSecret)
 
-        val data = JsonObject(
-                mapOf(
-                        "lang" to JsonPrimitive(listing.language),
-                        "appName" to JsonPrimitive(listing.title),
-                        "appDesc" to JsonPrimitive(listing.description),
-                        "briefInfo" to JsonPrimitive(listing.shortDescription)
-                )
-        )
-
-        val request = getRequest(clientId, token)
-                .url(HttpUrl.parse("$API_URL/publish/v2/app-language-info")!!.newBuilder()
-                        .addQueryParameter("appId", appId)
-                        .build()
-                )
-                .put(RequestBody.create(JSON, data.toString()))
-                .build()
-
         Logger.i("Uploading listing ${listing.language} to AppGallery...")
-        val response = request.executeOrFail("Error uploading listing")
+        val result = service(clientId, token).updateListings(appId, ListingBody(
+                listing.language,
+                listing.title ?: "",
+                listing.description ?: "",
+                listing.shortDescription ?: "")
+        ).execute()
 
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error uploading listing : $jsonResult"
+        if(result.body()?.isSuccess() ?: false == false){
+            val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+            throw IllegalStateException("Error uploading listing $error")
         }
     }
 
@@ -151,27 +155,12 @@ object AppGalleryIntegration {
         }
         val token = KintaEnv.get(KintaEnv.Var.APPGALLERY_TOKEN) ?: acquireToken(clientId, clientSecret)
 
-        val data = JsonObject(
-                mapOf(
-                        "lang" to JsonPrimitive(lang),
-                        "newFeatures" to JsonPrimitive(changelog)
-                )
-        )
-
-        val request = getRequest(clientId, token)
-                .url(HttpUrl.parse("$API_URL/publish/v2/app-language-info")!!.newBuilder()
-                        .addQueryParameter("appId", appId)
-                        .build()
-                )
-                .put(RequestBody.create(JSON, data.toString()))
-                .build()
-
         Logger.i("Uploading changelog for $lang to AppGallery...")
-        val response = request.executeOrFail("Error uploading changelog")
+        val result = service(clientId, token).updateChangelog(appId, ChangelogBody(lang, changelog)).execute()
 
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error uploading changelog : $jsonResult"
+        if(result.body()?.isSuccess() ?: false == false){
+            val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+            throw IllegalStateException("Error uploading changelog $error")
         }
     }
 
@@ -195,22 +184,12 @@ object AppGalleryIntegration {
             getAppId(clientId, clientSecret, packageName)
         }
         val token = KintaEnv.get(KintaEnv.Var.APPGALLERY_TOKEN) ?: acquireToken(clientId, clientSecret)
-
-        val request = getRequest(clientId, token)
-                .url(HttpUrl.parse("$API_URL/publish/v2/app-language-info")!!.newBuilder()
-                        .addQueryParameter("appId", appId)
-                        .addQueryParameter("lang", lang)
-                        .build()
-                )
-                .delete()
-                .build()
-
         Logger.i("Deleting language $lang from AppGallery...")
-        val response = request.executeOrFail("Error deleting language")
+        val result = service(clientId, token).deleteListing(appId, lang).execute()
 
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error deleting language : $jsonResult"
+        if(result.body()?.isSuccess() ?: false == false){
+            val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+            throw IllegalStateException("Error deleting listing $error")
         }
     }
 
@@ -222,35 +201,13 @@ object AppGalleryIntegration {
             fileUrl: String
     ) {
 
-        val files = JsonArray(
-                listOf(
-                        JsonObject(
-                                mapOf(
-                                        "fileName" to JsonPrimitive(fileName),
-                                        "fileDestUrl" to JsonPrimitive(fileUrl)
-                                )
-                        )
-                )
-        )
-        val data = JsonObject(mapOf(
-                "fileType" to JsonPrimitive(5),
-                "files" to files
-        ))
+        val result = service(clientId, token).updateAppFileInfo(appId, com.dailymotion.kinta.integration.appgallery.internal.AppInfoFilesBody(
+                fileType = "5",
+                files = listOf(com.dailymotion.kinta.integration.appgallery.internal.AppInfoFilesBody.AppFileInfo(fileName, fileUrl))
+        )).execute()
 
-        val request = getRequest(clientId, token)
-                .url(HttpUrl.parse("$API_URL/publish/v2/app-file-info")!!.newBuilder()
-                        .addQueryParameter("appId", appId)
-                        .build()
-                )
-                .put(RequestBody.create(JSON, data.toString()))
-                .build()
-
-        val response = request.executeOrFail( "Error updating app")
-
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error updating app : $jsonResult"
-        }
+        val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+        throw IllegalStateException("Error updating app : $error")
     }
 
     private fun getAppId(
@@ -260,21 +217,13 @@ object AppGalleryIntegration {
     ): String {
         val token = KintaEnv.get(KintaEnv.Var.APPGALLERY_TOKEN) ?: acquireToken(clientId, clientSecret)
 
-        val request = getRequest(clientId, token)
-                .url(HttpUrl.parse("$API_URL/publish/v2/appid-list")!!.newBuilder()
-                        .addQueryParameter("packageName", packageName)
-                        .build()
-                )
-                .build()
-
         Logger.i("Getting app id from AppGallery...")
-        val response = request.executeOrFail("Error retrieving AppGallery app id")
-
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error retrieving AppGallery app id : $jsonResult"
+        val result = service(clientId, token).getAppId(packageName).execute()
+        result.body()?.appids?.let {
+            return it[0].value
         }
-        return jsonResult["appids"]!!.jsonArray[0].jsonObject["value"]?.content!!
+        val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+        throw IllegalStateException("Can't retrieve app id for packageName $packageName, $error")
     }
 
     private fun getUploadUrl(
@@ -284,22 +233,18 @@ object AppGalleryIntegration {
             fileExtension: String
     ): UploadData {
 
-        val request = getRequest(clientId, token)
-                .url(HttpUrl.parse("$API_URL/publish/v2/upload-url")!!.newBuilder()
-                        .addQueryParameter("appId", appId)
-                        .addQueryParameter("suffix", fileExtension)
-                        .build()
-                )
-                .build()
-
         Logger.i("Getting upload url from AppGallery...")
-        val response = request.executeOrFail("Error getting upload url")
+        val result = service(clientId, token).getUploadUrl(appId, fileExtension).execute()
 
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error getting upload url : $jsonResult"
+        val authCode = result.body()?.authCode
+        val uploadUrl = result.body()?.uploadUrl
+
+        if(authCode != null && uploadUrl != null){
+            return UploadData(uploadUrl, authCode)
         }
-        return UploadData(jsonResult["uploadUrl"]!!.content, jsonResult["authCode"]!!.content)
+
+        val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+        throw IllegalStateException("Error getting upload url : $error")
     }
 
     private fun uploadFile(
@@ -309,36 +254,24 @@ object AppGalleryIntegration {
             fileName: String,
             file: File
     ): String {
-
-        val okHttp = OkHttpClient.Builder()
-                .callTimeout(Duration.ZERO)
-                .writeTimeout(Duration.ZERO)
-                .readTimeout(Duration.ZERO)
-                .build()
-
         val mediaType = MediaType.parse("application/vnd.android.package-archive")
-        val request = getRequest(clientId, token)
-                .url(uploadData.uploadUrl)
-                .post(MultipartBody.Builder()
-                        .addFormDataPart("name", fileName)
-                        .addFormDataPart("authCode", uploadData.authCode)
-                        .addFormDataPart("fileCount", 1.toString())
-                        .addFormDataPart("file", fileName, ProgressRequestBody(RequestBody.create(mediaType, file), object : ProgressRequestBody.Listener {
-                            override fun onProgress(progress: Int) {
-                                Logger.d("Upload progress $progress")
-                            }
-                        }))
-                        .build())
-                .build()
 
         Logger.i("Uploading file to AppGallery...")
-        val response = request.executeOrFail(
-                errorMessage = "Error uploading to AppGallery",
-                okHttpClient = okHttp
-        )
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        val filesArray = jsonResult["result"]!!.jsonObject["UploadFileRsp"]!!.jsonObject.getArray("fileInfoList")
-        return filesArray[0].jsonObject["disposableURL"]!!.content
+        val result = service(clientId, token).upload(uploadData.uploadUrl,
+                MultipartBody.Part.createFormData("file", fileName, ProgressRequestBody(RequestBody.create(mediaType, file), object : ProgressRequestBody.Listener {
+                    override fun onProgress(progress: Int) {
+                        Logger.d("Upload progress $progress")
+                    }
+                })),
+                RequestBody.create(okhttp3.MultipartBody.FORM, fileName),
+                RequestBody.create(okhttp3.MultipartBody.FORM, uploadData.authCode),
+                RequestBody.create(okhttp3.MultipartBody.FORM, "1")
+        ).execute()
+
+        result.body()?.result?.uploadFileRsp?.fileInfoList?.let {
+            return it[0].disposableURL
+        }
+        throw IllegalStateException("Error uploading to AppGallery")
     }
 
     fun getListings(
@@ -359,29 +292,22 @@ object AppGalleryIntegration {
         }
         val token = KintaEnv.get(KintaEnv.Var.APPGALLERY_TOKEN) ?: acquireToken(clientId, clientSecret)
 
-        val request = getRequest(clientId, token)
-                .url(HttpUrl.parse("$API_URL/publish/v2/app-info")!!.newBuilder()
-                        .addQueryParameter("appId", appId)
-                        .build()
-                )
-                .build()
-
         Logger.i("Getting app info from AppGallery...")
-        val response = request.executeOrFail("Error retrieving app infos")
+        val result = service(clientId, token).getListings(appId).execute()
 
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        check(jsonResult["ret"]?.jsonObject?.get("code")?.intOrNull ?: -1 == 0){
-            "Error retrieving app infos : $jsonResult"
+        result.body()?.languages?.let {
+            return it.map{
+                GooglePlayIntegration.ListingResource(
+                        language = it.lang,
+                        title = it.appName,
+                        shortDescription = it.briefInfo,
+                        description = it.appDesc,
+                        video = null
+                )
+            }
         }
-        return jsonResult.getArray("languages").map {
-            GooglePlayIntegration.ListingResource(
-                    language = it.jsonObject.getPrimitiveOrNull("lang")?.content ?: "",
-                    title = it.jsonObject.getPrimitiveOrNull("appName")?.content ?: "",
-                    shortDescription = it.jsonObject.getPrimitiveOrNull("briefInfo")?.content ?: "",
-                    description = it.jsonObject.getPrimitiveOrNull("appDesc")?.content ?: "",
-                    video = null
-            )
-        }
+        val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+        throw IllegalStateException("Error retrieving app infos $error")
     }
 
     private fun acquireToken(
@@ -389,26 +315,18 @@ object AppGalleryIntegration {
             clientSecret: String
     ): String {
 
-        val data = JsonObject(mapOf(
-                "grant_type" to JsonPrimitive("client_credentials"),
-                "client_id" to JsonPrimitive(clientId),
-                "client_secret" to JsonPrimitive(clientSecret)
+        Logger.i("Getting token from AppGallery...")
+        val result = service().acquireToken(TokenBody(
+                grant_type = "client_credentials",
+                client_id = clientId,
+                client_secret = clientSecret
         ))
 
-        val request = Request.Builder()
-                .header("Content-Type", "application/json")
-                .header("Accept", "application/json")
-                .post(RequestBody.create(JSON, data.toString()))
-                .url("https://connect-api.cloud.huawei.com/api/oauth2/v1/token")
-                .build()
-
-        Logger.i("Getting token from AppGallery...")
-        val response = request.executeOrFail("Error retrieving AppGallery token")
-
-        val jsonResult = Json.nonstrict.parseJson(response.string().orEmpty()).jsonObject
-        val token = jsonResult["access_token"]!!.content
-        KintaEnv.put(KintaEnv.Var.APPGALLERY_TOKEN, token)
-        return token
+        result.execute().body()?.access_token?.let {
+            KintaEnv.put(KintaEnv.Var.APPGALLERY_TOKEN, it)
+            return it
+        }
+        throw IllegalStateException("Can't retrieve access token")
     }
 
     private fun getRequest(clientId: String, token: String) =

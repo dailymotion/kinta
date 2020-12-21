@@ -1,4 +1,4 @@
-package com.dailymotion.kinta.integration.appgallery
+package com.dailymotion.kinta.helper
 
 import okhttp3.MediaType
 import okhttp3.RequestBody
