@@ -57,20 +57,12 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
             "Invalid version code : $versionCode"
         }
 
-<<<<<<< HEAD
         if (CommandUtil.prompt(
                         message = "You are going to a publish a new release to the track $track with version $versionCode." +
                                 " (percent = $percent}, updatePriority = ${updatePriority ?: "not set"}" +
                                 " Are you sure you want to proceed?",
                         options = listOf("yes", "no")
                 ) != "yes") {
-=======
-
-        val percentToApply = percent ?: 100.0
-        if(CommandUtil.prompt(
-                        message = "You are going to a publish a new release to the track $track with version $versionCode (percent = $percentToApply) Are you sure you want to proceed?",
-                        options = listOf("yes", "no") ) != "yes"){
->>>>>>> Cleanup
             return
         }
 
