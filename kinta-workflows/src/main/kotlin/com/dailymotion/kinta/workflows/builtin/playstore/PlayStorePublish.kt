@@ -38,6 +38,8 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
             }.toTypedArray())
     )
 
+    private val localMetadataHelper = LocalMetadataHelper.getDefault()
+
     override fun run() {
 
         val versionCode = if (archiveFile != null) {
@@ -72,8 +74,8 @@ object PlayStorePublish : CliktCommand(name = "publish", help = "Publish a versi
                 updatePriority = updatePriority
         )
 
-        val changeLogs = LocalMetadataHelper.getChangelog(versionCode)
-        if (changeLogs.isNotEmpty()) {
+        val changeLogs = localMetadataHelper.getChangelog(versionCode)
+        if(changeLogs.isNotEmpty()){
             Logger.i("Uploading changelogs for version $versionCode...")
             GooglePlayIntegration.uploadWhatsNew(
                     versionCode = versionCode,

@@ -1,12 +1,9 @@
 package com.dailymotion.kinta.helper
 
-import com.dailymotion.kinta.Logger
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.http.Body
 
 var okHttpLoggingLevel = HttpLoggingInterceptor.Level.NONE
 
@@ -19,13 +16,14 @@ fun newOkHttpClient(): OkHttpClient {
             .build()
 }
 
-fun Request.executeOrFail(): ResponseBody {
-    val response = newOkHttpClient().newCall(this).execute()
-
-    check(response.isSuccessful && response.body() != null) {
-        val body = response.body()?.string()
-        "Cannot execute ${this.url()}:\n$body"
+fun Request.executeOrFail(
+        errorMessage: String = "Cannot execute ${this.url()}",
+        okHttpClient: OkHttpClient = newOkHttpClient()): ResponseBody {
+    val response = okHttpClient.newCall(this).execute()
+    if (response.isSuccessful && response.body() != null) {
+        return response.body()!!
+    } else {
+        response.close()
+        throw IllegalStateException("$errorMessage :\n${response.body()?.string()}")
     }
-
-    return response.body()!!
 }

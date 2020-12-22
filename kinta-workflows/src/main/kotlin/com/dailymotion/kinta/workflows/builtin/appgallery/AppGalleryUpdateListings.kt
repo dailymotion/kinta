@@ -1,16 +1,18 @@
-package com.dailymotion.kinta.workflows.builtin.playstore
+package com.dailymotion.kinta.workflows.builtin.appgallery
 
 import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.helper.CommandUtil
-import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
+import com.dailymotion.kinta.integration.appgallery.AppGalleryIntegration
+import com.dailymotion.kinta.workflows.builtin.playstore.LocalMetadataHelper
 import com.github.ajalt.clikt.core.CliktCommand
 
 
-object PlayStoreUpdateListings : CliktCommand(name = "updateListings", help = "Push listings to the Google Play") {
+object AppGalleryUpdateListings : CliktCommand(name = "updateListings", help = "Push listings to AppGallery") {
 
     private val localMetadataHelper = LocalMetadataHelper.getDefault()
 
     override fun run() {
+        Logger.i("Task ==> Update App Gallery listings...")
         /**
          * Get local listings
          */
@@ -18,17 +20,17 @@ object PlayStoreUpdateListings : CliktCommand(name = "updateListings", help = "P
         /**
          * Get Play Store listings
          */
-        val playStoreResources = GooglePlayIntegration.getListings()
+        val appGalleryListings = AppGalleryIntegration.getListings()
         /**
          * Elements added or updated locally
          */
         val updateList = localResources.filter { resource ->
-            playStoreResources.find { it == resource } == null
+            appGalleryListings.find { it == resource } == null
         }
         /**
          * Elements removed locally
          */
-        val removeList = playStoreResources.filter { resource ->
+        val removeList = appGalleryListings.filter { resource ->
             localResources.find { it.language == resource.language } == null
         }
 
@@ -42,19 +44,24 @@ object PlayStoreUpdateListings : CliktCommand(name = "updateListings", help = "P
         if (removeList.isNotEmpty()) {
             println("You're about to REMOVE languages : ${removeList.joinToString(separator = ", ") { it.language }}")
         }
+
         if(CommandUtil.prompt(
-                        message = "Are you sure you want to proceed? [yes/no]?",
-                        options = listOf("yes", "no")
-                ) != "yes"){
+                message = "Are you sure you want to proceed?",
+                options = listOf("yes", "no")
+        ) != "yes"){
             return
         }
 
         if (updateList.isNotEmpty()) {
-            GooglePlayIntegration.uploadListing(resources = updateList)
+            updateList.forEach {
+                AppGalleryIntegration.uploadListing(listing = it)
+            }
         }
         if (removeList.isNotEmpty()) {
-            GooglePlayIntegration.removeListings(languagesList = removeList.map { it.language })
+            removeList.forEach {
+                AppGalleryIntegration.deleteListing(lang = it.language)
+            }
         }
-        Logger.i("Done!")
+        Logger.i("Update App Gallery listings done !")
     }
 }

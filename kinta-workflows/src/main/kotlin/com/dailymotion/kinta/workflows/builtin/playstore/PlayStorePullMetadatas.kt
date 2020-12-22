@@ -7,9 +7,11 @@ import com.github.ajalt.clikt.core.CliktCommand
 
 object PlayStorePullMetadatas : CliktCommand(name = "pullMetadatas", help = "Pull listings from the Google Play, Changelogs from releases") {
 
+    private val localMetadataHelper = LocalMetadataHelper.getDefault()
+
     override fun run() {
         //Delete local files
-        LocalMetadataHelper.cleanMetaDatas()
+        localMetadataHelper.cleanMetaDatas()
 
         //Get Google Play listings
         val listings = GooglePlayIntegration.getListings()
@@ -18,10 +20,10 @@ object PlayStorePullMetadatas : CliktCommand(name = "pullMetadatas", help = "Pul
         val changeLogs = GooglePlayIntegration.getChangeLogs()
 
         //Update local resources
-        LocalMetadataHelper.saveListings(listings)
-        LocalMetadataHelper.saveChangeLogs(changeLogs)
+        localMetadataHelper.saveListings(listings)
+        localMetadataHelper.saveChangeLogs(changeLogs)
 
         //Add to git
-        GitIntegration.add(LocalMetadataHelper.ANDROID_METADATA_FOLDER.path)
+        GitIntegration.add(localMetadataHelper.ANDROID_METADATA_FOLDER.path)
     }
 }

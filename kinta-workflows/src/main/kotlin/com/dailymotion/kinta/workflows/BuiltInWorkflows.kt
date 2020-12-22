@@ -1,12 +1,12 @@
 package com.dailymotion.kinta.workflows
 
 import com.dailymotion.kinta.KintaEnv
-import com.dailymotion.kinta.integration.github.GithubIntegration
+import com.dailymotion.kinta.integration.appgallery.AppGalleryIntegration
 import com.dailymotion.kinta.integration.github.internal.GithubInit
-import com.dailymotion.kinta.integration.gitlab.GitlabIntegration
 import com.dailymotion.kinta.integration.gitlab.internal.GitlabInit
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.dailymotion.kinta.workflows.builtin.actions.actions
+import com.dailymotion.kinta.workflows.builtin.appgallery.*
 import com.dailymotion.kinta.workflows.builtin.bitrise.BitriseTrigger
 import com.dailymotion.kinta.workflows.builtin.env.envCommand
 import com.dailymotion.kinta.workflows.builtin.gittool.*
@@ -33,6 +33,21 @@ object BuiltInWorkflows {
             PlayStoreUpdateImages,
             PlayStoreUpdateChangeLogs,
             PlayStorePublish
+    ))
+
+    val appGalleryWorkflows = object : CliktCommand(name = "appgallery", help = "AppGallery workflows.") {
+        override fun run() {
+            if (context.invokedSubcommand != AppGalleryInit && !AppGalleryIntegration.isConfigured()) {
+                println("Your environment is not set up. Please run kinta $commandName ${AppGalleryInit.commandName}")
+                exitProcess(0)
+            }
+        }
+    }.subcommands(listOf(
+            AppGalleryInit,
+            AppGallerySubmit,
+            AppGalleryUpload,
+            AppGalleryUpdateListings,
+            AppGalleryUpdateChangeLogs
     ))
 
     val gitHubWorkflows = object : CliktCommand(name = "github", help = "Manage your Github pull requests.") {
@@ -64,6 +79,7 @@ object BuiltInWorkflows {
     fun all(): List<CliktCommand> =
             listOf(
                     playStoreWorkflows,
+                    appGalleryWorkflows,
                     gitHubWorkflows,
                     gitlabWorkflows,
                     Travis,
