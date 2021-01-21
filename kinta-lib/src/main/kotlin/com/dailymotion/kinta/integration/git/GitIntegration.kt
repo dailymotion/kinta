@@ -16,6 +16,13 @@ object GitIntegration {
         CommandLine.executeOrFail(command = "git push $remote_ $src_:$dst_")
     }
 
+    fun pushTag(remote: String? = null,
+                tagName: String
+    ) {
+        val remote_ = remote ?: "origin"
+        CommandLine.executeOrFail(command = "git push $remote_ $tagName")
+    }
+
     fun currentBranch(): String {
         return Project.repository.branch!!
     }
