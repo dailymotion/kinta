@@ -206,8 +206,10 @@ object AppGalleryIntegration {
                 files = listOf(com.dailymotion.kinta.integration.appgallery.internal.AppInfoFilesBody.AppFileInfo(fileName, fileUrl))
         )).execute()
 
-        val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
-        throw IllegalStateException("Error updating app : $error")
+        if(result.body()?.isSuccess() ?: false == false) {
+            val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
+            throw IllegalStateException("Error updating app : $error")
+        }
     }
 
     private fun getAppId(
@@ -269,7 +271,7 @@ object AppGalleryIntegration {
         ).execute()
 
         result.body()?.result?.uploadFileRsp?.fileInfoList?.let {
-            return it[0].disposableURL
+            return it[0].fileDestUlr
         }
         throw IllegalStateException("Error uploading to AppGallery")
     }
