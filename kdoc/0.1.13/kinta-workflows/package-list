@@ -1,0 +1,12 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+
+com.dailymotion.kinta.workflows
+com.dailymotion.kinta.workflows.builtin.actions
+com.dailymotion.kinta.workflows.builtin.appgallery
+com.dailymotion.kinta.workflows.builtin.bitrise
+com.dailymotion.kinta.workflows.builtin.crypto
+com.dailymotion.kinta.workflows.builtin.env
+com.dailymotion.kinta.workflows.builtin.gittool
+com.dailymotion.kinta.workflows.builtin.playstore
+com.dailymotion.kinta.workflows.builtin.travis
