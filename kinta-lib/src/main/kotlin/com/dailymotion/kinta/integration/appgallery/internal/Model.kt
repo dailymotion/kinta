@@ -54,7 +54,7 @@ class UploadFileResult(val result: UploadResult) {
         @Serializable
         class UploadFileRsp(val fileInfoList: List<FileInfo>?) {
             @Serializable
-            class FileInfo(val disposableURL: String)
+            class FileInfo(val fileDestUlr: String)
         }
     }
 }
