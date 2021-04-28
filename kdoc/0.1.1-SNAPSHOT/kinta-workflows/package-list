@@ -1,0 +1,6 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+
+com.dailymotion.kinta.workflows
+com.dailymotion.kinta.workflows.builtin
+com.dailymotion.kinta.workflows.builtin.playstore

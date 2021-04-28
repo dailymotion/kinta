@@ -1,0 +1,6 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+
+com.dailymotion.kinta
+com.dailymotion.kinta.command
+com.dailymotion.kinta.infra

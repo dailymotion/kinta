@@ -1,0 +1,26 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+$dokka.location:com.dailymotion.kinta.extension$toSlug(kotlin.String)com.dailymotion.kinta.extension/kotlin.-string/to-slug.md
+$dokka.location:com.dailymotion.kinta.integration.git.internal$callWithCredentials(org.eclipse.jgit.api.FetchCommand)com.dailymotion.kinta.integration.git.internal/org.eclipse.jgit.api.-fetch-command/call-with-credentials.md
+$dokka.location:com.dailymotion.kinta.integration.git.internal$callWithCredentials(org.eclipse.jgit.api.PullCommand)com.dailymotion.kinta.integration.git.internal/org.eclipse.jgit.api.-pull-command/call-with-credentials.md
+$dokka.location:com.dailymotion.kinta.integration.git.internal$callWithCredentials(org.eclipse.jgit.api.PushCommand)com.dailymotion.kinta.integration.git.internal/org.eclipse.jgit.api.-push-command/call-with-credentials.md
+com.dailymotion.kinta
+com.dailymotion.kinta.extension
+com.dailymotion.kinta.helper
+com.dailymotion.kinta.integration.adb
+com.dailymotion.kinta.integration.appcenter
+com.dailymotion.kinta.integration.bitrise
+com.dailymotion.kinta.integration.commandline
+com.dailymotion.kinta.integration.gcp
+com.dailymotion.kinta.integration.git
+com.dailymotion.kinta.integration.git.internal
+com.dailymotion.kinta.integration.github
+com.dailymotion.kinta.integration.github.internal
+com.dailymotion.kinta.integration.googleplay
+com.dailymotion.kinta.integration.gradle
+com.dailymotion.kinta.integration.jira
+com.dailymotion.kinta.integration.jira.internal
+com.dailymotion.kinta.integration.slack
+com.dailymotion.kinta.integration.transifex
+com.dailymotion.kinta.integration.transifex.internal.model
+com.dailymotion.kinta.type
