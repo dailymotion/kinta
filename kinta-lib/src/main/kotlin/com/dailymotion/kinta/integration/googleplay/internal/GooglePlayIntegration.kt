@@ -376,7 +376,6 @@ object GooglePlayIntegration {
         IMAGETYPE_FEATURE("featureGraphic"),
         IMAGETYPE_ICON("icon"),
         IMAGETYPE_PHONE("phoneScreenshots"),
-        IMAGETYPE_PROMO("promoGraphic"),
         IMAGETYPE_SEVENINCH("sevenInchScreenshots"),
         IMAGETYPE_TENINCH("tenInchScreenshots"),
         IMAGETYPE_TVBANNER("tvBanner"),
