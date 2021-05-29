@@ -4,6 +4,8 @@ import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import fi.iki.elonen.NanoHTTPD
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -88,7 +90,10 @@ object GithubOauthClient {
                 }
 
                 synchronized(lock) {
-                    token = Json.Companion.nonstrict.parseJson(response.body()!!.string()).jsonObject.getPrimitive("access_token").content
+                    token = Json { ignoreUnknownKeys = true }.parseToJsonElement(response.body()!!.string())
+                        .jsonObject["access_token"]
+                        ?.jsonPrimitive
+                        ?.content
                     lock.notify()
                 }
 

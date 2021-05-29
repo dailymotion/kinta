@@ -1,26 +1,25 @@
 package com.dailymotion.kinta.integration.github
 
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.coroutines.toDeferred
 import com.dailymotion.kinta.*
 import com.dailymotion.kinta.integration.git.model.BranchInfo
 import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.github.internal.GithubOauthClient
 import com.damnhandy.uri.template.UriTemplate
-import com.goterl.lazycode.lazysodium.LazySodiumJava
-import com.goterl.lazycode.lazysodium.SodiumJava
-import com.goterl.lazycode.lazysodium.interfaces.Box
+import com.goterl.lazysodium.LazySodiumJava
+import com.goterl.lazysodium.SodiumJava
+import com.goterl.lazysodium.interfaces.Box
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.parse
-import kotlinx.serialization.toUtf8Bytes
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.*
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import okio.ByteString.Companion.encodeUtf8
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
 import java.io.File
@@ -29,6 +28,9 @@ import java.util.*
 
 @Suppress("NAME_SHADOWING")
 object GithubIntegration : GitTool {
+    val json = Json {
+        ignoreUnknownKeys = true
+    }
     override fun openPullRequest(token: String?,
                                  owner: String?,
                                  repo: String?,
@@ -56,7 +58,7 @@ object GithubIntegration : GitTool {
             )
         )
 
-        val body = RequestBody.create(MediaType.parse("application/json"), Json.Companion.nonstrict.toJson(jsonObject).toString())
+        val body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
 
         val request = Request.Builder()
             .url("https://api.github.com/repos/$owner/$repo/pulls")
@@ -71,7 +73,7 @@ object GithubIntegration : GitTool {
 
         response.body()?.charStream()?.let {
             try {
-                val htmlUrl = Json.nonstrict.parseJson(it.readText()).jsonObject.getPrimitive("html_url").content
+                val htmlUrl = json.parseToJsonElement(it.readText()).jsonObject["html_url"]?.jsonPrimitive?.content
                 Logger.i("-> $htmlUrl")
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -95,18 +97,16 @@ object GithubIntegration : GitTool {
         val depdendentPullRequestsData = runBlocking {
             val query = GetPullRequestWithBase(owner_, repo_, branch)
             apolloClient(token_).query(query)
-                .toDeferred()
                 .await()
-                .data()
+                .data
                 ?.repository
         }
 
         val pullRequestsData = runBlocking {
             val query = GetPullRequestWithHead(owner_, repo_, branch)
             apolloClient(token_).query(query)
-                .toDeferred()
                 .await()
-                .data()
+                .data
                 ?.repository
         }
 
@@ -157,9 +157,8 @@ object GithubIntegration : GitTool {
         return runBlocking {
             val query = GetRefs(owner, repo)
             apolloClient(token).query(query)
-                .toDeferred()
                 .await()
-                .data()
+                .data
                 ?.repository
                 ?.refs
                 ?.edges
@@ -253,11 +252,11 @@ object GithubIntegration : GitTool {
 
         val responseString = response.body()!!.string()
 
-        val release = Json.nonstrict.parseJson(responseString)
+        val release = json.parseToJsonElement(responseString).jsonObject
 
         assets.forEach { asset ->
             println("uploading ${asset.name}")
-            val uploadUrl = UriTemplate.fromTemplate(release.jsonObject.getPrimitive("upload_url").content)
+            val uploadUrl = UriTemplate.fromTemplate(release["upload_url"]?.jsonPrimitive?.content)
                 .set("name", asset.name)
                 .expand()
 
@@ -298,7 +297,7 @@ object GithubIntegration : GitTool {
         }
 
         val json = response.body()?.byteStream()?.reader()?.readText() ?: ""
-        return Json.nonstrict.parse<PublicKey>(json)
+        return this.json.decodeFromString(json)
     }
 
     fun setSecret(
@@ -317,7 +316,7 @@ object GithubIntegration : GitTool {
         val publicKey = publicKey(token, owner, repo)
         val keyBytes = Base64.getDecoder().decode(publicKey.key)
 
-        val messageBytes = value.toUtf8Bytes()
+        val messageBytes = value.encodeUtf8().toByteArray()
 
         val encryptedByteArray = ByteArray(Box.SEALBYTES + messageBytes.size)
 

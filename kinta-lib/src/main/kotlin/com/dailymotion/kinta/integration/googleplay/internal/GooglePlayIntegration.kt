@@ -22,6 +22,8 @@ import com.google.api.services.androidpublisher.model.LocalizedText
 import com.google.api.services.androidpublisher.model.Track
 import com.google.api.services.androidpublisher.model.TrackRelease
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.gradle.internal.impldep.org.apache.commons.io.FilenameUtils
 import java.io.File
 import java.io.InputStream
@@ -37,6 +39,7 @@ object GooglePlayIntegration {
 
     private val TRACK_BETA = "beta"
     private val TRACK_PRODUCTION = "production"
+    private val json = Json { ignoreUnknownKeys = true }
 
     private val HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport()
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
@@ -46,16 +49,16 @@ object GooglePlayIntegration {
                 ?: KintaEnv.get(KintaEnv.Var.GOOGLE_PLAY_JSON)
                 ?: KintaEnv.getOrFail(KintaEnv.Var.GOOGLE_PLAY_JSON)
 
-        val json = Json.nonstrict.parseJson(googlePlayJson_).jsonObject
-        Logger.i(String.format("Authorizing using Service Account: %s", json.getPrimitive("client_email").content))
+        val json = this.json.parseToJsonElement(googlePlayJson_).jsonObject
+        Logger.i(String.format("Authorizing using Service Account: %s", json["client_email"]?.jsonPrimitive?.content))
 
-        val bytes = PemReader.readFirstSectionAndClose(StringReader(json.getPrimitive("private_key").content), "PRIVATE KEY").base64DecodedBytes
+        val bytes = PemReader.readFirstSectionAndClose(StringReader(json["private_key"]?.jsonPrimitive?.content ?: error("cannot find private key!!")), "PRIVATE KEY").base64DecodedBytes
         val privKey = SecurityUtils.getRsaKeyFactory().generatePrivate(PKCS8EncodedKeySpec(bytes));
 
         val credential = GoogleCredential.Builder()
                 .setTransport(HTTP_TRANSPORT)
                 .setJsonFactory(JSON_FACTORY)
-                .setServiceAccountId(json.getPrimitive("client_email").content)
+                .setServiceAccountId(json["client_email"]?.jsonPrimitive?.content)
                 .setServiceAccountScopes(Collections.singleton(AndroidPublisherScopes.ANDROIDPUBLISHER))
                 .setServiceAccountPrivateKey(privKey)
                 .build()
@@ -170,7 +173,7 @@ object GooglePlayIntegration {
         val publisher = publisher(googlePlayJson, packageName_)
         makeEdit(publisher, packageName_) { edits, editId ->
             val release = TrackRelease().apply {
-                name = releaseName ?: listVersionCodes.max().toString()
+                name = releaseName ?: listVersionCodes.maxOrNull().toString()
                 versionCodes = listVersionCodes
                 updatePriority?.let { inAppUpdatePriority = it }
                 if (percent == 100.0) {
@@ -217,10 +220,10 @@ object GooglePlayIntegration {
             }
 
             /**
-             * Update any release of any track where versionCodes.max() match the versionCode param
+             * Update any release of any track where versionCodes.maxOrNull() match the versionCode param
              */
             edits.tracks().list(packageName_, editId).execute().tracks.forEach { track ->
-                track.releases.filter { it.versionCodes.max() == versionCode }.forEach { release ->
+                track.releases.filter { it.versionCodes.maxOrNull() == versionCode }.forEach { release ->
                     edits.tracks().update(packageName_, editId, track.track, Track().setReleases(listOf(release.clone().setReleaseNotes(listLocalText)))).execute()
                 }
                 Logger.i("Releases notes updated for trackRelease $versionCode on track beta")
@@ -341,7 +344,7 @@ object GooglePlayIntegration {
             resources.addAll(edits.tracks().list(packageName_, editId).execute().tracks.flatMap { track ->
                 track.releases.flatMap { release ->
                     release.releaseNotes?.mapNotNull {
-                        ChangelogResource(it.language, it.text, release.versionCodes.max()!!)
+                        ChangelogResource(it.language, it.text, release.versionCodes.maxOrNull()!!)
                     } ?: listOf()
                 }
             })

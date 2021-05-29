@@ -1,7 +1,7 @@
 object Versions {
-    const val coroutines = "1.3.1"
-    const val kotlin = "1.3.61"
-    const val apollo = "1.2.2"
+    const val coroutines = "1.5.0"
+    const val kotlin = "1.5.10"
+    const val apollo = "2.5.7"
     const val okhttp = "3.8.1"
     const val dokka = "0.10.0"
 }
@@ -16,7 +16,7 @@ object Libs {
 
     const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-    const val kotlinSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
+    const val kotlinSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1"
 
     const val apollo = "com.apollographql.apollo:apollo-runtime:${Versions.apollo}"
     const val apolloCoroutinesSupport = "com.apollographql.apollo:apollo-coroutines-support:${Versions.apollo}"
@@ -27,12 +27,12 @@ object Libs {
     const val okHttpInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
 
     const val retrofit = "com.squareup.retrofit2:retrofit:2.4.0"
-    const val retrofitConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.4.0"
+    const val retrofitConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
 
     const val gradle = "org.gradle:gradle-tooling-api:6.0.1"
 
     const val clikt = "com.github.ajalt:clikt:2.4.0"
-    const val lazySodium = "com.goterl.lazycode:lazysodium-java:4.2.6"
+    const val lazySodium = "com.goterl:lazysodium-java:5.0.1"
     const val jna = "net.java.dev.jna:jna:5.5.0"
 
     const val jUnit = "junit:junit:4.12"

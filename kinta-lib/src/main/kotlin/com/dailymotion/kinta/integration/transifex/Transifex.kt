@@ -1,9 +1,11 @@
 package com.dailymotion.kinta.integration.transifex
 
 import com.dailymotion.kinta.KintaEnv
+import com.dailymotion.kinta.globalJson
 import com.dailymotion.kinta.integration.transifex.internal.model.TransifexService
 import com.dailymotion.kinta.integration.transifex.internal.model.TxTranslation
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Credentials
 import okhttp3.MediaType
@@ -77,6 +79,7 @@ object Transifex {
         return service(user, password).getTranslation(project_, resource, lang, mode).execute().body()!!.content!!
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     fun service(
             user: String?,
             password: String?
@@ -99,7 +102,7 @@ object Transifex {
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://www.transifex.com/api/2/project/")
                 .client(okHttpClient)
-                .addConverterFactory(Json.nonstrict.asConverterFactory(MediaType.get("application/json")))
+                .addConverterFactory(globalJson.asConverterFactory(MediaType.get("application/json")))
                 .build()
 
         return retrofit.create(TransifexService::class.java)

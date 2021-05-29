@@ -27,7 +27,7 @@ open class ProgressRequestBody(delegate: RequestBody, listener: Listener) : Requ
     @Throws(IOException::class)
     override fun writeTo(sink: BufferedSink) {
         mCountingSink = CountingSink(sink)
-        val bufferedSink = Okio.buffer(mCountingSink as Sink)
+        val bufferedSink = (mCountingSink as CountingSink).buffer()
         mDelegate.writeTo(bufferedSink)
         bufferedSink.flush()
     }
@@ -36,8 +36,8 @@ open class ProgressRequestBody(delegate: RequestBody, listener: Listener) : Requ
         private var bytesWritten: Long = 0
 
         @Throws(IOException::class)
-        override fun write(source: Buffer?, byteCount: Long) {
-            super.write(source!!, byteCount)
+        override fun write(source: Buffer, byteCount: Long) {
+            super.write(source, byteCount)
             bytesWritten += byteCount
             mListener.onProgress((100f * bytesWritten / contentLength()).toInt())
         }

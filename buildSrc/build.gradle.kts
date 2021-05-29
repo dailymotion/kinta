@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    kotlin("jvm").version("1.3.72")
+    kotlin("jvm").version("1.5.10")
 }
 
 repositories {
@@ -8,6 +8,5 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
     implementation("net.mbonnin.vespene:vespene-lib:0.5")
 }

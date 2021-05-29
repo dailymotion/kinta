@@ -22,17 +22,11 @@ version = "0.1.14-SNAPSHOT"
 
 subprojects {
     repositories {
-        jcenter()
-        maven {
-            url = uri("https://repo.gradle.org/gradle/libs-releases-local/")
-        }
+        mavenCentral()
+        maven ("https://repo.gradle.org/gradle/libs-releases-local/")
     }
 
     tasks.withType<KotlinCompile> {
-        plugins.withId("org.jetbrains.kotlin.plugin.serialization") {
-            kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.ImplicitReflectionSerializer"
-            kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.UnstableDefault"
-        }
         kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
         kotlinOptions {
             allWarningsAsErrors = true

@@ -4,15 +4,16 @@ import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.helper.executeOrFail
 import com.dailymotion.kinta.helper.newOkHttpClient
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.*
 import okhttp3.*
 import java.io.File
 
 @Suppress("NAME_SHADOWING")
 object AppCenter {
+    val json = Json {
+        ignoreUnknownKeys = true
+    }
+
     fun uploadApp(
             token: String? = null,
             organization: String? = null,
@@ -35,7 +36,7 @@ object AppCenter {
         Logger.i("Getting AppCenter upload url...")
         val response = request.executeOrFail()
 
-        val uploadUrlData = Json.nonstrict.parseJson(response.string()).jsonObject
+        val uploadUrlData = json.parseToJsonElement(response.string()).jsonObject
 
         val fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file)
         val builderUpload = MultipartBody.Builder()
@@ -43,7 +44,7 @@ object AppCenter {
                 .addFormDataPart("ipa", file.name, fileBody)
         val requestUpload = Request.Builder()
                 .post(builderUpload.build())
-                .url(uploadUrlData.getPrimitive("upload_url").content)
+                .url(uploadUrlData["upload_url"]?.jsonPrimitive?.content ?: error("cannot find upload_url"))
                 .build()
 
         Logger.i("Uploading...")
@@ -55,12 +56,12 @@ object AppCenter {
                 .header("Accept", "application/json")
                 .header("X-API-Token", token)
                 .patch(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), "{ \"status\" : \"committed\" }"))
-                .url("https://api.appcenter.ms/v0.1/apps/$organisation/$appId/release_uploads/${uploadUrlData.getPrimitive("upload_id").content}")
+                .url("https://api.appcenter.ms/v0.1/apps/$organisation/$appId/release_uploads/${uploadUrlData["upload_id"]?.jsonPrimitive?.content}")
                 .build()
 
         val commitBody = requestCommit.executeOrFail()
 
-        val releaseData = Json.nonstrict.parseJson(commitBody.string()).jsonObject
+        val releaseData = json.parseToJsonElement(commitBody.string()).jsonObject
 
         Logger.i("Commited ! Updating release notes...")
         val postData = JsonObject(
@@ -75,7 +76,7 @@ object AppCenter {
                 .header("Accept", "application/json")
                 .header("X-API-Token", token)
                 .patch(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postData.toString()))
-                .url("https://api.appcenter.ms/${releaseData.getPrimitive("release_url").content}")
+                .url("https://api.appcenter.ms/${releaseData["release_url"]?.jsonPrimitive?.content}")
                 .build()
 
         requestReleaseNotes.executeOrFail()
@@ -109,10 +110,10 @@ object AppCenter {
 
         val body = request.executeOrFail()
 
-        val uploadUrlData = Json.nonstrict.parseJson(body.string()).jsonObject
+        val uploadUrlData = json.parseToJsonElement(body.string()).jsonObject
 
         val uploadRequest = Request.Builder()
-                .url(uploadUrlData.getPrimitive("upload_url").content)
+                .url(uploadUrlData["upload_url"]?.jsonPrimitive?.content ?: error("no upload_url"))
                 .put(RequestBody.create(MediaType.parse("application/octet-stream"), dsymFile))
                 .header("x-ms-blob-type", "BlockBlob")
                 .build()
@@ -127,7 +128,7 @@ object AppCenter {
                 postData2.toString()
         )
 
-        val symbol_upload_id = uploadUrlData.getPrimitive("symbol_upload_id").content
+        val symbol_upload_id = uploadUrlData["symbol_upload_id"]?.jsonPrimitive?.content
         val url = "https://api.appcenter.ms/v0.1/apps/$organisation/$appId/symbol_uploads/$symbol_upload_id"
 
         val patchRequest = Request.Builder()

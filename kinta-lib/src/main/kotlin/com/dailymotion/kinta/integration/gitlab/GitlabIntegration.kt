@@ -9,7 +9,10 @@ import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.gitlab.internal.GitlabService
 import com.dailymotion.kinta.integration.gitlab.internal.MergeRequestBody
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Interceptor
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
@@ -22,7 +25,9 @@ object GitlabIntegration : GitTool {
 
     private const val GITLAB_API_VERSION = "v4"
     private const val GITLAB_API = "https://gitlab.com/api/$GITLAB_API_VERSION/"
+    private val json = Json {ignoreUnknownKeys = true}
 
+    @OptIn(ExperimentalSerializationApi::class)
     private fun service(token: String?): GitlabService {
         val token_ = token ?: KintaEnv.getOrFail(KintaEnv.Var.GITLAB_PERSONAL_TOKEN)
 
@@ -33,7 +38,7 @@ object GitlabIntegration : GitTool {
         val retrofit = Retrofit.Builder()
                 .baseUrl(GITLAB_API)
                 .client(okHttpClient)
-                .addConverterFactory(Json.nonstrict.asConverterFactory(MediaType.get("application/json")))
+                .addConverterFactory(json.asConverterFactory(MediaType.get("application/json")))
                 .build()
 
         return retrofit.create(GitlabService::class.java)
@@ -77,7 +82,7 @@ object GitlabIntegration : GitTool {
 
         response.body()?.charStream()?.let {
             try {
-                val htmlUrl = Json.nonstrict.parseJson(it.readText()).jsonObject.getPrimitive("web_url").content
+                val htmlUrl = json.parseToJsonElement(it.readText()).jsonObject["web_url"]?.jsonPrimitive?.content
                 Logger.i("-> $htmlUrl")
             } catch (e: Exception) {
                 e.printStackTrace()

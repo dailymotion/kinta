@@ -2,8 +2,10 @@ package com.dailymotion.kinta.integration.jira
 
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
+import com.dailymotion.kinta.globalJson
 import com.dailymotion.kinta.integration.jira.internal.*
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType
@@ -14,6 +16,7 @@ import java.util.*
 
 
 object Jira {
+    @OptIn(ExperimentalSerializationApi::class)
     private fun service(
             jiraUrl: String?,
             username: String?,
@@ -30,7 +33,7 @@ object Jira {
         val retrofit = Retrofit.Builder()
                 .baseUrl(jiraUrl_)
                 .client(okHttpClient)
-                .addConverterFactory(Json.nonstrict.asConverterFactory(MediaType.get("application/json")))
+                .addConverterFactory(globalJson.asConverterFactory(MediaType.get("application/json")))
                 .build()
 
         return retrofit.create(JiraService::class.java)

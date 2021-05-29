@@ -1,6 +1,9 @@
 package com.dailymotion.kinta.integration.travis
 
+import com.dailymotion.kinta.globalJson
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.security.KeyFactory
@@ -29,7 +32,7 @@ object TravisIntegration {
         }.let {
             OkHttpClient().newCall(it.build()).execute().body()!!.string()
         }.let {
-            Json.nonstrict.parseJson(it).jsonObject.getPrimitive("key").content
+            globalJson.parseToJsonElement(it).jsonObject["key"]?.jsonPrimitive?.content!!
         }
     }
 

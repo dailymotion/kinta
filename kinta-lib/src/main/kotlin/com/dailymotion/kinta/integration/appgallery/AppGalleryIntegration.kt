@@ -5,7 +5,9 @@ import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.helper.ProgressRequestBody
 import com.dailymotion.kinta.integration.appgallery.internal.*
 import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
+import com.dailymotion.kinta.globalJson
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.*
 import okhttp3.*
 import retrofit2.Retrofit
@@ -16,6 +18,7 @@ object AppGalleryIntegration {
     private val JSON = MediaType.parse("application/json; charset=utf-8")
     private const val API_URL = "https://connect-api.cloud.huawei.com/api/"
 
+    @OptIn(ExperimentalSerializationApi::class)
     private fun service(
             clientId: String? = null,
             token: String? = null
@@ -33,7 +36,7 @@ object AppGalleryIntegration {
         val retrofit = Retrofit.Builder()
                 .baseUrl(API_URL)
                 .client(okHttpClient)
-                .addConverterFactory(Json.nonstrict.asConverterFactory(MediaType.get("application/json")))
+                .addConverterFactory(globalJson.asConverterFactory(MediaType.get("application/json")))
                 .build()
 
         return retrofit.create(AppGalleryService::class.java)
