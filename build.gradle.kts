@@ -18,7 +18,7 @@ fun isMaster(): Boolean {
 }
 
 
-version = "0.1.14"
+version = "0.1.14-SNAPSHOT"
 
 subprojects {
     repositories {
@@ -39,7 +39,7 @@ subprojects {
         }
     }
 
-    group = "net.mbonnin.kinta"
+    group = "om.dailymotion.kinta"
     version = rootProject.version
 
     apply(plugin = "org.jetbrains.dokka")
