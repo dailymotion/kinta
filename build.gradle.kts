@@ -39,7 +39,7 @@ subprojects {
         }
     }
 
-    group = "om.dailymotion.kinta"
+    group = "com.dailymotion.kinta"
     version = rootProject.version
 
     apply(plugin = "org.jetbrains.dokka")
@@ -139,7 +139,7 @@ fun Project.configureMavenPublish() {
                     licenses {
                         license {
                             name.set("MIT License")
-                            url.set("https://raw.githubusercontent.com/apollographql/apollo-android/main/LICENSE")
+                            url.set("https://github.com/dailymotion/kinta/blob/master/LICENSE")
                         }
                     }
 
