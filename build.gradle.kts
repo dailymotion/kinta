@@ -39,7 +39,7 @@ subprojects {
         }
     }
 
-    group = "com.dailymotion.kinta"
+    group = "net.mbonnin"
     version = rootProject.version
 
     apply(plugin = "org.jetbrains.dokka")
