@@ -44,6 +44,7 @@ subprojects {
 
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
+    apply(plugin = "signing")
 
     tasks.withType<org.jetbrains.dokka.gradle.DokkaTask> {
         configuration {
@@ -165,6 +166,17 @@ fun Project.configureMavenPublish() {
                 }
             }
         }
+    }
+
+    configure<SigningExtension> {
+        // GPG_PRIVATE_KEY should contain the armoured private key that starts with -----BEGIN PGP PRIVATE KEY BLOCK-----
+        // It can be obtained with gpg --armour --export-secret-keys KEY_ID
+        useInMemoryPgpKeys(System.getenv("KINTA_GPG_PRIVATE_KEY"), System.getenv("KINTA_GPG_PRIVATE_KEY_PASSWORD"))
+        val publicationsContainer = (extensions.getByName("publishing") as PublishingExtension).publications
+        sign(publicationsContainer)
+    }
+    tasks.withType(Sign::class.java).configureEach {
+        isEnabled = !System.getenv("KINTA_GPG_PRIVATE_KEY").isNullOrBlank()
     }
 }
 
