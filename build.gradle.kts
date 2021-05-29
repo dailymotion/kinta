@@ -108,12 +108,17 @@ fun Project.configureMavenPublish() {
         from(javaPluginConvention?.sourceSets?.get("main")?.allSource)
     }
 
+    val javadocJarTaskProvider = tasks.register("docJar", org.gradle.jvm.tasks.Jar::class.java) {
+        archiveClassifier.set("javadoc")
+    }
+
     configure<PublishingExtension> {
         publications {
             create<MavenPublication>("default") {
                 from(components.findByName("java"))
 
                 artifact(sourcesJarTaskProvider.get())
+                artifact(javadocJarTaskProvider.get())
 
                 pom {
                     groupId = group.toString()
@@ -129,6 +134,13 @@ fun Project.configureMavenPublish() {
                         url.set("https://github.com/dailymotion/kinta")
                         connection.set("https://github.com/dailymotion/kinta")
                         developerConnection.set("https://github.com/dailymotion/kinta")
+                    }
+
+                    licenses {
+                        license {
+                            name.set("MIT License")
+                            url.set("https://raw.githubusercontent.com/apollographql/apollo-android/main/LICENSE")
+                        }
                     }
 
                     licenses {
