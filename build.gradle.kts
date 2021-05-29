@@ -90,8 +90,8 @@ fun Project.getOssStagingUrl(): String {
     )
     val repositoryId = runBlocking {
         client.createRepository(
-            profileId = System.getenv("COM_APOLLOGRAPHQL_PROFILE_ID"),
-            description = "com.apollo.apollo3 $version"
+            profileId = System.getenv("KINTA_STAGING_PROFILE_ID"),
+            description = "$group $name $version"
         )
     }
     println("publishing to '$repositoryId")
