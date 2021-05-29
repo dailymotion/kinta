@@ -9,4 +9,5 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation("net.mbonnin.vespene:vespene-lib:0.5")
 }

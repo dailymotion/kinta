@@ -1,3 +1,4 @@
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -71,12 +72,37 @@ subprojects {
 
     tasks.register<Task>("deployArtifactsIfNeeded") {
         if (isTag()) {
-            project.logger.lifecycle("Upload to Bintray needed.")
-            dependsOn("publishDefaultPublicationToBintrayRepository")
+            project.logger.lifecycle("Upload to OSSStaging needed.")
+            dependsOn("publishDefaultPublicationToOssStagingRepository")
         } else if (isMaster()) {
-            project.logger.lifecycle("Upload to OJO needed.")
-            dependsOn("publishDefaultPublicationToOjoRepository")
+            project.logger.lifecycle("Upload to OSSSnapshots needed.")
+            dependsOn("publishDefaultPublicationToOssSnapshotsRepository")
         }
+    }
+}
+
+fun Project.getOssStagingUrl(): String {
+    val url = try {
+        this.extensions.extraProperties["ossStagingUrl"] as String?
+    } catch (e: ExtraPropertiesExtension.UnknownPropertyException) {
+        null
+    }
+    if (url != null) {
+        return url
+    }
+    val client = net.mbonnin.vespene.lib.NexusStagingClient(
+        username = System.getenv("SONATYPE_NEXUS_USERNAME"),
+        password = System.getenv("SONATYPE_NEXUS_PASSWORD")
+    )
+    val repositoryId = runBlocking {
+        client.createRepository(
+            profileId = System.getenv("COM_APOLLOGRAPHQL_PROFILE_ID"),
+            description = "com.apollo.apollo3 $version"
+        )
+    }
+    println("publishing to '$repositoryId")
+    return "https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${repositoryId}/".also {
+        this.extensions.extraProperties["ossStagingUrl"] = it
     }
 }
 
@@ -127,19 +153,21 @@ fun Project.configureMavenPublish() {
 
         repositories {
             maven {
-                name = "bintray"
-                url = uri("https://api.bintray.com/maven/dailymotion/com.dailymotion.kinta/kinta/;publish=1;override=1")
+                name = "ossStaging"
+                setUrl {
+                    uri(rootProject.getOssStagingUrl())
+                }
                 credentials {
-                    username = System.getenv("BINTRAY_USER")
-                    password = System.getenv("BINTRAY_API_KEY")
+                    username = System.getenv("SONATYPE_NEXUS_USERNAME")
+                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")
                 }
             }
             maven {
-                name = "ojo"
-                url = uri("https://oss.jfrog.org/artifactory/oss-snapshot-local/")
+                name = "ossSnapshots"
+                url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
                 credentials {
-                    username = System.getenv("BINTRAY_USER")
-                    password = System.getenv("BINTRAY_API_KEY")
+                    username = System.getenv("SONATYPE_NEXUS_USERNAME")
+                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")
                 }
             }
         }
