@@ -23,7 +23,6 @@ fun Request.executeOrFail(
     if (response.isSuccessful && response.body() != null) {
         return response.body()!!
     } else {
-        response.close()
         throw IllegalStateException("$errorMessage :\n${response.body()?.string()}")
     }
 }
