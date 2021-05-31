@@ -96,7 +96,7 @@ fun Project.getOssStagingUrl(): String {
         )
     }
     println("publishing to '$repositoryId")
-    return "https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${repositoryId}/".also {
+    return "https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/${repositoryId}/".also {
         this.extensions.extraProperties["ossStagingUrl"] = it
     }
 }
