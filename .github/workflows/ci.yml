@@ -1,0 +1,49 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Checkout submodule
+        run: git submodule sync --recursive && git submodule update --init --recursive
+
+      - name: Cache gradle and sdk
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-gradle-and-sdk
+        with:
+          path: |
+            ${{ github.workspace }}/.opt/cache/gradle/wrapper
+            ${{ github.workspace }}/.opt/cache/gradle/caches
+            ${{ github.workspace }}/.opt/sdk
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/wrapper/gradle-wrapper.properties', '**/build.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Before build
+        run: |
+          eval `ssh-agent -s`
+          ssh-add - <<< "${{ secrets.SSH_DEPLOY_KEY }}"
+          git remote set-url origin git@github.com:dailymotion/kinta.git
+
+      - name: Build
+        env:
+          SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
+          KINTA_GPG_PRIVATE_KEY: ${{ secrets.KINTA_GPG_PRIVATE_KEY }}
+          KINTA_GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.KINTA_GPG_PRIVATE_KEY_PASSWORD }}
+        run: ./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded deployArchivesIfNeeded -i --stacktrace
