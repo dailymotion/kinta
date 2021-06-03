@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://dailymotion.github.com/kinta/kdoc/master/kinta-lib/com.dailymotion.kinta.integration.appgallery.internal/-app-gallery-service/">
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.6">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.e35208c4.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.875de78c.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.f1a3b89f.min.css">
         
           
           
@@ -262,7 +262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../console/" class="md-nav__link">
+      <a href="../../../console/index.md" class="md-nav__link">
         console
       </a>
     </li>
@@ -274,7 +274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kinta-cli/" class="md-nav__link">
+      <a href="../../../kinta-cli/index.md" class="md-nav__link">
         kinta-cli
       </a>
     </li>
@@ -286,7 +286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../index.md" class="md-nav__link">
         kinta-lib
       </a>
     </li>
@@ -298,7 +298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kinta-workflows/" class="md-nav__link">
+      <a href="../../../kinta-workflows/index.md" class="md-nav__link">
         kinta-workflows
       </a>
     </li>
@@ -1206,10 +1206,10 @@
                   </a>
                 
                 
-                <p><a href="../../">kinta-lib</a> / <a href="../">com.dailymotion.kinta.integration.appgallery.internal</a> / <a href="./">AppGalleryService</a></p>
+                <p>//<a href="../../../">kinta-lib</a>/<a href="../">com.dailymotion.kinta.integration.appgallery.internal</a>/<a href="./">AppGalleryService</a></p>
 <h1 id="appgalleryservice">AppGalleryService</h1>
-<p><code>interface AppGalleryService</code></p>
-<h3 id="functions">Functions</h3>
+<p>[jvm] interface <a href="./">AppGalleryService</a>   </p>
+<h2 id="functions">Functions</h2>
 <table>
 <thead>
 <tr>
@@ -1219,44 +1219,44 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="acquire-token/">acquireToken</a></td>
-<td><code>abstract fun acquireToken(tokenBody:</code><a href="../-token-body/"><code>TokenBody</code></a><code>): Call&lt;</code><a href="../-token-result/"><code>TokenResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/acquireToken/#com.dailymotion.kinta.integration.appgallery.internal.TokenBody/PointingToDeclaration/"></a><a href="acquire-token/">acquireToken</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/acquireToken/#com.dailymotion.kinta.integration.appgallery.internal.TokenBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = oauth2/v1/token)  <br>  <br>abstract fun <a href="acquire-token/">acquireToken</a>(@Body()tokenBody: <a href="../-token-body/">TokenBody</a>): Call&lt;<a href="../-token-result/">TokenResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="delete-listing/">deleteListing</a></td>
-<td><code>abstract fun deleteListing(appId:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, lang:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>): Call&lt;</code><a href="../-common-result/"><code>CommonResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/deleteListing/#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="delete-listing/">deleteListing</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/deleteListing/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@DELETE(value = publish/v2/app-language-info)  <br>  <br>abstract fun <a href="delete-listing/">deleteListing</a>(@Query(value = appId)appId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Query(value = lang)lang: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="../-common-result/">CommonResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="get-app-id/">getAppId</a></td>
-<td><code>abstract fun getAppId(packageName:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>): Call&lt;</code><a href="../-apps-ids-result/"><code>AppsIdsResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/getAppId/#kotlin.String/PointingToDeclaration/"></a><a href="get-app-id/">getAppId</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/getAppId/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = publish/v2/appid-list)  <br>  <br>abstract fun <a href="get-app-id/">getAppId</a>(@Query(value = packageName)packageName: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="../-apps-ids-result/">AppsIdsResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="get-listings/">getListings</a></td>
-<td><code>abstract fun getListings(appId:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>): Call&lt;</code><a href="../-listing-result/"><code>ListingResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/getListings/#kotlin.String/PointingToDeclaration/"></a><a href="get-listings/">getListings</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/getListings/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = publish/v2/app-info)  <br>  <br>abstract fun <a href="get-listings/">getListings</a>(@Query(value = appId)appId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="../-listing-result/">ListingResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="get-upload-url/">getUploadUrl</a></td>
-<td><code>abstract fun getUploadUrl(appId:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, suffix:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>): Call&lt;</code><a href="../-upload-url-result/"><code>UploadUrlResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/getUploadUrl/#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="get-upload-url/">getUploadUrl</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/getUploadUrl/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = publish/v2/upload-url)  <br>  <br>abstract fun <a href="get-upload-url/">getUploadUrl</a>(@Query(value = appId)appId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Query(value = suffix)suffix: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="../-upload-url-result/">UploadUrlResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="submit/">submit</a></td>
-<td><code>abstract fun submit(appId:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, releaseType:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, requestBody: RequestBody): Call&lt;</code><a href="../-common-result/"><code>CommonResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/submit/#kotlin.String#kotlin.String#okhttp3.RequestBody/PointingToDeclaration/"></a><a href="submit/">submit</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/submit/#kotlin.String#kotlin.String#okhttp3.RequestBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = publish/v2/app-submit)  <br>  <br>abstract fun <a href="submit/">submit</a>(@Query(value = appId)appId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Query(value = releaseType)releaseType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Body()requestBody: RequestBody): Call&lt;<a href="../-common-result/">CommonResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="update-app-file-info/">updateAppFileInfo</a></td>
-<td><code>abstract fun updateAppFileInfo(appId:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, appInfoFiles:</code><a href="../-app-info-files-body/"><code>AppInfoFilesBody</code></a><code>): Call&lt;</code><a href="../-common-result/"><code>CommonResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/updateAppFileInfo/#kotlin.String#com.dailymotion.kinta.integration.appgallery.internal.AppInfoFilesBody/PointingToDeclaration/"></a><a href="update-app-file-info/">updateAppFileInfo</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/updateAppFileInfo/#kotlin.String#com.dailymotion.kinta.integration.appgallery.internal.AppInfoFilesBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@PUT(value = publish/v2/app-file-info)  <br>  <br>abstract fun <a href="update-app-file-info/">updateAppFileInfo</a>(@Query(value = appId)appId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Body()appInfoFiles: <a href="../-app-info-files-body/">AppInfoFilesBody</a>): Call&lt;<a href="../-common-result/">CommonResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="update-changelog/">updateChangelog</a></td>
-<td><code>abstract fun updateChangelog(appId:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, changelogBody:</code><a href="../-changelog-body/"><code>ChangelogBody</code></a><code>): Call&lt;</code><a href="../-common-result/"><code>CommonResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/updateChangelog/#kotlin.String#com.dailymotion.kinta.integration.appgallery.internal.ChangelogBody/PointingToDeclaration/"></a><a href="update-changelog/">updateChangelog</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/updateChangelog/#kotlin.String#com.dailymotion.kinta.integration.appgallery.internal.ChangelogBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@PUT(value = publish/v2/app-language-info)  <br>  <br>abstract fun <a href="update-changelog/">updateChangelog</a>(@Query(value = appId)appId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Body()changelogBody: <a href="../-changelog-body/">ChangelogBody</a>): Call&lt;<a href="../-common-result/">CommonResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="update-listings/">updateListings</a></td>
-<td><code>abstract fun updateListings(appId:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, listingBody:</code><a href="../-listing-body/"><code>ListingBody</code></a><code>): Call&lt;</code><a href="../-common-result/"><code>CommonResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/updateListings/#kotlin.String#com.dailymotion.kinta.integration.appgallery.internal.ListingBody/PointingToDeclaration/"></a><a href="update-listings/">updateListings</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/updateListings/#kotlin.String#com.dailymotion.kinta.integration.appgallery.internal.ListingBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@PUT(value = publish/v2/app-language-info)  <br>  <br>abstract fun <a href="update-listings/">updateListings</a>(@Query(value = appId)appId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Body()listingBody: <a href="../-listing-body/">ListingBody</a>): Call&lt;<a href="../-common-result/">CommonResult</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="upload/">upload</a></td>
-<td><code>abstract fun upload(uploadUrl:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, file: Part, name: RequestBody, authCode: RequestBody, fileCount: RequestBody): Call&lt;</code><a href="../-upload-file-result/"><code>UploadFileResult</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/upload/#kotlin.String#okhttp3.MultipartBody.Part#okhttp3.RequestBody#okhttp3.RequestBody#okhttp3.RequestBody/PointingToDeclaration/"></a><a href="upload/">upload</a></td>
+<td><a name="com.dailymotion.kinta.integration.appgallery.internal/AppGalleryService/upload/#kotlin.String#okhttp3.MultipartBody.Part#okhttp3.RequestBody#okhttp3.RequestBody#okhttp3.RequestBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@Multipart()  <br>@POST()  <br>  <br>abstract fun <a href="upload/">upload</a>(@Url()uploadUrl: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Part()file: MultipartBody.Part, @Part(value = name)name: RequestBody, @Part(value = authCode)authCode: RequestBody, @Part(value = fileCount)fileCount: RequestBody): Call&lt;<a href="../-upload-file-result/">UploadFileResult</a>&gt;  <br><br><br></td>
 </tr>
 </tbody>
 </table>
@@ -1299,10 +1299,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.34eae1b6.min.js"></script>
       
     
   </body>

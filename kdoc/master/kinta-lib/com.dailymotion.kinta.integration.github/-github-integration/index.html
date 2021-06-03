@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://dailymotion.github.com/kinta/kdoc/master/kinta-lib/com.dailymotion.kinta.integration.github/-github-integration/">
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.6">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.e35208c4.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.875de78c.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.f1a3b89f.min.css">
         
           
           
@@ -262,7 +262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../console/" class="md-nav__link">
+      <a href="../../../console/index.md" class="md-nav__link">
         console
       </a>
     </li>
@@ -274,7 +274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kinta-cli/" class="md-nav__link">
+      <a href="../../../kinta-cli/index.md" class="md-nav__link">
         kinta-cli
       </a>
     </li>
@@ -286,7 +286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../index.md" class="md-nav__link">
         kinta-lib
       </a>
     </li>
@@ -298,7 +298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../kinta-workflows/" class="md-nav__link">
+      <a href="../../../kinta-workflows/index.md" class="md-nav__link">
         kinta-workflows
       </a>
     </li>
@@ -1196,6 +1196,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1213,10 +1220,10 @@
                   </a>
                 
                 
-                <p><a href="../../">kinta-lib</a> / <a href="../">com.dailymotion.kinta.integration.github</a> / <a href="./">GithubIntegration</a></p>
+                <p>//<a href="../../../">kinta-lib</a>/<a href="../">com.dailymotion.kinta.integration.github</a>/<a href="./">GithubIntegration</a></p>
 <h1 id="githubintegration">GithubIntegration</h1>
-<p><code>object GithubIntegration :</code><a href="../../com.dailymotion.kinta/-git-tool/"><code>GitTool</code></a></p>
-<h3 id="types">Types</h3>
+<p>[jvm] object <a href="./">GithubIntegration</a> : <a href="../../com.dailymotion.kinta/-git-tool/">GitTool</a>   </p>
+<h2 id="types">Types</h2>
 <table>
 <thead>
 <tr>
@@ -1226,16 +1233,16 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="-public-key/">PublicKey</a></td>
-<td><code>class PublicKey</code></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration.PublicKey///PointingToDeclaration/"></a><a href="-public-key/">PublicKey</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration.PublicKey///PointingToDeclaration/"></a>[jvm]  <br>Content  <br>class <a href="-public-key/">PublicKey</a>(<strong>key_id</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>key</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="-repository/">Repository</a></td>
-<td><code>data class Repository</code></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration.Repository///PointingToDeclaration/"></a><a href="-repository/">Repository</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration.Repository///PointingToDeclaration/"></a>[jvm]  <br>Content  <br>data class <a href="-repository/">Repository</a>(<strong>owner</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>name</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)  <br><br><br></td>
 </tr>
 </tbody>
 </table>
-<h3 id="functions">Functions</h3>
+<h2 id="functions">Functions</h2>
 <table>
 <thead>
 <tr>
@@ -1245,44 +1252,59 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="apollo-client/">apolloClient</a></td>
-<td><code>fun apolloClient(token:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>): ApolloClient</code></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/apolloClient/#kotlin.String/PointingToDeclaration/"></a><a href="apollo-client/">apolloClient</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/apolloClient/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun <a href="apollo-client/">apolloClient</a>(token: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): ApolloClient  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="create-release/">createRelease</a></td>
-<td><code>fun createRelease(token:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, owner:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, repo:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, tagName:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, changelogMarkdown:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, assets:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><code>List</code></a><code>&lt;</code><a href="https://docs.oracle.com/javase/6/docs/api/java/io/File.html"><code>File</code></a><code>&gt;):</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><code>Unit</code></a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/createRelease/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String#kotlin.collections.List[java.io.File]/PointingToDeclaration/"></a><a href="create-release/">createRelease</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/createRelease/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String#kotlin.collections.List[java.io.File]/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun <a href="create-release/">createRelease</a>(token: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, owner: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, repo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, tagName: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, changelogMarkdown: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, assets: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html">File</a>&gt;)  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="delete-ref/">deleteRef</a></td>
-<td><code>fun deleteRef(token:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, owner:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, repo:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, ref:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>):</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><code>Unit</code></a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/deleteRef/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String/PointingToDeclaration/"></a><a href="delete-ref/">deleteRef</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/deleteRef/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>open override fun <a href="delete-ref/">deleteRef</a>(token: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, owner: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, repo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, ref: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="delete-secret/">deleteSecret</a></td>
-<td><code>fun deleteSecret(token:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, owner:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, repo:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, name:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>):</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><code>Unit</code></a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/deleteSecret/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String/PointingToDeclaration/"></a><a href="delete-secret/">deleteSecret</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/deleteSecret/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun <a href="delete-secret/">deleteSecret</a>(token: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, owner: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, repo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, name: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="get-all-branches/">getAllBranches</a></td>
-<td><code>fun getAllBranches(token:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, owner:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, repo:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?):</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><code>List</code></a><code>&lt;</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>&gt;</code></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/getAllBranches/#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/"></a><a href="get-all-branches/">getAllBranches</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/getAllBranches/#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>open override fun <a href="get-all-branches/">getAllBranches</a>(token: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, owner: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, repo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="get-branch-info/">getBranchInfo</a></td>
-<td>Get some info about the pull requests associated to the branch<code>fun getBranchInfo(token:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, owner:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, repo:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, remote:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, branch:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>):</code><a href="../../com.dailymotion.kinta.integration.git.model/-branch-info/"><code>BranchInfo</code></a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/getBranchInfo/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="get-branch-info/">getBranchInfo</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/getBranchInfo/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>open override fun <a href="get-branch-info/">getBranchInfo</a>(token: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, owner: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, repo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, remote: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, branch: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="../../com.dailymotion.kinta.integration.git.model/-branch-info/">BranchInfo</a>  <br>More info  <br>Get some info about the pull requests associated to the branch  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="open-pull-request/">openPullRequest</a></td>
-<td><code>fun openPullRequest(token:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, owner:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, repo:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, head:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, base:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?, title:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>?):</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><code>Unit</code></a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/openPullRequest/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/"></a><a href="open-pull-request/">openPullRequest</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/openPullRequest/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>open override fun <a href="open-pull-request/">openPullRequest</a>(token: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, owner: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, repo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, head: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, base: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, title: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="repository/">repository</a></td>
-<td><code>fun repository(remote:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>= "origin"): Repository</code></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/repository/#kotlin.String/PointingToDeclaration/"></a><a href="repository/">repository</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/repository/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun <a href="repository/">repository</a>(remote: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = "origin"): <a href="-repository/">GithubIntegration.Repository</a>  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="retrieve-token/">retrieveToken</a></td>
-<td><code>fun retrieveToken():</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/retrieveToken/#/PointingToDeclaration/"></a><a href="retrieve-token/">retrieveToken</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/retrieveToken/#/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun <a href="retrieve-token/">retrieveToken</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>  <br><br><br></td>
 </tr>
 <tr>
-<td><a href="set-secret/">setSecret</a></td>
-<td><code>fun setSecret(token:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, owner:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, repo:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>? = null, name:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>, value:</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><code>String</code></a><code>):</code><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><code>Unit</code></a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/setSecret/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="set-secret/">setSecret</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/setSecret/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun <a href="set-secret/">setSecret</a>(token: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, owner: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, repo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, name: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, value: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)  <br><br><br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/json/#/PointingToDeclaration/"></a><a href="json/">json</a></td>
+<td><a name="com.dailymotion.kinta.integration.github/GithubIntegration/json/#/PointingToDeclaration/"></a> [jvm] val <a href="json/">json</a>: Json   <br></td>
 </tr>
 </tbody>
 </table>
@@ -1325,10 +1347,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.34eae1b6.min.js"></script>
       
     
   </body>

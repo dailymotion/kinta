@@ -1,4 +1,11 @@
-$dokka.format:gfm
+$dokka.format:gfm-v1
 $dokka.linkExtension:md
-
+$dokka.location:com.dailymotion.console////PointingToDeclaration/console/com.dailymotion.console/index.md
+$dokka.location:com.dailymotion.console//console/#/PointingToDeclaration/console/com.dailymotion.console/console.md
+$dokka.location:com.dailymotion.console/Console///PointingToDeclaration/console/com.dailymotion.console/-console/index.md
+$dokka.location:com.dailymotion.console/Console/Console/#/PointingToDeclaration/console/com.dailymotion.console/-console/-console.md
+$dokka.location:com.dailymotion.console/Console/println/#kotlin.String/PointingToDeclaration/console/com.dailymotion.console/-console/println.md
+$dokka.location:com.dailymotion.console/Console/prompt/#kotlin.String/PointingToDeclaration/console/com.dailymotion.console/-console/prompt.md
+$dokka.location:com.dailymotion.console/Console/promptFile/#kotlin.String/PointingToDeclaration/console/com.dailymotion.console/-console/prompt-file.md
 com.dailymotion.console
+

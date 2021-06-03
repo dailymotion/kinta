@@ -1,6 +1,54 @@
-$dokka.format:gfm
+$dokka.format:gfm-v1
 $dokka.linkExtension:md
-
+$dokka.location:com.dailymotion.kinta.command////PointingToDeclaration/kinta-cli/com.dailymotion.kinta.command/index.md
+$dokka.location:com.dailymotion.kinta.command/Init///PointingToDeclaration/kinta-cli/com.dailymotion.kinta.command/-init/index.md
+$dokka.location:com.dailymotion.kinta.command/Init/dontAsk/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.command/-init/dont-ask.md
+$dokka.location:com.dailymotion.kinta.command/Init/run/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.command/-init/run.md
+$dokka.location:com.dailymotion.kinta.command/Update///PointingToDeclaration/kinta-cli/com.dailymotion.kinta.command/-update/index.md
+$dokka.location:com.dailymotion.kinta.command/Update/run/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.command/-update/run.md
+$dokka.location:com.dailymotion.kinta.infra////PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/index.md
+$dokka.location:com.dailymotion.kinta.infra/Constants///PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-constants/index.md
+$dokka.location:com.dailymotion.kinta.infra/Constants/currentDir/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-constants/current-dir.md
+$dokka.location:com.dailymotion.kinta.infra/Constants/homeDir/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-constants/home-dir.md
+$dokka.location:com.dailymotion.kinta.infra/Constants/kintaDir/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-constants/kinta-dir.md
+$dokka.location:com.dailymotion.kinta.infra/Constants/latestVersion/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-constants/latest-version.md
+$dokka.location:com.dailymotion.kinta.infra/Constants/stagingDir/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-constants/staging-dir.md
+$dokka.location:com.dailymotion.kinta.infra/Downloader///PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-downloader/index.md
+$dokka.location:com.dailymotion.kinta.infra/Downloader/download/#kotlin.String#java.io.File/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-downloader/download.md
+$dokka.location:com.dailymotion.kinta.infra/FirstTimeInstall///PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-first-time-install/index.md
+$dokka.location:com.dailymotion.kinta.infra/FirstTimeInstall/run/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-first-time-install/run.md
+$dokka.location:com.dailymotion.kinta.infra/Installer///PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-installer/index.md
+$dokka.location:com.dailymotion.kinta.infra/Installer/installLatestVersion/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-installer/install-latest-version.md
+$dokka.location:com.dailymotion.kinta.infra/Version///PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-version/index.md
+$dokka.location:com.dailymotion.kinta.infra/Version/Version/#kotlin.String/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-version/-version.md
+$dokka.location:com.dailymotion.kinta.infra/Version/compareTo/#com.dailymotion.kinta.infra.Version/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-version/compare-to.md
+$dokka.location:com.dailymotion.kinta.infra/Version/isSnapshot/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-version/is-snapshot.md
+$dokka.location:com.dailymotion.kinta.infra/Version/major/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-version/major.md
+$dokka.location:com.dailymotion.kinta.infra/Version/minor/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-version/minor.md
+$dokka.location:com.dailymotion.kinta.infra/Version/patch/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-version/patch.md
+$dokka.location:com.dailymotion.kinta.infra/Version/value/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta.infra/-version/value.md
+$dokka.location:com.dailymotion.kinta////PointingToDeclaration/kinta-cli/com.dailymotion.kinta/index.md
+$dokka.location:com.dailymotion.kinta//kintaSrcCommands/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/kinta-src-commands.md
+$dokka.location:com.dailymotion.kinta//main/#kotlin.Array[kotlin.String]/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/main.md
+$dokka.location:com.dailymotion.kinta/LogType.Debug///PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-debug/index.md
+$dokka.location:com.dailymotion.kinta/LogType.Debug/logLevel/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-debug/log-level.md
+$dokka.location:com.dailymotion.kinta/LogType.Debug/name/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-debug/name.md
+$dokka.location:com.dailymotion.kinta/LogType.Debug/options/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-debug/options.md
+$dokka.location:com.dailymotion.kinta/LogType.Debug/ordinal/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-debug/ordinal.md
+$dokka.location:com.dailymotion.kinta/LogType.Error///PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-error/index.md
+$dokka.location:com.dailymotion.kinta/LogType.Error/logLevel/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-error/log-level.md
+$dokka.location:com.dailymotion.kinta/LogType.Error/name/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-error/name.md
+$dokka.location:com.dailymotion.kinta/LogType.Error/options/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-error/options.md
+$dokka.location:com.dailymotion.kinta/LogType.Error/ordinal/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-error/ordinal.md
+$dokka.location:com.dailymotion.kinta/LogType.Info///PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-info/index.md
+$dokka.location:com.dailymotion.kinta/LogType.Info/logLevel/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-info/log-level.md
+$dokka.location:com.dailymotion.kinta/LogType.Info/name/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-info/name.md
+$dokka.location:com.dailymotion.kinta/LogType.Info/options/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-info/options.md
+$dokka.location:com.dailymotion.kinta/LogType.Info/ordinal/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/-info/ordinal.md
+$dokka.location:com.dailymotion.kinta/LogType///PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/index.md
+$dokka.location:com.dailymotion.kinta/LogType/logLevel/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/log-level.md
+$dokka.location:com.dailymotion.kinta/LogType/options/#/PointingToDeclaration/kinta-cli/com.dailymotion.kinta/-log-type/options.md
 com.dailymotion.kinta
 com.dailymotion.kinta.command
 com.dailymotion.kinta.infra
+

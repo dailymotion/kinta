@@ -1,195 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://dailymotion.github.com/kinta/</loc>
-     <lastmod>2021-04-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://dailymotion.github.com/kinta/kdoc/master/console/</loc>
-     <lastmod>2021-04-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://dailymotion.github.com/kinta/kdoc/master/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://dailymotion.github.com/kinta/kdoc/master/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://dailymotion.github.com/kinta/kdoc/master/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.13/console/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.13/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.13/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.13/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.12/console/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.12/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.12/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.12/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.11/console/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.11/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.11/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.11/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.10/console/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.10/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.10/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.10/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.9/console/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.9/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.9/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.9/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.8/console/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.8/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.8/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.8/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.7/console/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.7/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.7/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.7/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.5/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.5/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.5/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.4/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.4/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.4/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.3/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.3/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.3/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.2/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.2/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.2/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.1-SNAPSHOT/kinta-cli/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.1-SNAPSHOT/kinta-lib/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dailymotion.github.com/kinta/kdoc/0.1.1-SNAPSHOT/kinta-workflows/</loc>
-     <lastmod>2021-04-28</lastmod>
+     <lastmod>2021-06-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
