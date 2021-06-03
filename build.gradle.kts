@@ -185,7 +185,7 @@ fun Project.configureMavenPublish() {
             }
             maven {
                 name = "ossSnapshots"
-                url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+                url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
                 credentials {
                     username = System.getenv("SONATYPE_NEXUS_USERNAME")
                     password = System.getenv("SONATYPE_NEXUS_PASSWORD")
