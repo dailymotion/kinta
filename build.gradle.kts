@@ -8,16 +8,6 @@ plugins {
     id("org.jetbrains.dokka").version(Versions.dokka).apply(false)
 }
 
-fun isTag() = !System.getenv("TRAVIS_TAG").isNullOrBlank()
-
-fun isMaster(): Boolean {
-    val branch = System.getenv("TRAVIS_BRANCH")
-    val pullRequest = System.getenv("TRAVIS_PULL_REQUEST") as String?
-
-    return (pullRequest?.isBlank() == true || pullRequest == "false") && branch == "master"
-}
-
-
 version = "0.1.14-SNAPSHOT"
 
 subprojects {
@@ -69,7 +59,7 @@ subprojects {
         if (isTag()) {
             project.logger.lifecycle("Upload to OSSStaging needed.")
             dependsOn("publishDefaultPublicationToOssStagingRepository")
-        } else if (isMaster()) {
+        } else if (isPushMaster()) {
             project.logger.lifecycle("Upload to OSSSnapshots needed.")
             dependsOn("publishDefaultPublicationToOssSnapshotsRepository")
         }
@@ -98,6 +88,30 @@ fun Project.getOssStagingUrl(): String {
     println("publishing to '$repositoryId")
     return "https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/${repositoryId}/".also {
         this.extensions.extraProperties["ossStagingUrl"] = it
+    }
+}
+
+fun isTag(): Boolean {
+    val ref = System.getenv("GITHUB_REF")
+    return ref?.startsWith("refs/tags/") == true
+}
+
+fun isPushMaster(): Boolean {
+    val eventName = System.getenv("GITHUB_EVENT_NAME")
+    val ref = System.getenv("GITHUB_REF")
+
+    return eventName == "push" && (ref == "refs/heads/master")
+}
+
+tasks.register("deployDocsIfNeeded") {
+    if (isPushMaster()) {
+        dependsOn("deployDocs")
+    }
+}
+
+tasks.register("deployArchivesIfNeeded") {
+    if (isTag()) {
+        dependsOn("deployArchives")
     }
 }
 
@@ -193,15 +207,3 @@ fun Project.configureMavenPublish() {
 }
 
 apply(from = "docs.gradle.kts")
-
-tasks.register("deployDocsIfNeeded") {
-    if (isMaster()) {
-        dependsOn("deployDocs")
-    }
-}
-
-tasks.register("deployArchivesIfNeeded") {
-    if (isTag()) {
-        dependsOn("deployArchives")
-    }
-}
