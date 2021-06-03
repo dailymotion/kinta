@@ -37,16 +37,10 @@ subprojects {
     apply(plugin = "signing")
 
     tasks.withType<org.jetbrains.dokka.gradle.DokkaTask> {
-        configuration {
-            reportUndocumented = false
-            outputFormat = "gfm"
-
-            outputDirectory = "$rootDir/build/kdoc"
-
-            perPackageOption {
-                // uncomment when/if https://github.com/Kotlin/dokka/pull/598 is merged
-                // matchingRegex = ".*\\.internal"
-                suppress = true
+        outputDirectory.set(rootDir.resolve("build/kdoc"))
+        dokkaSourceSets {
+            configureEach {
+                reportUndocumented.set(false)
             }
         }
     }
