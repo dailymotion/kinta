@@ -16,9 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Checkout submodule
-        run: git submodule sync --recursive && git submodule update --init --recursive
-
       - name: Cache gradle and sdk
         uses: actions/cache@v2
         env:
