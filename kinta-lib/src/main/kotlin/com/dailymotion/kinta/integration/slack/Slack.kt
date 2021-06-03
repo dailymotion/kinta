@@ -38,7 +38,7 @@ object Slack {
                 )
         )
 
-        val body = RequestBody.create(MediaType.parse("application/json"), Json.nonstrict.toJson(jsonObject).toString())
+        val body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
 
         Logger.i("Sending slack notification")
 

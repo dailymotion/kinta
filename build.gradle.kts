@@ -1,3 +1,4 @@
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -11,17 +12,11 @@ version = "0.1.14-SNAPSHOT"
 
 subprojects {
     repositories {
-        jcenter()
-        maven {
-            url = uri("https://repo.gradle.org/gradle/libs-releases-local/")
-        }
+        mavenCentral()
+        maven ("https://repo.gradle.org/gradle/libs-releases-local/")
     }
 
     tasks.withType<KotlinCompile> {
-        plugins.withId("org.jetbrains.kotlin.plugin.serialization") {
-            kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.ImplicitReflectionSerializer"
-            kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.UnstableDefault"
-        }
         kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
         kotlinOptions {
             allWarningsAsErrors = true
@@ -39,6 +34,7 @@ subprojects {
 
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
+    apply(plugin = "signing")
 
     tasks.withType<org.jetbrains.dokka.gradle.DokkaTask> {
         configuration {
@@ -61,12 +57,37 @@ subprojects {
 
     tasks.register<Task>("deployArtifactsIfNeeded") {
         if (isTag()) {
-            project.logger.lifecycle("Upload to Bintray needed.")
-            dependsOn("publishDefaultPublicationToBintrayRepository")
+            project.logger.lifecycle("Upload to OSSStaging needed.")
+            dependsOn("publishDefaultPublicationToOssStagingRepository")
         } else if (isPushMaster()) {
-            project.logger.lifecycle("Upload to OJO needed.")
-            dependsOn("publishDefaultPublicationToOjoRepository")
+            project.logger.lifecycle("Upload to OSSSnapshots needed.")
+            dependsOn("publishDefaultPublicationToOssSnapshotsRepository")
         }
+    }
+}
+
+fun Project.getOssStagingUrl(): String {
+    val url = try {
+        this.extensions.extraProperties["ossStagingUrl"] as String?
+    } catch (e: ExtraPropertiesExtension.UnknownPropertyException) {
+        null
+    }
+    if (url != null) {
+        return url
+    }
+    val client = net.mbonnin.vespene.lib.NexusStagingClient(
+        username = System.getenv("SONATYPE_NEXUS_USERNAME"),
+        password = System.getenv("SONATYPE_NEXUS_PASSWORD")
+    )
+    val repositoryId = runBlocking {
+        client.createRepository(
+            profileId = System.getenv("KINTA_STAGING_PROFILE_ID"),
+            description = "$group $name $version"
+        )
+    }
+    println("publishing to '$repositoryId")
+    return "https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/${repositoryId}/".also {
+        this.extensions.extraProperties["ossStagingUrl"] = it
     }
 }
 
@@ -101,12 +122,17 @@ fun Project.configureMavenPublish() {
         from(javaPluginConvention?.sourceSets?.get("main")?.allSource)
     }
 
+    val javadocJarTaskProvider = tasks.register("docJar", org.gradle.jvm.tasks.Jar::class.java) {
+        archiveClassifier.set("javadoc")
+    }
+
     configure<PublishingExtension> {
         publications {
             create<MavenPublication>("default") {
                 from(components.findByName("java"))
 
                 artifact(sourcesJarTaskProvider.get())
+                artifact(javadocJarTaskProvider.get())
 
                 pom {
                     groupId = group.toString()
@@ -122,6 +148,13 @@ fun Project.configureMavenPublish() {
                         url.set("https://github.com/dailymotion/kinta")
                         connection.set("https://github.com/dailymotion/kinta")
                         developerConnection.set("https://github.com/dailymotion/kinta")
+                    }
+
+                    licenses {
+                        license {
+                            name.set("MIT License")
+                            url.set("https://github.com/dailymotion/kinta/blob/master/LICENSE")
+                        }
                     }
 
                     licenses {
@@ -141,22 +174,35 @@ fun Project.configureMavenPublish() {
 
         repositories {
             maven {
-                name = "bintray"
-                url = uri("https://api.bintray.com/maven/dailymotion/com.dailymotion.kinta/kinta/;publish=1;override=1")
+                name = "ossStaging"
+                setUrl {
+                    uri(rootProject.getOssStagingUrl())
+                }
                 credentials {
-                    username = System.getenv("BINTRAY_USER")
-                    password = System.getenv("BINTRAY_API_KEY")
+                    username = System.getenv("SONATYPE_NEXUS_USERNAME")
+                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")
                 }
             }
             maven {
-                name = "ojo"
-                url = uri("https://oss.jfrog.org/artifactory/oss-snapshot-local/")
+                name = "ossSnapshots"
+                url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
                 credentials {
-                    username = System.getenv("BINTRAY_USER")
-                    password = System.getenv("BINTRAY_API_KEY")
+                    username = System.getenv("SONATYPE_NEXUS_USERNAME")
+                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")
                 }
             }
         }
+    }
+
+    configure<SigningExtension> {
+        // GPG_PRIVATE_KEY should contain the armoured private key that starts with -----BEGIN PGP PRIVATE KEY BLOCK-----
+        // It can be obtained with gpg --armour --export-secret-keys KEY_ID
+        useInMemoryPgpKeys(System.getenv("KINTA_GPG_PRIVATE_KEY"), System.getenv("KINTA_GPG_PRIVATE_KEY_PASSWORD"))
+        val publicationsContainer = (extensions.getByName("publishing") as PublishingExtension).publications
+        sign(publicationsContainer)
+    }
+    tasks.withType(Sign::class.java).configureEach {
+        isEnabled = !System.getenv("KINTA_GPG_PRIVATE_KEY").isNullOrBlank()
     }
 }
 

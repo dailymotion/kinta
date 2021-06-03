@@ -3,9 +3,8 @@ package com.dailymotion.kinta.integration.bitrise
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.*
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -15,7 +14,7 @@ import okhttp3.RequestBody
 object Bitrise {
 
     private const val BITRISE_API_URL = "https://api.bitrise.io/v0.1/apps"
-
+    private val json = Json { ignoreUnknownKeys = true }
     fun triggerBuild(
             token: String? = null,
             repoName: String,
@@ -38,7 +37,7 @@ object Bitrise {
                 ))
         ))
 
-        val bodyAsString = Json.nonstrict.toJson(body).toString()
+        val bodyAsString = body.toString()
         val requestBody = RequestBody.create(MediaType.parse("application/json"), bodyAsString)
 
         val request = Request.Builder()
@@ -53,9 +52,9 @@ object Bitrise {
             throw Exception("cannot trigger build: ${response.code()}: ${response.body()!!.string()}")
         } else {
             response.body()?.string()?.let {
-                val element = Json.nonstrict.parseJson(it)
+                val element = json.parseToJsonElement(it)
 
-                val buildUrl = element.jsonObject["build_url"]
+                val buildUrl = element.jsonObject["build_url"]?.jsonPrimitive?.content
                 buildUrl?.let { Logger.i("Build triggered : $it") }
             }
         }
@@ -75,7 +74,7 @@ object Bitrise {
             throw Exception("cannot get app list: ${response.code()}: ${response.body()!!.string()}")
         } else {
             response.body()?.string()?.let { data ->
-                val list: AppsListResponse = Json.nonstrict.parse(AppsListResponse.serializer(), data)
+                val list: AppsListResponse = json.decodeFromString(data)
                 return list.data.find { it.repo_slug == repoName }?.slug
                         ?: throw Exception("app not found. Current repo is ${repoName}")
             }
@@ -104,7 +103,7 @@ object Bitrise {
         }
 
         response.body()?.string()?.let { data ->
-            val list: WorkflowsResponse = Json.nonstrict.parse(WorkflowsResponse.serializer(), data)
+            val list: WorkflowsResponse = json.decodeFromString(data)
             return list.data
         }
         throw Exception("error parsing workflows list: ${response.code()}: ${response.body()!!.string()}")

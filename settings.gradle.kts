@@ -6,14 +6,13 @@ pluginManagement {
     repositories {
         mavenCentral()
         google()
-        jcenter()
         gradlePluginPortal()
     }
 
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "com.apollographql") {
-                useModule("com.apollographql.apollo:apollo-gradle-plugin-incubating:${requested.version}")
+                useModule("com.apollographql.apollo:apollo-gradle-plugin:${requested.version}")
             }
             if (requested.id.id == "org.jetbrains.dokka") {
                 useModule("org.jetbrains.dokka:dokka-gradle-plugin:${requested.version}")

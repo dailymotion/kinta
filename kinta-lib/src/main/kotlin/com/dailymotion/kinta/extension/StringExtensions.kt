@@ -9,7 +9,7 @@ fun String.toSlug(): String {
                     || c == '-'
             -> builder.append(c)
             c in 'A'..'Z'
-            -> builder.append(c.toLowerCase())
+            -> builder.append(c.lowercaseChar())
             c == ' '
             -> builder.append('_')
         }

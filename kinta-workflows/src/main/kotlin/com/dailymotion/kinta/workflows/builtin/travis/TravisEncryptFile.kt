@@ -15,7 +15,7 @@ object TravisEncryptFile : CliktCommand(name = "encryptFile") {
     val showKey by option("--showKey", help = "show the private key used for encryption on stdout").flag()
 
     fun String.toVar(): String {
-        return toUpperCase().replace(".", "_").replace(Regex("[^A-Z_]"), "")
+        return uppercase().replace(".", "_").replace(Regex("[^A-Z_]"), "")
     }
 
     override fun run() {

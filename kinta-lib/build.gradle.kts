@@ -5,8 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation(Libs.kotlinStdlib)
-
     implementation(Libs.googlePlayPublisher)
     implementation(Libs.googleCloudStorage)
     implementation(Libs.jgit)

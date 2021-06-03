@@ -1,10 +1,10 @@
 package com.dailymotion.kinta.workflows.builtin.playstore
 
 import com.dailymotion.kinta.KintaEnv
+import com.dailymotion.kinta.globalJson
 import com.dailymotion.kinta.helper.CommandUtil
 import com.github.ajalt.clikt.core.CliktCommand
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonException
+import kotlinx.serialization.SerializationException
 import java.io.File
 
 object PlayStoreInit : CliktCommand(
@@ -18,10 +18,10 @@ object PlayStoreInit : CliktCommand(
         if (filePath != null) {
             //Check at least the file is a json file
             try {
-                val json = Json.nonstrict.parseJson(File(filePath).readText())
+                val json = globalJson.parseToJsonElement(File(filePath).readText())
                 KintaEnv.put(KintaEnv.Var.GOOGLE_PLAY_JSON, json.toString())
                 println("GOOGLE_PLAY_JSON has been set to your .kinta/.env.properties file")
-            } catch (e: JsonException) {
+            } catch (e: SerializationException) {
                 println("Error while parsing the json file.")
                 return
             }

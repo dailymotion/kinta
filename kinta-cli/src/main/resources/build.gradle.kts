@@ -3,11 +3,9 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     mavenLocal()
-    maven {
-        url = uri("https://repo.gradle.org/gradle/libs-releases-local/")
-    }
+    maven("https://repo.gradle.org/gradle/libs-releases-local/")
 }
 
 configure<JavaPluginExtension> {
