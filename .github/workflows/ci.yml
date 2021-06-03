@@ -1,0 +1,31 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Before build
+        run: |
+          eval `ssh-agent -s`
+          ssh-add - <<< "${{ secrets.SSH_DEPLOY_KEY }}"
+          git remote set-url origin git@github.com:dailymotion/kinta.git
+
+      - name: Build
+        env:
+          SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
+          KINTA_GPG_PRIVATE_KEY: ${{ secrets.KINTA_GPG_PRIVATE_KEY }}
+          KINTA_GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.KINTA_GPG_PRIVATE_KEY_PASSWORD }}
+        run: ./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded deployArchivesIfNeeded -i --stacktrace
