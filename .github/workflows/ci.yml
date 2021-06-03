@@ -29,5 +29,9 @@ jobs:
             eval `ssh-agent -s`
             ssh-add - <<< "${{ secrets.SSH_DEPLOY_KEY }}"
             git remote set-url origin git@github.com:dailymotion/kinta.git
+            python3 -m venv venv
+            which pip
+            pip install mkdocs-material
+            mkdocs -V
           fi
           ./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded deployArchivesIfNeeded -i --stacktrace
