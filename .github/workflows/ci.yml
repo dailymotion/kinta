@@ -16,21 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Cache gradle and sdk
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-gradle-and-sdk
-        with:
-          path: |
-            ${{ github.workspace }}/.opt/cache/gradle/wrapper
-            ${{ github.workspace }}/.opt/cache/gradle/caches
-            ${{ github.workspace }}/.opt/sdk
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/wrapper/gradle-wrapper.properties', '**/build.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
       - name: Before build
         run: |
           eval `ssh-agent -s`
