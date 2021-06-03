@@ -30,4 +30,11 @@ jobs:
           KINTA_GPG_PRIVATE_KEY: ${{ secrets.KINTA_GPG_PRIVATE_KEY }}
           KINTA_GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.KINTA_GPG_PRIVATE_KEY_PASSWORD }}
           KINTA_STAGING_PROFILE_ID: ${{ secrets.KINTA_STAGING_PROFILE_ID }}
-        run: ./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded deployArchivesIfNeeded -i --stacktrace
+        run: |
+          if [ ${{ github.event_name }} != 'pull_request' ]
+          then
+            eval `ssh-agent -s`
+            ssh-add - <<< "${{ secrets.SSH_DEPLOY_KEY }}"
+            git remote set-url origin git@github.com:dailymotion/kinta.git
+          fi
+          ./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded deployArchivesIfNeeded -i --stacktrace
