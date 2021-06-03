@@ -32,6 +32,7 @@ subprojects {
     group = "com.dailymotion.kinta"
     version = rootProject.version
 
+    apply(plugin = "kotlin")
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
     apply(plugin = "signing")

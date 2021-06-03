@@ -110,7 +110,7 @@ val deployTask = tasks.register("deployDocs") {
     group = DOCUMENTATION_GROUP
 
     dependsOn(subprojects.map {
-        it.tasks.named("dokka")
+        it.tasks.named("dokkaGfm")
     })
     dependsOn(subprojects.first { it.name == "kinta-cli" }.tasks.named("distZip"))
 
@@ -161,7 +161,7 @@ val deployArchives = tasks.register("deployArchives") {
     dependsOn(distZipTaskProvider)
 
     dependsOn(subprojects.map {
-        it.tasks.named("dokka")
+        it.tasks.named("dokkaGfm")
     })
 
     doLast {
