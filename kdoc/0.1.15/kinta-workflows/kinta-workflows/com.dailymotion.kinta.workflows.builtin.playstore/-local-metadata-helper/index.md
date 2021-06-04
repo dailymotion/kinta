@@ -1,0 +1,26 @@
+//[kinta-workflows](../../../index.md)/[com.dailymotion.kinta.workflows.builtin.playstore](../index.md)/[LocalMetadataHelper](index.md)
+
+
+
+# LocalMetadataHelper  
+ [jvm] class [LocalMetadataHelper](index.md)(**metadataFolderPath**: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html))   
+
+
+## Types  
+  
+|  Name |  Summary | 
+|---|---|
+| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper.Companion///PointingToDeclaration/"></a>[Companion](-companion/index.md)| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper.Companion///PointingToDeclaration/"></a>[jvm]  <br>Content  <br>object [Companion](-companion/index.md)  <br><br><br>|
+
+
+## Functions  
+  
+|  Name |  Summary | 
+|---|---|
+| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/cleanMetaDatas/#/PointingToDeclaration/"></a>[cleanMetaDatas](clean-meta-datas.md)| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/cleanMetaDatas/#/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun [cleanMetaDatas](clean-meta-datas.md)()  <br><br><br>|
+| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getAllListing/#/PointingToDeclaration/"></a>[getAllListing](get-all-listing.md)| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getAllListing/#/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun [getAllListing](get-all-listing.md)(): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)<[GooglePlayIntegration.ListingResource](../../../../kinta-lib/kinta-lib/com.dailymotion.kinta.integration.googleplay.internal/-google-play-integration/-listing-resource/index.md)>  <br>More info  <br>Retrieve local listings metadatas  <br><br><br>|
+| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getChangelog/#kotlin.Long/PointingToDeclaration/"></a>[getChangelog](get-changelog.md)| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getChangelog/#kotlin.Long/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun [getChangelog](get-changelog.md)(versionCode: [Long](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)<[GooglePlayIntegration.ChangelogResource](../../../../kinta-lib/kinta-lib/com.dailymotion.kinta.integration.googleplay.internal/-google-play-integration/-changelog-resource/index.md)>  <br>More info  <br>Retrieve all localized changeLogs for a specific version code  <br><br><br>|
+| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getImages/#kotlin.String?#kotlin.String?/PointingToDeclaration/"></a>[getImages](get-images.md)| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getImages/#kotlin.String?#kotlin.String?/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun [getImages](get-images.md)(languageCode: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)? = null, imageType: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)? = null): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)<[GooglePlayIntegration.ImageUploadData](../../../../kinta-lib/kinta-lib/com.dailymotion.kinta.integration.googleplay.internal/-google-play-integration/-image-upload-data/index.md)>  <br>More info  <br>Retrieve local images metadata  <br><br><br>|
+| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/saveChangeLogs/#kotlin.collections.List[com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration.ChangelogResource]/PointingToDeclaration/"></a>[saveChangeLogs](save-change-logs.md)| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/saveChangeLogs/#kotlin.collections.List[com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration.ChangelogResource]/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun [saveChangeLogs](save-change-logs.md)(changeLogs: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)<[GooglePlayIntegration.ChangelogResource](../../../../kinta-lib/kinta-lib/com.dailymotion.kinta.integration.googleplay.internal/-google-play-integration/-changelog-resource/index.md)>)  <br><br><br>|
+| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/saveListings/#kotlin.collections.List[com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration.ListingResource]/PointingToDeclaration/"></a>[saveListings](save-listings.md)| <a name="com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/saveListings/#kotlin.collections.List[com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration.ListingResource]/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>fun [saveListings](save-listings.md)(listings: [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)<[GooglePlayIntegration.ListingResource](../../../../kinta-lib/kinta-lib/com.dailymotion.kinta.integration.googleplay.internal/-google-play-integration/-listing-resource/index.md)>)  <br><br><br>|
+

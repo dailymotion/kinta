@@ -1,0 +1,18 @@
+//[kinta-lib](../../../index.md)/[com.dailymotion.kinta.integration.jira.internal](../index.md)/[JiraService](index.md)
+
+
+
+# JiraService  
+ [jvm] interface [JiraService](index.md)   
+
+
+## Functions  
+  
+|  Name |  Summary | 
+|---|---|
+| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/addComment/#kotlin.String#com.dailymotion.kinta.integration.jira.internal.CommentBody/PointingToDeclaration/"></a>[addComment](add-comment.md)| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/addComment/#kotlin.String#com.dailymotion.kinta.integration.jira.internal.CommentBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = issue/{issueId}/comment)  <br>  <br>abstract fun [addComment](add-comment.md)(@Path(value = issueId)issueId: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), @Body()commentBody: [CommentBody](../-comment-body/index.md)): Call<[Void](https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html)>  <br><br><br>|
+| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/assign/#kotlin.String#com.dailymotion.kinta.integration.jira.internal.AssignBody/PointingToDeclaration/"></a>[assign](assign.md)| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/assign/#kotlin.String#com.dailymotion.kinta.integration.jira.internal.AssignBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@PUT(value = issue/{issueId}/assignee)  <br>  <br>abstract fun [assign](assign.md)(@Path(value = issueId)issueId: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), @Body()assignBody: [AssignBody](../-assign-body/index.md)): Call<[Void](https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html)>  <br><br><br>|
+| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/getIssue/#kotlin.String/PointingToDeclaration/"></a>[getIssue](get-issue.md)| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/getIssue/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = issue/{issueId})  <br>  <br>abstract fun [getIssue](get-issue.md)(@Path(value = issueId)issueId: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): Call<[Issue](../-issue/index.md)>  <br><br><br>|
+| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/getTransitions/#kotlin.String/PointingToDeclaration/"></a>[getTransitions](get-transitions.md)| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/getTransitions/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = issue/{issueId}/transitions)  <br>  <br>abstract fun [getTransitions](get-transitions.md)(@Path(value = issueId)issueId: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): Call<[TransitionResult](../-transition-result/index.md)>  <br><br><br>|
+| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/setTransition/#kotlin.String#com.dailymotion.kinta.integration.jira.internal.TransitionBody/PointingToDeclaration/"></a>[setTransition](set-transition.md)| <a name="com.dailymotion.kinta.integration.jira.internal/JiraService/setTransition/#kotlin.String#com.dailymotion.kinta.integration.jira.internal.TransitionBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = issue/{issueId}/transitions)  <br>  <br>abstract fun [setTransition](set-transition.md)(@Path(value = issueId)issueId: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), @Body()transitionBody: [TransitionBody](../-transition-body/index.md)): Call<[Void](https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html)>  <br><br><br>|
+
