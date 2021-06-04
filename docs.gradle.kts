@@ -109,9 +109,7 @@ val cleanDocs = tasks.register("cleanDocs") {
 val deployTask = tasks.register("deployDocs") {
     group = DOCUMENTATION_GROUP
 
-    dependsOn(subprojects.map {
-        it.tasks.named("dokkaGfmMultiModule")
-    })
+    dependsOn(tasks.named("dokkaGfmMultiModule"))
     dependsOn(subprojects.first { it.name == "kinta-cli" }.tasks.named("distZip"))
 
     doLast {
@@ -160,9 +158,7 @@ val deployArchives = tasks.register("deployArchives") {
 
     dependsOn(distZipTaskProvider)
 
-    dependsOn(subprojects.map {
-        it.tasks.named("dokkaGfmMultiModule")
-    })
+    dependsOn(tasks.named("dokkaGfmMultiModule"))
 
     doLast {
         runCommand(command = "git clone --depth 1 git@github.com:dailymotion/kinta.git -b archives archives")
