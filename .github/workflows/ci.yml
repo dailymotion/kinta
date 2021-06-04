@@ -29,6 +29,8 @@ jobs:
             eval `ssh-agent -s`
             ssh-add - <<< "${{ secrets.SSH_DEPLOY_KEY }}"
             git remote set-url origin git@github.com:dailymotion/kinta.git
+            git config --global user.email "apps@dailymotion.com"
+            git config --global user.name "Kinta GithubActions"
             python3 -m venv venv
             which pip
             pip install mkdocs-material
