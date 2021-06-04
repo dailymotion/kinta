@@ -80,6 +80,7 @@ fun Project.getOssStagingUrl(): String {
         return url
     }
     val client = net.mbonnin.vespene.lib.NexusStagingClient(
+        baseUrl = "https://s01.oss.sonatype.org/service/local/",
         username = System.getenv("SONATYPE_NEXUS_USERNAME"),
         password = System.getenv("SONATYPE_NEXUS_PASSWORD")
     )
