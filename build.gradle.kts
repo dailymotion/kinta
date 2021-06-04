@@ -8,7 +8,7 @@ plugins {
     id("org.jetbrains.dokka").version(Versions.dokka).apply(false)
 }
 
-version = "0.1.15-SNAPSHOT"
+version = "0.1.15"
 
 repositories {
     mavenCentral()
