@@ -10,6 +10,16 @@ plugins {
 
 version = "0.1.14-SNAPSHOT"
 
+repositories {
+    mavenCentral()
+}
+
+apply(plugin = "org.jetbrains.dokka")
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask> {
+    outputDirectory.set(rootDir.resolve("build/kdoc"))
+}
+
 subprojects {
     repositories {
         mavenCentral()
@@ -37,8 +47,7 @@ subprojects {
     apply(plugin = "maven-publish")
     apply(plugin = "signing")
 
-    tasks.withType<org.jetbrains.dokka.gradle.DokkaTask> {
-        outputDirectory.set(rootDir.resolve("build/kdoc"))
+    tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial> {
         dokkaSourceSets {
             configureEach {
                 reportUndocumented.set(false)
