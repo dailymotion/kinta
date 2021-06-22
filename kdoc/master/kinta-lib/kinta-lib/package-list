@@ -344,9 +344,9 @@ $dokka.location:com.dailymotion.kinta.integration.googleplay/GooglePlayRelease/v
 $dokka.location:com.dailymotion.kinta.integration.gradle////PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/index.md
 $dokka.location:com.dailymotion.kinta.integration.gradle/Gradle///PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/-gradle/index.md
 $dokka.location:com.dailymotion.kinta.integration.gradle/Gradle/Gradle/#java.io.File?/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/-gradle/-gradle.md
-$dokka.location:com.dailymotion.kinta.integration.gradle/Gradle/executeGroupTasks/#kotlin.String#kotlin.Array[kotlin.String]/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/-gradle/execute-group-tasks.md
-$dokka.location:com.dailymotion.kinta.integration.gradle/Gradle/executeTask/#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/-gradle/execute-task.md
-$dokka.location:com.dailymotion.kinta.integration.gradle/Gradle/executeTasks/#kotlin.Array[kotlin.String]/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/-gradle/execute-tasks.md
+$dokka.location:com.dailymotion.kinta.integration.gradle/Gradle/executeGroupTasks/#kotlin.String#kotlin.Array[kotlin.String]#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/-gradle/execute-group-tasks.md
+$dokka.location:com.dailymotion.kinta.integration.gradle/Gradle/executeTask/#kotlin.String#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/-gradle/execute-task.md
+$dokka.location:com.dailymotion.kinta.integration.gradle/Gradle/executeTasks/#kotlin.Array[kotlin.String]#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gradle/-gradle/execute-tasks.md
 $dokka.location:com.dailymotion.kinta.integration.jira.internal////PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/index.md
 $dokka.location:com.dailymotion.kinta.integration.jira.internal/AssignBody///PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-assign-body/index.md
 $dokka.location:com.dailymotion.kinta.integration.jira.internal/AssignBody/AssignBody/#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-assign-body/-assign-body.md
