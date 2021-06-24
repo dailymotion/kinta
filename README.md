@@ -49,6 +49,32 @@ Current integrations include:
 * Transifex
 * Slack
 
+# Snapshots
+
+You can install the latest build from the master branch with the following command:
+
+```
+curl -s 'https://dailymotion.github.io/kinta/install_snapshot.sh' |sh
+
+```
+
+If you have a `kintaSrc` project :
+
+```
+repositories {
+    maven {
+        url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+    }
+}
+
+dependencies {
+    api("com.dailymotion.kinta:kinta-lib:0.1.XX-SNAPSHOT")
+    implementation("com.dailymotion.kinta:kinta-workflows:0.1.X-SNAPSHOT")    
+}
+
+```
+
+
 # Contributing
 
 Contributions and feedbacks are welcome. Please make sure to open an issue before starting working on something.
