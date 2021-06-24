@@ -49,9 +49,9 @@ Current integrations include:
 * Transifex
 * Slack
 
-# Plug on Snapshots
+# Snapshots
 
-Install kinta from master:
+You can install the latest build from the master branch with the following command:
 
 ```
 curl -s 'https://dailymotion.github.io/kinta/install_from_master.sh' |sh
