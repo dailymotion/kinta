@@ -35,6 +35,14 @@ fun determineLatestZip() {
     }
 }
 
+fun deployMasterZip(distZipTaskProvider: Provider<Zip>) {
+    val distZip = distZipTaskProvider.get().archiveFile.get().asFile
+
+    if (distZip != null) {
+        distZip.copyTo(File("docs/zip/master.zip"))
+    }
+}
+
 fun createIndexMd() {
     val outputFile = file("docs/index.md")
     val inputFile = file("README.md")
@@ -110,13 +118,17 @@ val deployTask = tasks.register("deployDocs") {
     group = DOCUMENTATION_GROUP
 
     dependsOn(tasks.named("dokkaGfmMultiModule"))
-    dependsOn(subprojects.first { it.name == "kinta-cli" }.tasks.named("distZip"))
+
+    /** zip master binaries **/
+    val masterZipTaskProvider = subprojects.first { it.name == "kinta-cli" }.tasks.named("distZip").map { it as Zip }
+    dependsOn(masterZipTaskProvider)
 
     doLast {
         cleanDocs()
         retrieveArchives()
         copyCurrentKdoc()
         determineLatestZip()
+        deployMasterZip(masterZipTaskProvider)
         createIndexMd()
         createMkdocsYml()
 
