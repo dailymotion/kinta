@@ -1389,6 +1389,24 @@ source ~/.kinta/setup-environment.sh
 <li>Transifex</li>
 <li>Slack</li>
 </ul>
+<h1 id="snapshots">Snapshots</h1>
+<p>You can install the latest build from the master branch with the following command:</p>
+<pre><code>curl -s 'https://dailymotion.github.io/kinta/install_snapshot.sh' |sh
+
+</code></pre>
+<p>If you have a <code>kintaSrc</code> project :</p>
+<pre><code>repositories {
+    maven {
+        url = uri(&quot;https://s01.oss.sonatype.org/content/repositories/snapshots/&quot;)
+    }
+}
+
+dependencies {
+    api(&quot;com.dailymotion.kinta:kinta-lib:0.1.XX-SNAPSHOT&quot;)
+    implementation(&quot;com.dailymotion.kinta:kinta-workflows:0.1.X-SNAPSHOT&quot;)    
+}
+
+</code></pre>
 <h1 id="contributing">Contributing</h1>
 <p>Contributions and feedbacks are welcome. Please make sure to open an issue before starting working on something.</p>
                 
