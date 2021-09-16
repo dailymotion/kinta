@@ -10,6 +10,7 @@ object Libs {
     const val handyUriTemplates = "com.damnhandy:handy-uri-templates:2.1.7"
     const val googlePlayPublisher = "com.google.apis:google-api-services-androidpublisher:v3-rev20200701-1.30.10"
     const val googleCloudStorage = "com.google.cloud:google-cloud-storage:1.12.0"
+    const val googleCloudDatastore = "com.google.cloud:google-cloud-datastore:1.61.0"
 
     const val jgit = "org.eclipse.jgit:org.eclipse.jgit:5.3.0.201903130848-r"
     const val slf4j = "org.slf4j:slf4j-nop:1.8.0-beta4"
