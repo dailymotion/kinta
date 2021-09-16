@@ -7,6 +7,7 @@ plugins {
 dependencies {
     implementation(Libs.googlePlayPublisher)
     implementation(Libs.googleCloudStorage)
+    implementation(Libs.googleCloudDatastore)
     implementation(Libs.jgit)
     implementation(Libs.slf4j)
     implementation(Libs.handyUriTemplates)

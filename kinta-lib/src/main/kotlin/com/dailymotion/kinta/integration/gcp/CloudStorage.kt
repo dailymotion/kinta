@@ -3,10 +3,9 @@ package com.dailymotion.kinta.integration.gcp
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import com.google.auth.oauth2.GoogleCredentials
-import com.google.cloud.storage.Bucket
-import com.google.cloud.storage.Storage
-import com.google.cloud.storage.StorageOptions
+import com.google.cloud.storage.*
 import java.io.FileInputStream
+import java.nio.file.Paths
 
 
 object CloudStorage {
@@ -43,5 +42,14 @@ object CloudStorage {
             remotePath: String,
             inputStream: FileInputStream) {
         bucket(cloudStorageJson, bucket).create(remotePath, inputStream)
+    }
+
+    fun download(cloudStorageJson: String? = null,
+                 bucket: String? = null,
+                 blobName: String,
+                 destFilePath: String) {
+        bucket(cloudStorageJson, bucket)
+                .get(blobName)
+                .downloadTo(Paths.get(destFilePath))
     }
 }
