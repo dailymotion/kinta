@@ -148,9 +148,12 @@ $dokka.location:com.dailymotion.kinta.integration.crypto/Crypto///PointingToDecl
 $dokka.location:com.dailymotion.kinta.integration.crypto/Crypto/aesCbcEncrypt/#kotlin.ByteArray#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.crypto/-crypto/aes-cbc-encrypt.md
 $dokka.location:com.dailymotion.kinta.integration.crypto/Crypto/aesCbcEncrypt/#kotlin.ByteArray/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.crypto/-crypto/aes-cbc-encrypt.md
 $dokka.location:com.dailymotion.kinta.integration.gcp////PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gcp/index.md
+$dokka.location:com.dailymotion.kinta.integration.gcp/CloudDatastore///PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gcp/-cloud-datastore/index.md
+$dokka.location:com.dailymotion.kinta.integration.gcp/CloudDatastore/store/#kotlin.String?/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gcp/-cloud-datastore/store.md
 $dokka.location:com.dailymotion.kinta.integration.gcp/CloudStorage///PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gcp/-cloud-storage/index.md
 $dokka.location:com.dailymotion.kinta.integration.gcp/CloudStorage/create/#kotlin.String?#kotlin.String?#kotlin.String#java.io.FileInputStream/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gcp/-cloud-storage/create.md
 $dokka.location:com.dailymotion.kinta.integration.gcp/CloudStorage/deleteRecursively/#kotlin.String?#kotlin.String?#kotlin.String#kotlin.Boolean/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gcp/-cloud-storage/delete-recursively.md
+$dokka.location:com.dailymotion.kinta.integration.gcp/CloudStorage/download/#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.gcp/-cloud-storage/download.md
 $dokka.location:com.dailymotion.kinta.integration.git.internal////PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git.internal/index.md
 $dokka.location:com.dailymotion.kinta.integration.git.internal//callWithCredentials/org.eclipse.jgit.api.FetchCommand#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git.internal/call-with-credentials.md
 $dokka.location:com.dailymotion.kinta.integration.git.internal//callWithCredentials/org.eclipse.jgit.api.PullCommand#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git.internal/call-with-credentials.md
@@ -486,6 +489,9 @@ $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GITHUB_USERNAME/ordinal/#/Poi
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GITLAB_PERSONAL_TOKEN///PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-i-t-l-a-b_-p-e-r-s-o-n-a-l_-t-o-k-e-n/index.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GITLAB_PERSONAL_TOKEN/name/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-i-t-l-a-b_-p-e-r-s-o-n-a-l_-t-o-k-e-n/name.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GITLAB_PERSONAL_TOKEN/ordinal/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-i-t-l-a-b_-p-e-r-s-o-n-a-l_-t-o-k-e-n/ordinal.md
+$dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_CLOUD_DATASTORE_JSON///PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-c-l-o-u-d_-d-a-t-a-s-t-o-r-e_-j-s-o-n/index.md
+$dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_CLOUD_DATASTORE_JSON/name/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-c-l-o-u-d_-d-a-t-a-s-t-o-r-e_-j-s-o-n/name.md
+$dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_CLOUD_DATASTORE_JSON/ordinal/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-c-l-o-u-d_-d-a-t-a-s-t-o-r-e_-j-s-o-n/ordinal.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_CLOUD_STORAGE_BUCKET///PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-c-l-o-u-d_-s-t-o-r-a-g-e_-b-u-c-k-e-t/index.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_CLOUD_STORAGE_BUCKET/name/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-c-l-o-u-d_-s-t-o-r-a-g-e_-b-u-c-k-e-t/name.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_CLOUD_STORAGE_BUCKET/ordinal/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-c-l-o-u-d_-s-t-o-r-a-g-e_-b-u-c-k-e-t/ordinal.md
