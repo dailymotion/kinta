@@ -71,6 +71,7 @@ fun main(args: Array<String>) {
         val error by option(*LogType.Error.options.toTypedArray(), help = "set the logs to LEVEL_ERROR").flag()
 
         override fun run() {
+            KintaEnv.updateAvailableBuiltInEnvs()
             if (version) {
                 println(VERSION)
                 exitProcess(0)
