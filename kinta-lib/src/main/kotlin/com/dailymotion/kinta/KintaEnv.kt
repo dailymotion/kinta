@@ -36,10 +36,6 @@ object KintaEnv {
         APPGALLERY_TOKEN,
     }
 
-    init {
-        updateAvailableBuiltInEnvs()
-    }
-
     fun get(variable: Var): String? = get(variable.name)
 
     fun get(key: String): String? {

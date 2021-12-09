@@ -37,22 +37,29 @@ object EnvProperties {
 
     fun get(key: String): String? = properties.getProperty(key)
 
-    /**
-     * Update env.properties file to match all available envs
-     * This method should be called during a kinta update for example
-     */
+    /** Update env.properties file to match all available envs
+     * This method should be called during a kinta update
+     * or when this property file does not exist */
     fun updateAvailableBuiltInEnvs(keys: List<String>) {
-        if (file.exists()) {
+
+        val definedEnvsText = if (file.exists()) {
             properties.store(file.outputStream(), "Kinta Configuration file")
-
-            //Write envs comments
-            val undefinedEnvs = keys.filter { !properties.containsKey(it) }
-            val comments = undefinedEnvs.joinToString(separator = "\n", prefix = "\n") { "#${it}={${it}}" }
-            file.writeText(file.readText() + comments)
-
-            //Sync property file
-            properties.load(file.inputStream())
+            file.readText()
+        } else {
+            file.parentFile.mkdirs()
+            file.createNewFile()
+            ""
         }
+
+        /** Retrieve not used envs text **/
+        val undefinedEnvs = keys.filterNot { properties.containsKey(it) }
+        val undefinedEnvsText = undefinedEnvs.joinToString(separator = "\n", prefix = "\n") { "#${it}={${it}}" }
+
+        /** Write file **/
+        file.writeText(definedEnvsText + undefinedEnvsText)
+
+        /** Sync property file **/
+        properties.load(file.inputStream())
     }
 
 }
