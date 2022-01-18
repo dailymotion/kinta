@@ -84,6 +84,10 @@ object Transifex {
         val requestBody = RequestBody.create(MediaType.get("application/vnd.api+json"), dataByteArray)
         val response = service(token).requestUploadResource(payload.data.type, requestBody).execute()
 
+        check (response.isSuccessful) {
+            "Transifex: cannot push Resource: ${response.code()}: ${response.errorBody()?.string()}"
+        }
+
         val uploadId = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
             .jsonObject["data"]?.jsonObject
             ?.getValue("id")?.jsonPrimitive?.content!!
@@ -104,31 +108,33 @@ object Transifex {
         /** Wait a bit before checking the upload status
          * to have a chance, it is OK for the very first shot **/
         Thread.sleep(2000)
+
         val response = service(token).getUploadResourceStatus(uploadType, uploadId).execute()
-        when (response.code()) {
-            200 -> {
-                val responseBody = response.body()?.string()!!
-                val status = try {
-                    globalJson.parseToJsonElement(responseBody)
-                        .jsonObject["data"]
-                        ?.jsonObject?.get("attributes")
-                        ?.jsonObject?.getValue("status")?.jsonPrimitive?.content
-                } catch (e: Exception) {
-                    null
-                }
-                when (status) {
-                    "failed" -> throw IllegalStateException("Upload failed : $responseBody")
-                    "succeeded" -> {
-                        /** Upload was successful **/
-                        return
-                    }
-                    else -> {
-                        /** The upload has not been performed yet, come back later **/
-                        checkUploadCompleted(token, uploadType, uploadId)
-                    }
-                }
+        val responseBody = response.body()?.string()
+
+        check (response.isSuccessful && responseBody != null) {
+            "Transifex: cannot check upload status: ${response.code()}: ${response.errorBody()?.string()}"
+        }
+
+        val status = try {
+            globalJson.parseToJsonElement(responseBody)
+                .jsonObject["data"]
+                ?.jsonObject?.get("attributes")
+                ?.jsonObject?.getValue("status")?.jsonPrimitive?.content
+        } catch (e: Exception) {
+            null
+        }
+
+        when (status) {
+            "failed" -> throw IllegalStateException("Upload failed : $responseBody")
+            "succeeded" -> {
+                /** Upload was successful **/
+                return
             }
-            else -> throw IllegalStateException("Upload status could not be retrived : ${response.errorBody()?.string()}")
+            else -> {
+                /** The upload has not been performed yet, come back later **/
+                checkUploadCompleted(token, uploadType, uploadId)
+            }
         }
     }
 
@@ -186,6 +192,10 @@ object Transifex {
         val requestBody = RequestBody.create(MediaType.get("application/vnd.api+json"), dataByteArray)
         val response = service(token).requestDownloadTranslation(requestBody).execute()
 
+        check (response.isSuccessful) {
+            "Transifex: cannot request download for $lang: ${response.code()}: ${response.errorBody()?.string()}"
+        }
+
         val downloadId = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
             .jsonObject["data"]?.jsonObject
             ?.getValue("id")?.jsonPrimitive?.content!!
@@ -202,32 +212,36 @@ object Transifex {
         token: String?,
         downloadId: String
     ): String {
+        /** Wait a bit before checking the upload status
+         * to have a chance, it is OK for the very first shot **/
         Thread.sleep(2000)
+
         val response = service(token).getDownloadTranslationStatus(downloadId).execute()
-        return when (response.code()) {
-            200 -> {
-                val responseBody = response.body()?.string()!!
-                val status = try {
-                    globalJson.parseToJsonElement(responseBody)
-                        .jsonObject["data"]
-                        ?.jsonObject?.get("attributes")
-                        ?.jsonObject?.getValue("status")?.jsonPrimitive?.content
-                } catch (e: Exception) {
-                    null
-                }
-                when (status) {
-                    null -> {
-                        /** We have been redirected to the resource we wanted to download **/
-                        responseBody
-                    }
-                    "failed" -> throw IllegalStateException("Translated file could not be compiled : $responseBody")
-                    else -> {
-                        /** The download is not ready yet, come back later **/
-                        checkDownloadStatus(token, downloadId)
-                    }
-                }
+        val responseBody = response.body()?.string()
+
+        check (response.isSuccessful && responseBody != null) {
+            "Transifex: cannot check download status: ${response.code()}: ${response.errorBody()?.string()}"
+        }
+
+        val status = try {
+            globalJson.parseToJsonElement(responseBody)
+                .jsonObject["data"]
+                ?.jsonObject?.get("attributes")
+                ?.jsonObject?.getValue("status")?.jsonPrimitive?.content
+        } catch (e: Exception) {
+            null
+        }
+
+        return when (status) {
+            null -> {
+                /** We have been redirected to the resource we wanted to download **/
+                responseBody
             }
-            else -> throw IllegalStateException("Download status could not be retrived : ${response.errorBody()?.string()}")
+            "failed" -> throw IllegalStateException("Translated file could not be compiled : $responseBody")
+            else -> {
+                /** The download is not ready yet, come back later **/
+                checkDownloadStatus(token, downloadId)
+            }
         }
     }
 
