@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 object Transifex {
 
     /**
-     * Push source for a giver
+     * Push source for a given resource
      * @param resource, the resource slug associated to the file we want to update
      */
     fun pushSource(
@@ -46,7 +46,7 @@ object Transifex {
     }
 
     /**
-     * Push Translation with the given
+     * Push Translation with the given resource and language
      * @param resource, the resource slug associated to the file we want to update
      * @param lang, the language code
      */
@@ -161,7 +161,7 @@ object Transifex {
     }
 
     /**
-     * Get Translation content for a specific language
+     * Get Translation content for a specific language and resource
      * @param resource, the resource slug we want to fetch
      * @param lang the language code associated to the content wanted
      * @return the content
