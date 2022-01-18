@@ -1,26 +1,27 @@
 package com.dailymotion.kinta.integration.transifex.internal.model
 
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface TransifexService {
-    @GET("{projectSlug}/resource/{resource}/translation/{txLang}")
-    fun getTranslation(@Path("projectSlug") projectSlug: String,
-                       @Path("resource") resource: String,
-                       @Path("txLang") txLang: String,
-                       @Query("mode") mode: String?): Call<TxTranslation>
 
-    @PUT("{projectSlug}/resource/{resource}/content/")
-    fun pushSource(@Path("projectSlug") projectSlug: String,
-                   @Path("resource") resource: String,
-                   @Body txTranslation: TxTranslation): Call<Void>
+    @POST("resource_translations_async_downloads")
+    fun requestDownloadTranslation(@Body payload: RequestBody): Call<ResponseBody>
 
-    @PUT("{projectSlug}/resource/{resource}/translation/{txLang}")
-    fun pushTranslation(@Path("projectSlug") projectSlug: String,
-                        @Path("resource") resource: String,
-                        @Path("txLang") txLang: String,
-                        @Body txTranslation: TxTranslation): Call<Void>
+    @GET("resource_translations_async_downloads/{id}")
+    fun getDownloadTranslationStatus(@Path("id") id: String): Call<ResponseBody>
 
-    @GET("{projectSlug}/languages/")
-    fun getLanguages(@Path("projectSlug") projectSlug: String): Call<List<TxLanguage>>
+    @POST("{upload_type}")
+    fun requestUploadResource(@Path("upload_type") type: String, @Body payload: RequestBody): Call<ResponseBody>
+
+    @GET("{upload_type}/{id}")
+    fun getUploadResourceStatus(@Path("upload_type") type: String, @Path("id") id: String): Call<ResponseBody>
+
+    @GET("projects/{projectSlug}/languages")
+    fun getLanguages(@Path("projectSlug") projectSlug: String,): Call<TxSupportedLanguagesResponse>
 }
