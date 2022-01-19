@@ -1,0 +1,18 @@
+//[kinta-lib](../../../index.md)/[com.dailymotion.kinta.integration.transifex.internal.model](../index.md)/[TransifexService](index.md)
+
+
+
+# TransifexService  
+ [jvm] interface [TransifexService](index.md)   
+
+
+## Functions  
+  
+|  Name |  Summary | 
+|---|---|
+| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getDownloadTranslationStatus/#kotlin.String/PointingToDeclaration/"></a>[getDownloadTranslationStatus](get-download-translation-status.md)| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getDownloadTranslationStatus/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = resource_translations_async_downloads/{id})  <br>  <br>abstract fun [getDownloadTranslationStatus](get-download-translation-status.md)(@Path(value = id)id: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): Call<ResponseBody>  <br><br><br>|
+| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getLanguages/#kotlin.String/PointingToDeclaration/"></a>[getLanguages](get-languages.md)| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getLanguages/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = projects/{projectSlug}/languages)  <br>  <br>abstract fun [getLanguages](get-languages.md)(@Path(value = projectSlug)projectSlug: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): Call<[TxSupportedLanguagesResponse](../-tx-supported-languages-response/index.md)>  <br><br><br>|
+| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getUploadResourceStatus/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[getUploadResourceStatus](get-upload-resource-status.md)| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getUploadResourceStatus/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = {upload_type}/{id})  <br>  <br>abstract fun [getUploadResourceStatus](get-upload-resource-status.md)(@Path(value = upload_type)type: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), @Path(value = id)id: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): Call<ResponseBody>  <br><br><br>|
+| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/requestDownloadTranslation/#okhttp3.RequestBody/PointingToDeclaration/"></a>[requestDownloadTranslation](request-download-translation.md)| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/requestDownloadTranslation/#okhttp3.RequestBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = resource_translations_async_downloads)  <br>  <br>abstract fun [requestDownloadTranslation](request-download-translation.md)(@Body()payload: RequestBody): Call<ResponseBody>  <br><br><br>|
+| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/requestUploadResource/#kotlin.String#okhttp3.RequestBody/PointingToDeclaration/"></a>[requestUploadResource](request-upload-resource.md)| <a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/requestUploadResource/#kotlin.String#okhttp3.RequestBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = {upload_type})  <br>  <br>abstract fun [requestUploadResource](request-upload-resource.md)(@Path(value = upload_type)type: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), @Body()payload: RequestBody): Call<ResponseBody>  <br><br><br>|
+

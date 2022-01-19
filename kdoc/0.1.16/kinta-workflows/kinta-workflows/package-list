@@ -1,0 +1,118 @@
+$dokka.format:gfm-v1
+$dokka.linkExtension:md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions//actions/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/actions.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/ConfigureKeystore///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-configure-keystore/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/ConfigureKeystore/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-configure-keystore/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/DeleteSecret///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-delete-secret/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/DeleteSecret/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-delete-secret/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/DeleteSecret/secretName/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-delete-secret/secret-name.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/RetrieveKeystore///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-retrieve-keystore/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/RetrieveKeystore/output/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-retrieve-keystore/output.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/RetrieveKeystore/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-retrieve-keystore/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/SetSecret///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-set-secret/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/SetSecret/owner/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-set-secret/owner.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/SetSecret/repo/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-set-secret/repo.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/SetSecret/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-set-secret/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/SetSecret/secretName/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-set-secret/secret-name.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.actions/SetSecret/value/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.actions/-set-secret/value.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGalleryInit///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-init/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGalleryInit/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-init/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGallerySubmit///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-submit/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGallerySubmit/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-submit/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGalleryUpdateChangeLogs///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-update-change-logs/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGalleryUpdateChangeLogs/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-update-change-logs/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGalleryUpdateListings///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-update-listings/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGalleryUpdateListings/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-update-listings/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGalleryUpload///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-upload/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.appgallery/AppGalleryUpload/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.appgallery/-app-gallery-upload/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.bitrise////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.bitrise/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.bitrise/BitriseTrigger///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.bitrise/-bitrise-trigger/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.bitrise/BitriseTrigger/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.bitrise/-bitrise-trigger/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.crypto////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.crypto/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.crypto/AesEncrypt///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.crypto/-aes-encrypt/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.crypto/AesEncrypt/input/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.crypto/-aes-encrypt/input.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.crypto/AesEncrypt/iv/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.crypto/-aes-encrypt/iv.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.crypto/AesEncrypt/key/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.crypto/-aes-encrypt/key.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.crypto/AesEncrypt/output/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.crypto/-aes-encrypt/output.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.crypto/AesEncrypt/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.crypto/-aes-encrypt/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.env////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.env/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.env//envCommand/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.env/env-command.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanLocal///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-local/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanLocal/GitCleanLocal/#com.dailymotion.kinta.GitTool/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-local/-git-clean-local.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanLocal/all/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-local/all.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanLocal/gitTool/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-local/git-tool.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanLocal/remote/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-local/remote.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanLocal/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-local/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanRemote///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-remote/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanRemote/GitCleanRemote/#com.dailymotion.kinta.GitTool/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-remote/-git-clean-remote.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanRemote/gitTool/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-remote/git-tool.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitCleanRemote/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-clean-remote/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitPR///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-p-r/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitPR/GitPR/#com.dailymotion.kinta.GitTool/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-p-r/-git-p-r.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitPR/gitTool/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-p-r/git-tool.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitPR/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-git-p-r/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GithubCleanLocal///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-github-clean-local/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GithubCleanRemote///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-github-clean-remote/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GithubPR///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-github-p-r/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitlabCleanLocal///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-gitlab-clean-local/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitlabCleanRemote///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-gitlab-clean-remote/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.gittool/GitlabPR///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.gittool/-gitlab-p-r/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper.Companion///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/-companion/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper.Companion/getDefault/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/-companion/get-default.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/LocalMetadataHelper/#kotlin.String/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/-local-metadata-helper.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/cleanMetaDatas/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/clean-meta-datas.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getAllListing/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/get-all-listing.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getChangelog/#kotlin.Long/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/get-changelog.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/getImages/#kotlin.String?#kotlin.String?/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/get-images.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/saveChangeLogs/#kotlin.collections.List[com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration.ChangelogResource]/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/save-change-logs.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/LocalMetadataHelper/saveListings/#kotlin.collections.List[com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration.ListingResource]/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-local-metadata-helper/save-listings.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStoreInit///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-init/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStoreInit/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-init/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStorePublish///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-publish/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStorePublish/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-publish/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStorePullMetadatas///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-pull-metadatas/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStorePullMetadatas/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-pull-metadatas/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStorePullPreviews///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-pull-previews/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStorePullPreviews/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-pull-previews/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStoreUpdateChangeLogs///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-update-change-logs/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStoreUpdateChangeLogs/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-update-change-logs/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStoreUpdateImages///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-update-images/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStoreUpdateImages/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-update-images/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStoreUpdateListings///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-update-listings/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.playstore/PlayStoreUpdateListings/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.playstore/-play-store-update-listings/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/Travis///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/Travis/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncrypt///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncrypt/repo/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt/repo.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncrypt/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncrypt/value/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt/value.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncryptFile///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt-file/index.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncryptFile/input/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt-file/input.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncryptFile/repo/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt-file/repo.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncryptFile/run/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt-file/run.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncryptFile/showKey/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt-file/show-key.md
+$dokka.location:com.dailymotion.kinta.workflows.builtin.travis/TravisEncryptFile/toVar/kotlin.String#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows.builtin.travis/-travis-encrypt-file/to-var.md
+$dokka.location:com.dailymotion.kinta.workflows////PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows/index.md
+$dokka.location:com.dailymotion.kinta.workflows/BuiltInWorkflows///PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows/-built-in-workflows/index.md
+$dokka.location:com.dailymotion.kinta.workflows/BuiltInWorkflows/all/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows/-built-in-workflows/all.md
+$dokka.location:com.dailymotion.kinta.workflows/BuiltInWorkflows/appGalleryWorkflows/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows/-built-in-workflows/app-gallery-workflows.md
+$dokka.location:com.dailymotion.kinta.workflows/BuiltInWorkflows/bitriseWorkflows/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows/-built-in-workflows/bitrise-workflows.md
+$dokka.location:com.dailymotion.kinta.workflows/BuiltInWorkflows/gitHubWorkflows/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows/-built-in-workflows/git-hub-workflows.md
+$dokka.location:com.dailymotion.kinta.workflows/BuiltInWorkflows/gitlabWorkflows/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows/-built-in-workflows/gitlab-workflows.md
+$dokka.location:com.dailymotion.kinta.workflows/BuiltInWorkflows/playStoreWorkflows/#/PointingToDeclaration/kinta-workflows/com.dailymotion.kinta.workflows/-built-in-workflows/play-store-workflows.md
+com.dailymotion.kinta.workflows
+com.dailymotion.kinta.workflows.builtin.actions
+com.dailymotion.kinta.workflows.builtin.appgallery
+com.dailymotion.kinta.workflows.builtin.bitrise
+com.dailymotion.kinta.workflows.builtin.crypto
+com.dailymotion.kinta.workflows.builtin.env
+com.dailymotion.kinta.workflows.builtin.gittool
+com.dailymotion.kinta.workflows.builtin.playstore
+com.dailymotion.kinta.workflows.builtin.travis
+
