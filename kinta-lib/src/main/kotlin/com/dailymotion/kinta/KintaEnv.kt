@@ -23,6 +23,7 @@ object KintaEnv {
         JIRA_PASSWORD,
         BITRISE_PERSONAL_TOKEN,
         JIRA_URL,
+        JIRA_ACCOUNT_ID,
         APPLE_PASSWORD,
         APPLE_USERNAME,
         KINTA_KEYSTORE,
