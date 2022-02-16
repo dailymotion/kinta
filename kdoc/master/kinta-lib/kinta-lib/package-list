@@ -353,7 +353,7 @@ $dokka.location:com.dailymotion.kinta.integration.gradle/Gradle/executeTasks/#ko
 $dokka.location:com.dailymotion.kinta.integration.jira.internal////PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/index.md
 $dokka.location:com.dailymotion.kinta.integration.jira.internal/AssignBody///PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-assign-body/index.md
 $dokka.location:com.dailymotion.kinta.integration.jira.internal/AssignBody/AssignBody/#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-assign-body/-assign-body.md
-$dokka.location:com.dailymotion.kinta.integration.jira.internal/AssignBody/name/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-assign-body/name.md
+$dokka.location:com.dailymotion.kinta.integration.jira.internal/AssignBody/accountId/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-assign-body/account-id.md
 $dokka.location:com.dailymotion.kinta.integration.jira.internal/CommentBody///PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-comment-body/index.md
 $dokka.location:com.dailymotion.kinta.integration.jira.internal/CommentBody/CommentBody/#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-comment-body/-comment-body.md
 $dokka.location:com.dailymotion.kinta.integration.jira.internal/CommentBody/body/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-comment-body/body.md
@@ -394,7 +394,7 @@ $dokka.location:com.dailymotion.kinta.integration.jira.internal/TransitionResult
 $dokka.location:com.dailymotion.kinta.integration.jira.internal/TransitionResult/transitions/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira.internal/-transition-result/transitions.md
 $dokka.location:com.dailymotion.kinta.integration.jira////PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira/index.md
 $dokka.location:com.dailymotion.kinta.integration.jira/Jira///PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira/-jira/index.md
-$dokka.location:com.dailymotion.kinta.integration.jira/Jira/assign/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira/-jira/assign.md
+$dokka.location:com.dailymotion.kinta.integration.jira/Jira/assign/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira/-jira/assign.md
 $dokka.location:com.dailymotion.kinta.integration.jira/Jira/getIssue/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira/-jira/get-issue.md
 $dokka.location:com.dailymotion.kinta.integration.jira/Jira/moveToState/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira/-jira/move-to-state.md
 $dokka.location:com.dailymotion.kinta.integration.jira/Jira/postComment/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String#kotlin.String/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.jira/-jira/post-comment.md
@@ -553,6 +553,9 @@ $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_PLAY_JSON/ordinal/#/Po
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_PLAY_PACKAGE_NAME///PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-p-l-a-y_-p-a-c-k-a-g-e_-n-a-m-e/index.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_PLAY_PACKAGE_NAME/name/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-p-l-a-y_-p-a-c-k-a-g-e_-n-a-m-e/name.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.GOOGLE_PLAY_PACKAGE_NAME/ordinal/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-g-o-o-g-l-e_-p-l-a-y_-p-a-c-k-a-g-e_-n-a-m-e/ordinal.md
+$dokka.location:com.dailymotion.kinta/KintaEnv.Var.JIRA_ACCOUNT_ID///PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-j-i-r-a_-a-c-c-o-u-n-t_-i-d/index.md
+$dokka.location:com.dailymotion.kinta/KintaEnv.Var.JIRA_ACCOUNT_ID/name/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-j-i-r-a_-a-c-c-o-u-n-t_-i-d/name.md
+$dokka.location:com.dailymotion.kinta/KintaEnv.Var.JIRA_ACCOUNT_ID/ordinal/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-j-i-r-a_-a-c-c-o-u-n-t_-i-d/ordinal.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.JIRA_PASSWORD///PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-j-i-r-a_-p-a-s-s-w-o-r-d/index.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.JIRA_PASSWORD/name/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-j-i-r-a_-p-a-s-s-w-o-r-d/name.md
 $dokka.location:com.dailymotion.kinta/KintaEnv.Var.JIRA_PASSWORD/ordinal/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta/-kinta-env/-var/-j-i-r-a_-p-a-s-s-w-o-r-d/ordinal.md
