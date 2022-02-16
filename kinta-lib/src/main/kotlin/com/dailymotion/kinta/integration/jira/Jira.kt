@@ -6,7 +6,6 @@ import com.dailymotion.kinta.globalJson
 import com.dailymotion.kinta.integration.jira.internal.*
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
@@ -18,33 +17,33 @@ import java.util.*
 object Jira {
     @OptIn(ExperimentalSerializationApi::class)
     private fun service(
-            jiraUrl: String?,
-            username: String?,
-            password: String?
+        jiraUrl: String?,
+        username: String?,
+        password: String?
     ): JiraService {
         val jiraUrl_ = jiraUrl ?: KintaEnv.getOrFail(KintaEnv.Var.JIRA_URL)
         val username_ = username ?: KintaEnv.getOrFail(KintaEnv.Var.JIRA_USERNAME)
         val password_ = password ?: KintaEnv.getOrFail(KintaEnv.Var.JIRA_PASSWORD)
 
         val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(AuthInterceptor(username_, password_))
-                .build()
+            .addInterceptor(AuthInterceptor(username_, password_))
+            .build()
 
         val retrofit = Retrofit.Builder()
-                .baseUrl(jiraUrl_)
-                .client(okHttpClient)
-                .addConverterFactory(globalJson.asConverterFactory(MediaType.get("application/json")))
-                .build()
+            .baseUrl(jiraUrl_)
+            .client(okHttpClient)
+            .addConverterFactory(globalJson.asConverterFactory(MediaType.get("application/json")))
+            .build()
 
         return retrofit.create(JiraService::class.java)
     }
 
     fun moveToState(
-            jiraUrl: String? = null,
-            username: String? = null,
-            password: String? = null,
-            issueId: String,
-            state: String
+        jiraUrl: String? = null,
+        username: String? = null,
+        password: String? = null,
+        issueId: String,
+        state: String
     ) {
         val service = service(jiraUrl, username, password)
         val response1 = service.getTransitions(issueId).execute()
@@ -55,6 +54,7 @@ object Jira {
 
         val transitionResult = response1.body()!!
 
+        Logger.d("Transitions available = ${transitionResult.transitions.joinToString(separator = ",") { it.to?.name.orEmpty() }}")
         val transition = transitionResult.transitions.firstOrNull { it.to?.name == state }
 
         if (transition == null) {
@@ -70,23 +70,25 @@ object Jira {
     }
 
     fun assign(
-            jiraUrl: String? = null,
-            username: String? = null,
-            password: String? = null,
-            issueId: String,
-            jiraUserName: String) {
-            val response = service(jiraUrl, username, password).assign(issueId, AssignBody(jiraUserName)).execute()
+        jiraUrl: String? = null,
+        username: String? = null,
+        password: String? = null,
+        accountId: String? = null,
+        issueId: String,
+    ) {
+        val accountId_ = accountId ?: KintaEnv.getOrFail(KintaEnv.Var.JIRA_ACCOUNT_ID)
+        val response = service(jiraUrl, username, password).assign(issueId, AssignBody(accountId_)).execute()
 
-            if (!response.isSuccessful) {
-                throw Exception("Cannot assign jira issue $issueId to $jiraUserName : ${response.errorBody()?.string()}")
-            }
+        if (!response.isSuccessful) {
+            throw Exception("Cannot assign jira issue $issueId to user with accountId $accountId_ : ${response.errorBody()?.string()}")
+        }
     }
 
     fun getIssue(
-            jiraUrl: String? = null,
-            username: String? = null,
-            password: String? = null,
-            issueId: String
+        jiraUrl: String? = null,
+        username: String? = null,
+        password: String? = null,
+        issueId: String
     ): Issue {
         val response = service(jiraUrl, username, password).getIssue(issueId).execute()
 
@@ -98,11 +100,11 @@ object Jira {
     }
 
     fun postComment(
-            jiraUrl: String? = null,
-            username: String? = null,
-            password: String? = null,
-            issueId: String,
-            comment: String
+        jiraUrl: String? = null,
+        username: String? = null,
+        password: String? = null,
+        issueId: String,
+        comment: String
     ) {
         val response = service(jiraUrl, username, password).addComment(issueId, CommentBody(comment)).execute()
         if (!response.isSuccessful) {

@@ -25,6 +25,6 @@ data class TransitionBody(val transition: Transition)
 @Serializable
 data class TransitionResult(val transitions: List<Transition>)
 @Serializable
-data class AssignBody(val name: String)
+data class AssignBody(val accountId: String)
 @Serializable
 data class CommentBody(val body: String)
