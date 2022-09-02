@@ -25,7 +25,7 @@ object GitlabIntegration : GitTool {
 
     private const val GITLAB_API_VERSION = "v4"
     private const val GITLAB_API = "https://gitlab.com/api/$GITLAB_API_VERSION/"
-    private val json = Json {ignoreUnknownKeys = true}
+    private val json = Json { ignoreUnknownKeys = true }
 
     @OptIn(ExperimentalSerializationApi::class)
     private fun service(token: String?): GitlabService {
@@ -53,12 +53,14 @@ object GitlabIntegration : GitTool {
         }
     }
 
-    override fun openPullRequest(token: String?,
-                                 owner: String?,
-                                 repo: String?,
-                                 head: String?,
-                                 base: String?,
-                                 title: String?
+    override fun openPullRequest(
+            token: String?,
+            owner: String?,
+            repo: String?,
+            head: String?,
+            base: String?,
+            title: String?,
+            body: String?,
     ) {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner

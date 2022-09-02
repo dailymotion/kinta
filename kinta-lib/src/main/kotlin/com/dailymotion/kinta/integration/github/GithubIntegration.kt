@@ -36,7 +36,8 @@ object GithubIntegration : GitTool {
                                  repo: String?,
                                  head: String?,
                                  base: String?,
-                                 title: String?
+                                 title: String?,
+                                 body: String?,
     ) {
         val token = token ?: retrieveToken()
         val owner = owner ?: repository().owner
@@ -54,7 +55,8 @@ object GithubIntegration : GitTool {
             mapOf(
                 "title" to JsonPrimitive(title),
                 "head" to JsonPrimitive(head),
-                "base" to JsonPrimitive(base)
+                "base" to JsonPrimitive(base),
+                "body" to JsonPrimitive(body),
             )
         )
 
