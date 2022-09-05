@@ -25,7 +25,7 @@ object GitlabIntegration : GitTool {
 
     private const val GITLAB_API_VERSION = "v4"
     private const val GITLAB_API = "https://gitlab.com/api/$GITLAB_API_VERSION/"
-    private val json = Json {ignoreUnknownKeys = true}
+    private val json = Json { ignoreUnknownKeys = true }
 
     @OptIn(ExperimentalSerializationApi::class)
     private fun service(token: String?): GitlabService {
@@ -53,12 +53,14 @@ object GitlabIntegration : GitTool {
         }
     }
 
-    override fun openPullRequest(token: String?,
-                                 owner: String?,
-                                 repo: String?,
-                                 head: String?,
-                                 base: String?,
-                                 title: String?
+    override fun openPullRequest(
+            token: String?,
+            owner: String?,
+            repo: String?,
+            head: String?,
+            base: String?,
+            title: String?,
+            body: String?,
     ) {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
@@ -66,6 +68,7 @@ object GitlabIntegration : GitTool {
         val head_ = head ?: Project.repository.branch!!
         val base_ = base ?: "master"
         val title_ = title ?: head_
+        val body_ = body ?: ""
 
         check(head_ != base_) {
             "You cannot make a pull request with the same head and base ($head_)"
@@ -74,7 +77,11 @@ object GitlabIntegration : GitTool {
         Logger.i("creating pull request to merge $head_ into $base_")
         val response = service(token_).openPullRequest(
                 projectId = "$owner_/$repo_",
-                mergeRequestBody = MergeRequestBody(head_, base_, title_)
+                mergeRequestBody = MergeRequestBody(
+                        source_branch = head_,
+                        target_branch = base_,
+                        title = title_,
+                        description = body_)
         ).execute()
         if (!response.isSuccessful) {
             throw Exception(response.body()?.string() ?: "")

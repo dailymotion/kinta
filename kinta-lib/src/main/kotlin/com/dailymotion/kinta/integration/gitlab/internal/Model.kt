@@ -18,5 +18,6 @@ data class MergeRequest(
 data class MergeRequestBody(
         val source_branch: String,
         val target_branch: String,
-        val title: String
+        val title: String,
+        val description: String,
 )

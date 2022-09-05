@@ -17,12 +17,14 @@ interface GitTool {
             remote: String = "origin",
             branch: String): BranchInfo
 
-    fun openPullRequest(token: String? = null,
-                        owner: String? = null,
-                        repo: String? = null,
-                        head: String? = null,
-                        base: String? = null,
-                        title: String? = null
+    fun openPullRequest(
+            token: String? = null,
+            owner: String? = null,
+            repo: String? = null,
+            head: String? = null,
+            base: String? = null,
+            title: String? = null,
+            body: String? = null,
     )
 
     fun deleteRef(
