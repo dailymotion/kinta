@@ -3,6 +3,7 @@ package com.dailymotion.kinta.integration.git
 import com.dailymotion.kinta.Project
 import com.dailymotion.kinta.integration.commandline.CommandLine
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.api.ListBranchCommand
 
 object GitIntegration {
     fun push(remote: String? = null,
@@ -91,6 +92,15 @@ object GitIntegration {
                 .map {
                     it.name.substring("refs/heads/".length)
                 }
+    }
+
+    fun getRemoteBranches(): List<String> {
+        val git = Git(Project.repository)
+
+        return git.branchList().setListMode(ListBranchCommand.ListMode.REMOTE).call()
+            .map {
+                it.name.substringBefore("=").substring("refs/remotes/origin/".length)
+            }
     }
 
     fun deleteBranches(branches: List<String>, force: Boolean = false) {
