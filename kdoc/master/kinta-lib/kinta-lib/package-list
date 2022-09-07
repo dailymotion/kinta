@@ -180,6 +180,7 @@ $dokka.location:com.dailymotion.kinta.integration.git/GitIntegration/currentBran
 $dokka.location:com.dailymotion.kinta.integration.git/GitIntegration/deleteBranches/#kotlin.collections.List[kotlin.String]#kotlin.Boolean/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git/-git-integration/delete-branches.md
 $dokka.location:com.dailymotion.kinta.integration.git/GitIntegration/fetch/#kotlin.String?#kotlin.Boolean/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git/-git-integration/fetch.md
 $dokka.location:com.dailymotion.kinta.integration.git/GitIntegration/getBranches/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git/-git-integration/get-branches.md
+$dokka.location:com.dailymotion.kinta.integration.git/GitIntegration/getRemoteBranches/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git/-git-integration/get-remote-branches.md
 $dokka.location:com.dailymotion.kinta.integration.git/GitIntegration/getUserEmail/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git/-git-integration/get-user-email.md
 $dokka.location:com.dailymotion.kinta.integration.git/GitIntegration/pull/#/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git/-git-integration/pull.md
 $dokka.location:com.dailymotion.kinta.integration.git/GitIntegration/push/#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/kinta-lib/com.dailymotion.kinta.integration.git/-git-integration/push.md
