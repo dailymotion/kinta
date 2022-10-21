@@ -10,11 +10,11 @@ import retrofit2.http.Path
 
 interface TransifexService {
 
-    @POST("resource_translations_async_downloads")
-    fun requestDownloadTranslation(@Body payload: RequestBody): Call<ResponseBody>
+    @POST("{download_type}")
+    fun requestDownloadTranslation(@Path("download_type") type: String, @Body payload: RequestBody): Call<ResponseBody>
 
-    @GET("resource_translations_async_downloads/{id}")
-    fun getDownloadTranslationStatus(@Path("id") id: String): Call<ResponseBody>
+    @GET("{download_type}/{id}")
+    fun getDownloadTranslationStatus(@Path("download_type") type: String, @Path("id") id: String): Call<ResponseBody>
 
     @POST("{upload_type}")
     fun requestUploadResource(@Path("upload_type") type: String, @Body payload: RequestBody): Call<ResponseBody>
