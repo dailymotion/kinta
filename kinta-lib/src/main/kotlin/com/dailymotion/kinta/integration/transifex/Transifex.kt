@@ -4,7 +4,7 @@ import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.globalJson
 import com.dailymotion.kinta.integration.transifex.internal.model.TransifexService
-import com.dailymotion.kinta.integration.transifex.internal.model.TxPullTranslationsPayload
+import com.dailymotion.kinta.integration.transifex.internal.model.TxPullResourcePayload
 import com.dailymotion.kinta.integration.transifex.internal.model.TxPushResourcePayload
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -161,6 +161,32 @@ object Transifex {
     }
 
     /**
+     * Get Source content for a specific resource
+     * @param resource, the resource slug we want to fetch
+     * @return the content
+     */
+    fun getSource(
+        token: String? = null,
+        org: String? = null,
+        project: String? = null,
+        resource: String
+    ): String {
+        val org_ = org ?: KintaEnv.getOrFail(KintaEnv.Var.TRANSIFEX_ORG)
+        val project_ = project ?: KintaEnv.getOrFail(KintaEnv.Var.TRANSIFEX_PROJECT)
+
+        val payload = TxPullResourcePayload.createSourcePayload(
+            org = org_,
+            project = project_,
+            resource = resource,
+        )
+
+        return requestResource(
+            token = token,
+            payload = payload
+        )
+    }
+
+    /**
      * Get Translation content for a specific language and resource
      * @param resource, the resource slug we want to fetch
      * @param lang the language code associated to the content wanted
@@ -177,30 +203,44 @@ object Transifex {
         val org_ = org ?: KintaEnv.getOrFail(KintaEnv.Var.TRANSIFEX_ORG)
         val project_ = project ?: KintaEnv.getOrFail(KintaEnv.Var.TRANSIFEX_PROJECT)
 
-        val payload = TxPullTranslationsPayload.with(
+        val payload = TxPullResourcePayload.createTranslationPayload(
             org = org_,
             project = project_,
             resource = resource,
-            lang = lang,
-            mode = mode
+            mode = mode,
+            lang = lang
         )
+
+        return requestResource(
+            token = token,
+            payload = payload,
+            lang = lang
+        )
+    }
+
+    private fun requestResource(
+        token: String? = null,
+        payload: TxPullResourcePayload,
+        lang: String? = null,
+    ): String {
+
         /** The API is very strict related to the ContentType.
          * By setting a @Body and let the payload being converted, a "charset=utf-8" is
          * automatically added, and the API will return a 500 error.
          * By converting the data to byteArray, we avoid this behavior **/
         val dataByteArray = Gson().toJson(payload).toByteArray()
         val requestBody = RequestBody.create(MediaType.get("application/vnd.api+json"), dataByteArray)
-        val response = service(token).requestDownloadTranslation(requestBody).execute()
+        val response = service(token).requestDownloadTranslation(payload.data.type, requestBody).execute()
 
         check (response.isSuccessful) {
-            "Transifex: cannot request download for $lang: ${response.code()}: ${response.errorBody()?.string()}"
+            "Transifex: cannot request download for ${lang ?: "source"}: ${response.code()}: ${response.errorBody()?.string()}"
         }
 
         val downloadId = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
             .jsonObject["data"]?.jsonObject
             ?.getValue("id")?.jsonPrimitive?.content!!
 
-        return checkDownloadStatus(token, downloadId)
+        return checkDownloadStatus(token, downloadId, payload.data.type)
     }
 
     /**
@@ -210,13 +250,14 @@ object Transifex {
      */
     private fun checkDownloadStatus(
         token: String?,
-        downloadId: String
+        downloadId: String,
+        type: String
     ): String {
         /** Wait a bit before checking the upload status
          * to have a chance, it is OK for the very first shot **/
         Thread.sleep(2000)
 
-        val response = service(token).getDownloadTranslationStatus(downloadId).execute()
+        val response = service(token).getDownloadTranslationStatus(type, downloadId).execute()
         val responseBody = response.body()?.string()
 
         check (response.isSuccessful && responseBody != null) {
@@ -240,7 +281,7 @@ object Transifex {
             "failed" -> throw IllegalStateException("Translated file could not be compiled : $responseBody")
             else -> {
                 /** The download is not ready yet, come back later **/
-                checkDownloadStatus(token, downloadId)
+                checkDownloadStatus(token, downloadId, type)
             }
         }
     }
