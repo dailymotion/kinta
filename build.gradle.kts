@@ -23,7 +23,7 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask> {
 subprojects {
     repositories {
         mavenCentral()
-        maven ("https://repo.gradle.org/gradle/libs-releases-local/")
+        maven ("https://repo.gradle.org/gradle/libs-releases/")
     }
 
     tasks.withType<KotlinCompile> {
