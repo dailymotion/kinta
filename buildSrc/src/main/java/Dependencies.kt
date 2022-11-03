@@ -30,7 +30,7 @@ object Libs {
     const val retrofit = "com.squareup.retrofit2:retrofit:2.4.0"
     const val retrofitConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
 
-    const val gradle = "org.gradle:gradle-tooling-api:6.0.1"
+    const val gradle = "org.gradle:gradle-tooling-api:7.5.1"
 
     const val clikt = "com.github.ajalt:clikt:2.4.0"
     const val lazySodium = "com.goterl:lazysodium-java:5.0.1"

@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm").version("1.3.61")
+    id("org.jetbrains.kotlin.jvm").version("1.5.10")
 }
 
 repositories {
@@ -21,13 +21,13 @@ dependencies {
 }
 
 tasks.withType<Jar> {
-
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     archiveFileName.set("kinta-workflows-custom.jar")
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }) {
         /**
          * we remove INDEX.LIST else java does not find the MainClass
          * since we remove INDEX.LIST, it also looks like we need to remove signatures too. Not 100% sure why
          */
-        exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/INDEX.LIST", "META-INF/*.kotlin_module")
+        exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/INDEX.LIST", "META-INF/*.kotlin_module", "META-INF/versions/9/module-info.class")
     }
 }

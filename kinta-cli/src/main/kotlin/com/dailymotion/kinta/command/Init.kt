@@ -7,6 +7,7 @@ import com.dailymotion.kinta.workflows.builtin.playstore.PlayStoreInit
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
+import org.eclipse.jgit.errors.NoWorkTreeException
 import java.io.File
 
 object Init : CliktCommand(name = "init", help = "Initialize a project.") {
@@ -61,7 +62,12 @@ object Init : CliktCommand(name = "init", help = "Initialize a project.") {
         copyResource("gitignore", "kintaSrc/.gitignore")
 
         Gradle(File("kintaSrc")).executeTask("assemble")
-        GitIntegration.add(File("kintaSrc").path)
+        try {
+            GitIntegration.add(File("kintaSrc").path)
+        } catch (e: NoWorkTreeException) {
+            /** No work tree, it's fine **/
+        }
+
 
         println("This project is now setup to use kinta. You can define your workflows in kintaSrc/src/main/.... It is meant to be in source control. Take a look around. :)")
     }
