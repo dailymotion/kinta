@@ -5,7 +5,7 @@ plugins {
 repositories {
     mavenCentral()
     mavenLocal()
-    maven("https://repo.gradle.org/gradle/libs-releases-local/")
+    maven("https://repo.gradle.org/gradle/libs-releases/")
 }
 
 configure<JavaPluginExtension> {
