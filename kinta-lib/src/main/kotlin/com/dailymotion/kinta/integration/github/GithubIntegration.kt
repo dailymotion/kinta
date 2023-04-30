@@ -2,7 +2,6 @@ package com.dailymotion.kinta.integration.github
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.await
-import com.apollographql.apollo.coroutines.toDeferred
 import com.dailymotion.kinta.*
 import com.dailymotion.kinta.integration.git.model.BranchInfo
 import com.dailymotion.kinta.integration.git.model.PullRequestInfo
@@ -12,6 +11,7 @@ import com.goterl.lazysodium.LazySodiumJava
 import com.goterl.lazysodium.SodiumJava
 import com.goterl.lazysodium.interfaces.Box
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.*
@@ -278,6 +278,7 @@ object GithubIntegration : GitTool {
     class PublicKey(val key_id: String,
                     val key: String)
 
+    @OptIn(ExperimentalSerializationApi::class)
     private fun publicKey(
         token: String?,
         owner: String?,
