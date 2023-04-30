@@ -2,6 +2,7 @@ package com.dailymotion.kinta.integration.bitrise
 
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.*
@@ -60,6 +61,7 @@ object Bitrise {
         }
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     private fun findAppSlug(token: String, repoName: String): String {
 
         val request = Request.Builder()
@@ -82,6 +84,7 @@ object Bitrise {
         throw Exception("error parsing app list: ${response.code()}: ${response.body()!!.string()}")
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     fun getAvailableWorkflows(
             token: String? = null,
             repoName: String

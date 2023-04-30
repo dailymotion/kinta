@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm").version("1.5.10")
+    id("org.jetbrains.kotlin.jvm").version("1.7.22")
 }
 
 repositories {
@@ -9,7 +9,7 @@ repositories {
 }
 
 configure<JavaPluginExtension> {
-    targetCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies {

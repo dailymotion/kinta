@@ -27,7 +27,6 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
         kotlinOptions {
             allWarningsAsErrors = true
         }
@@ -35,7 +34,7 @@ subprojects {
 
     afterEvaluate {
         this.configure<JavaPluginExtension> {
-            targetCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_11
         }
     }
 
