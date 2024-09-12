@@ -61,7 +61,7 @@ object GitlabIntegration : GitTool {
             base: String?,
             title: String?,
             body: String?,
-    ) {
+    ): String? {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
         val repo_ = repo ?: repository().name
@@ -88,13 +88,16 @@ object GitlabIntegration : GitTool {
         }
 
         response.body()?.charStream()?.let {
-            try {
+            return try {
                 val htmlUrl = json.parseToJsonElement(it.readText()).jsonObject["web_url"]?.jsonPrimitive?.content
                 Logger.i("-> $htmlUrl")
+                htmlUrl
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
         }
+        return null
     }
 
     /**
@@ -196,5 +199,15 @@ object GitlabIntegration : GitTool {
         val s = uriIsh.path.trim('/').split("/")
         val repoName = s[1].removeSuffix(".git")
         return Repository(s[0], repoName)
+    }
+
+    override fun setAssignee(
+        token: String?,
+        owner: String?,
+        repo: String?,
+        issue: String,
+        assignees: List<String>
+    ) {
+        TODO("Not yet implemented")
     }
 }
