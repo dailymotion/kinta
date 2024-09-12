@@ -20,10 +20,10 @@ object UnzipUtils {
             zip.entries().asSequence().forEach { entry ->
                 zip.getInputStream(entry).use { input ->
                     val filePath = destDirectory.resolve(entry.name)
-                    if (!entry.isDirectory) {
-                        extractFile(input, filePath)
-                    } else {
+                    if (entry.isDirectory) {
                         filePath.createDirectories()
+                    } else {
+                        extractFile(input, filePath)
                     }
                 }
             }
