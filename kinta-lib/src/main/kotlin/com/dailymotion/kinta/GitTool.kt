@@ -34,7 +34,7 @@ interface GitTool {
             ref: String
     )
 
-    fun setAssignee(
+    fun setAssignees(
         token: String? = null,
         owner: String? = null,
         repo: String? = null,

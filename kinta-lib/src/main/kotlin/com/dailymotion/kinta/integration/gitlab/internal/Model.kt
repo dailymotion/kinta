@@ -21,3 +21,8 @@ data class MergeRequestBody(
         val title: String,
         val description: String,
 )
+
+@Serializable
+data class UpdateMergeRequestBody(
+        val assignee_ids: List<String>,
+)

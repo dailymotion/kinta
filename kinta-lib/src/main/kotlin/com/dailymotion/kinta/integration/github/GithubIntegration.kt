@@ -384,7 +384,7 @@ object GithubIntegration : GitTool {
         }
     }
 
-    override fun setAssignee(
+    override fun setAssignees(
         token: String?,
         owner: String?,
         repo: String?,
