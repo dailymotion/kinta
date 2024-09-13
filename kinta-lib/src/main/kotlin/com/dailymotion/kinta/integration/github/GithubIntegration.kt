@@ -409,8 +409,7 @@ object GithubIntegration : GitTool {
         Logger.i("Assigning...")
         val response = httpClient(token).newCall(request).execute()
         if (!response.isSuccessful) {
-            val coucou = response.body()?.string()
-            throw Exception(coucou ?: "")
+            throw Exception(response.body()?.string() ?: "")
         }
     }
 }
