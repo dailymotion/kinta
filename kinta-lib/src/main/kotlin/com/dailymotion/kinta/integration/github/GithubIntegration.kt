@@ -2,7 +2,13 @@ package com.dailymotion.kinta.integration.github
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.await
-import com.dailymotion.kinta.*
+import com.dailymotion.kinta.GetPullRequestWithBase
+import com.dailymotion.kinta.GetPullRequestWithHead
+import com.dailymotion.kinta.GetRefs
+import com.dailymotion.kinta.GitTool
+import com.dailymotion.kinta.KintaEnv
+import com.dailymotion.kinta.Logger
+import com.dailymotion.kinta.Project
 import com.dailymotion.kinta.integration.git.model.BranchInfo
 import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.github.internal.GithubOauthClient
@@ -14,7 +20,12 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -23,7 +34,7 @@ import okio.ByteString.Companion.encodeUtf8
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
 import java.io.File
-import java.util.*
+import java.util.Base64
 
 
 @Suppress("NAME_SHADOWING")
@@ -38,7 +49,7 @@ object GithubIntegration : GitTool {
                                  base: String?,
                                  title: String?,
                                  body: String?,
-    ) {
+    ): String? {
         val token = token ?: retrieveToken()
         val owner = owner ?: repository().owner
         val repo = repo ?: repository().name
@@ -73,12 +84,14 @@ object GithubIntegration : GitTool {
             throw Exception(response.body()?.string() ?: "")
         }
 
-        response.body()?.charStream()?.let {
+        return response.body()?.charStream()?.let {
             try {
                 val htmlUrl = json.parseToJsonElement(it.readText()).jsonObject["html_url"]?.jsonPrimitive?.content
                 Logger.i("-> $htmlUrl")
+                htmlUrl
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
         }
     }
@@ -368,6 +381,35 @@ object GithubIntegration : GitTool {
 
         check(response.isSuccessful) {
             "cannot delete secret $name: ${response.body()?.byteStream()?.reader()?.readText()}"
+        }
+    }
+
+    override fun setAssignees(
+        token: String?,
+        owner: String?,
+        repo: String?,
+        issue: String,
+        assignees: List<String>
+    ) {
+        val token = token ?: retrieveToken()
+        val owner = owner ?: repository().owner
+        val repo = repo ?: repository().name
+
+        val jsonObject = JsonObject(
+            mapOf("assignees" to JsonArray(assignees.map { JsonPrimitive(it) }))
+        )
+
+        val body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+
+        val request = Request.Builder()
+            .url("https://api.github.com/repos/$owner/$repo/issues/$issue/assignees")
+            .post(body)
+            .build()
+
+        Logger.i("Assigning...")
+        val response = httpClient(token).newCall(request).execute()
+        if (!response.isSuccessful) {
+            throw Exception(response.body()?.string() ?: "")
         }
     }
 }

@@ -8,6 +8,7 @@ import com.dailymotion.kinta.integration.git.model.BranchInfo
 import com.dailymotion.kinta.integration.git.model.PullRequestInfo
 import com.dailymotion.kinta.integration.gitlab.internal.GitlabService
 import com.dailymotion.kinta.integration.gitlab.internal.MergeRequestBody
+import com.dailymotion.kinta.integration.gitlab.internal.UpdateMergeRequestBody
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -61,7 +62,7 @@ object GitlabIntegration : GitTool {
             base: String?,
             title: String?,
             body: String?,
-    ) {
+    ): String? {
         val token_ = token ?: retrieveToken()
         val owner_ = owner ?: repository().owner
         val repo_ = repo ?: repository().name
@@ -88,13 +89,16 @@ object GitlabIntegration : GitTool {
         }
 
         response.body()?.charStream()?.let {
-            try {
+            return try {
                 val htmlUrl = json.parseToJsonElement(it.readText()).jsonObject["web_url"]?.jsonPrimitive?.content
                 Logger.i("-> $htmlUrl")
+                htmlUrl
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
         }
+        return null
     }
 
     /**
@@ -196,5 +200,29 @@ object GitlabIntegration : GitTool {
         val s = uriIsh.path.trim('/').split("/")
         val repoName = s[1].removeSuffix(".git")
         return Repository(s[0], repoName)
+    }
+
+    override fun setAssignees(
+        token: String?,
+        owner: String?,
+        repo: String?,
+        issue: String,
+        assignees: List<String>
+    ) {
+        val token_ = token ?: retrieveToken()
+        val owner_ = owner ?: repository().owner
+        val repo_ = repo ?: repository().name
+
+        Logger.i("Updating assignees...")
+        val response = service(token_).updatePullRequest(
+            projectId = "$owner_/$repo_",
+            mergeRequestId = issue,
+            mergeRequestBody = UpdateMergeRequestBody(
+                assignee_ids = assignees
+            )
+        ).execute()
+        if (!response.isSuccessful) {
+            throw Exception(response.body()?.string() ?: "")
+        }
     }
 }

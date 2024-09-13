@@ -25,12 +25,20 @@ interface GitTool {
             base: String? = null,
             title: String? = null,
             body: String? = null,
-    )
+    ): String?
 
     fun deleteRef(
             token: String? = null,
             owner: String? = null,
             repo: String? = null,
             ref: String
+    )
+
+    fun setAssignees(
+        token: String? = null,
+        owner: String? = null,
+        repo: String? = null,
+        issue: String,
+        assignees: List<String>
     )
 }
