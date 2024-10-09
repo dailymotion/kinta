@@ -22,7 +22,9 @@ data class LkDownloadPayload(
     val filter_langs: List<String>,
     val filter_filenames: List<String>,
     val format: String,
+    val indentation: String = "tab",
     val directory_prefix: String = "%LANG_ISO%",
+    val export_empty_as: String = "skip",
 )
 
 @Serializable
