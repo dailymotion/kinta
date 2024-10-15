@@ -4,6 +4,7 @@ import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
 import com.dailymotion.kinta.globalJson
 import com.dailymotion.kinta.helper.UnzipUtils
+import com.dailymotion.kinta.integration.lokalise.internal.model.EmptyExport
 import com.dailymotion.kinta.integration.lokalise.internal.model.LkDownloadPayload
 import com.dailymotion.kinta.integration.lokalise.internal.model.LkLangResponse
 import com.dailymotion.kinta.integration.lokalise.internal.model.LkUploadPayload
@@ -61,6 +62,8 @@ object Lokalise {
         resource: String,
         format: String,
         langList: List<String>,
+        convertPlaceholders: Boolean = true,
+        exportEmptyAs: String = EmptyExport.SKIP.name.lowercase(),
     ): LokaliseDownloadResponse {
         val project_ = project ?: KintaEnv.getOrFail(KintaEnv.Var.LOKALISE_PROJECT)
 
@@ -68,6 +71,8 @@ object Lokalise {
             filter_langs = langList,
             filter_filenames = listOf(resource),
             format = format,
+            convert_placeholders = convertPlaceholders,
+            export_empty_as = exportEmptyAs
         )
 
         return requestDownload(

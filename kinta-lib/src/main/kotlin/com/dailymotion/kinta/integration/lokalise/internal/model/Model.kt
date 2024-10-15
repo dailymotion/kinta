@@ -22,9 +22,10 @@ data class LkDownloadPayload(
     val filter_langs: List<String>,
     val filter_filenames: List<String>,
     val format: String,
-    val indentation: String = "tab",
+    val export_empty_as: String,
+    val convert_placeholders: Boolean,
     val directory_prefix: String = "%LANG_ISO%",
-    val export_empty_as: String = "skip",
+    val indentation: String = "tab",
 )
 
 @Serializable
@@ -34,3 +35,5 @@ data class LkUploadPayload(
     val lang_iso: String,
     val replace_modified: Boolean = true,
 )
+
+enum class EmptyExport { BASE, EMPTY, NULL, SKIP }
