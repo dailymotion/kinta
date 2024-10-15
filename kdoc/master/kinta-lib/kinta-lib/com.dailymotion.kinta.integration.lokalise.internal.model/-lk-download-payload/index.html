@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -2234,6 +2234,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     <span class="md-ellipsis">
       Properties
@@ -2262,7 +2271,23 @@
 
 <p>//<a href="../../../">kinta-lib</a>/<a href="../">com.dailymotion.kinta.integration.lokalise.internal.model</a>/<a href="./">LkDownloadPayload</a></p>
 <h1 id="lkdownloadpayload">LkDownloadPayload</h1>
-<p>[jvm] data class <a href="./">LkDownloadPayload</a>(<strong>filter_langs</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;, <strong>filter_filenames</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;, <strong>format</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>indentation</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>directory_prefix</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>export_empty_as</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)   </p>
+<p>[jvm]\
+data class <a href="./">LkDownloadPayload</a>(val filter_langs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;, val filter_filenames: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;, val format: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, val export_empty_as: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, val convert_placeholders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, val directory_prefix: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;%LANG_ISO%&quot;, val indentation: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;tab&quot;)</p>
+<h2 id="constructors">Constructors</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-lk-download-payload/">LkDownloadPayload</a></td>
+<td>[jvm]<br>constructor(filter_langs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;, filter_filenames: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;, format: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, export_empty_as: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, convert_placeholders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, directory_prefix: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;%LANG_ISO%&quot;, indentation: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;tab&quot;)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="properties">Properties</h2>
 <table>
 <thead>
@@ -2273,28 +2298,32 @@
 </thead>
 <tbody>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/directory_prefix/#/PointingToDeclaration/"></a><a href="directory_prefix/">directory_prefix</a></td>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/directory_prefix/#/PointingToDeclaration/"></a> [jvm] val <a href="directory_prefix/">directory_prefix</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>   <br></td>
+<td><a href="convert_placeholders/">convert_placeholders</a></td>
+<td>[jvm]<br>val <a href="convert_placeholders/">convert_placeholders</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/export_empty_as/#/PointingToDeclaration/"></a><a href="export_empty_as/">export_empty_as</a></td>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/export_empty_as/#/PointingToDeclaration/"></a> [jvm] val <a href="export_empty_as/">export_empty_as</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>   <br></td>
+<td><a href="directory_prefix/">directory_prefix</a></td>
+<td>[jvm]<br>val <a href="directory_prefix/">directory_prefix</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/filter_filenames/#/PointingToDeclaration/"></a><a href="filter_filenames/">filter_filenames</a></td>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/filter_filenames/#/PointingToDeclaration/"></a> [jvm] val <a href="filter_filenames/">filter_filenames</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;   <br></td>
+<td><a href="export_empty_as/">export_empty_as</a></td>
+<td>[jvm]<br>val <a href="export_empty_as/">export_empty_as</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/filter_langs/#/PointingToDeclaration/"></a><a href="filter_langs/">filter_langs</a></td>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/filter_langs/#/PointingToDeclaration/"></a> [jvm] val <a href="filter_langs/">filter_langs</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;   <br></td>
+<td><a href="filter_filenames/">filter_filenames</a></td>
+<td>[jvm]<br>val <a href="filter_filenames/">filter_filenames</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/format/#/PointingToDeclaration/"></a><a href="format/">format</a></td>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/format/#/PointingToDeclaration/"></a> [jvm] val <a href="format/">format</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>   <br></td>
+<td><a href="filter_langs/">filter_langs</a></td>
+<td>[jvm]<br>val <a href="filter_langs/">filter_langs</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/indentation/#/PointingToDeclaration/"></a><a href="indentation/">indentation</a></td>
-<td><a name="com.dailymotion.kinta.integration.lokalise.internal.model/LkDownloadPayload/indentation/#/PointingToDeclaration/"></a> [jvm] val <a href="indentation/">indentation</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>   <br></td>
+<td><a href="format/">format</a></td>
+<td>[jvm]<br>val <a href="format/">format</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
+</tr>
+<tr>
+<td><a href="indentation/">indentation</a></td>
+<td>[jvm]<br>val <a href="indentation/">indentation</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
 </tr>
 </tbody>
 </table>
@@ -2351,7 +2380,7 @@
     <script id="__config" type="application/json">{"base": "../../../../../..", "features": [], "search": "../../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>

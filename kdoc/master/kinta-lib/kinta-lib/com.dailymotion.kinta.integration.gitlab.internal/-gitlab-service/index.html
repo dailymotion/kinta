@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -2262,7 +2262,8 @@
 
 <p>//<a href="../../../">kinta-lib</a>/<a href="../">com.dailymotion.kinta.integration.gitlab.internal</a>/<a href="./">GitlabService</a></p>
 <h1 id="gitlabservice">GitlabService</h1>
-<p>[jvm] interface <a href="./">GitlabService</a>   </p>
+<p>[jvm]\
+interface <a href="./">GitlabService</a></p>
 <h2 id="functions">Functions</h2>
 <table>
 <thead>
@@ -2273,28 +2274,28 @@
 </thead>
 <tbody>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/deleteBranch/#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="delete-branch/">deleteBranch</a></td>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/deleteBranch/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@DELETE(value = projects/{projectId}/repository/branches/{branch})  <br>  <br>abstract fun <a href="delete-branch/">deleteBranch</a>(@Path(value = projectId)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Path(value = branch)branch: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call<ResponseBody>  <br><br><br></td>
+<td><a href="delete-branch/">deleteBranch</a></td>
+<td>[jvm]<br>@DELETE(value = &quot;projects/{projectId}/repository/branches/{branch}&quot;)<br>abstract fun <a href="delete-branch/">deleteBranch</a>(@Path(value = &quot;projectId&quot;)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Path(value = &quot;branch&quot;)branch: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;ResponseBody&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/getBranches/#kotlin.String/PointingToDeclaration/"></a><a href="get-branches/">getBranches</a></td>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/getBranches/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = projects/{projectId}/repository/branches)  <br>  <br>abstract fun <a href="get-branches/">getBranches</a>(@Path(value = projectId)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-branch/">Branch</a>&gt;&gt;  <br><br><br></td>
+<td><a href="get-branches/">getBranches</a></td>
+<td>[jvm]<br>@GET(value = &quot;projects/{projectId}/repository/branches&quot;)<br>abstract fun <a href="get-branches/">getBranches</a>(@Path(value = &quot;projectId&quot;)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-branch/">Branch</a>&gt;&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/getMRWithBase/#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="get-m-r-with-base/">getMRWithBase</a></td>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/getMRWithBase/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = projects/{projectId}/merge_requests)  <br>  <br>abstract fun <a href="get-m-r-with-base/">getMRWithBase</a>(@Path(value = projectId)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Query(value = target_branch)target: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-merge-request/">MergeRequest</a>&gt;&gt;  <br><br><br></td>
+<td><a href="get-m-r-with-base/">getMRWithBase</a></td>
+<td>[jvm]<br>@GET(value = &quot;projects/{projectId}/merge_requests&quot;)<br>abstract fun <a href="get-m-r-with-base/">getMRWithBase</a>(@Path(value = &quot;projectId&quot;)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Query(value = &quot;target_branch&quot;)target: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-merge-request/">MergeRequest</a>&gt;&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/getMRWithHead/#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="get-m-r-with-head/">getMRWithHead</a></td>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/getMRWithHead/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = projects/{projectId}/merge_requests)  <br>  <br>abstract fun <a href="get-m-r-with-head/">getMRWithHead</a>(@Path(value = projectId)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Query(value = source_branch)source: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-merge-request/">MergeRequest</a>&gt;&gt;  <br><br><br></td>
+<td><a href="get-m-r-with-head/">getMRWithHead</a></td>
+<td>[jvm]<br>@GET(value = &quot;projects/{projectId}/merge_requests&quot;)<br>abstract fun <a href="get-m-r-with-head/">getMRWithHead</a>(@Path(value = &quot;projectId&quot;)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Query(value = &quot;source_branch&quot;)source: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-merge-request/">MergeRequest</a>&gt;&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/openPullRequest/#kotlin.String#com.dailymotion.kinta.integration.gitlab.internal.MergeRequestBody/PointingToDeclaration/"></a><a href="open-pull-request/">openPullRequest</a></td>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/openPullRequest/#kotlin.String#com.dailymotion.kinta.integration.gitlab.internal.MergeRequestBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = projects/{projectId}/merge_requests)  <br>  <br>abstract fun <a href="open-pull-request/">openPullRequest</a>(@Path(value = projectId)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Body()mergeRequestBody: <a href="../-merge-request-body/">MergeRequestBody</a>): Call<ResponseBody>  <br><br><br></td>
+<td><a href="open-pull-request/">openPullRequest</a></td>
+<td>[jvm]<br>@POST(value = &quot;projects/{projectId}/merge_requests&quot;)<br>abstract fun <a href="open-pull-request/">openPullRequest</a>(@Path(value = &quot;projectId&quot;)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @BodymergeRequestBody: <a href="../-merge-request-body/">MergeRequestBody</a>): Call&lt;ResponseBody&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/updatePullRequest/#kotlin.String#kotlin.String#com.dailymotion.kinta.integration.gitlab.internal.UpdateMergeRequestBody/PointingToDeclaration/"></a><a href="update-pull-request/">updatePullRequest</a></td>
-<td><a name="com.dailymotion.kinta.integration.gitlab.internal/GitlabService/updatePullRequest/#kotlin.String#kotlin.String#com.dailymotion.kinta.integration.gitlab.internal.UpdateMergeRequestBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@PUT(value = projects/{projectId}/merge_requests/{mergeRequestId})  <br>  <br>abstract fun <a href="update-pull-request/">updatePullRequest</a>(@Path(value = projectId)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Path(value = mergeRequestId)mergeRequestId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Body()mergeRequestBody: <a href="../-update-merge-request-body/">UpdateMergeRequestBody</a>): Call<ResponseBody>  <br><br><br></td>
+<td><a href="update-pull-request/">updatePullRequest</a></td>
+<td>[jvm]<br>@PUT(value = &quot;projects/{projectId}/merge_requests/{mergeRequestId}&quot;)<br>abstract fun <a href="update-pull-request/">updatePullRequest</a>(@Path(value = &quot;projectId&quot;)projectId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Path(value = &quot;mergeRequestId&quot;)mergeRequestId: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @BodymergeRequestBody: <a href="../-update-merge-request-body/">UpdateMergeRequestBody</a>): Call&lt;ResponseBody&gt;</td>
 </tr>
 </tbody>
 </table>
@@ -2351,7 +2352,7 @@
     <script id="__config" type="application/json">{"base": "../../../../../..", "features": [], "search": "../../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>

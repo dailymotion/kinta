@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -2234,6 +2234,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#types" class="md-nav__link">
     <span class="md-ellipsis">
       Types
@@ -2271,7 +2280,23 @@
 
 <p>//<a href="../../../">kinta-lib</a>/<a href="../">com.dailymotion.kinta.integration.transifex.internal.model</a>/<a href="./">TxPushResourcePayload</a></p>
 <h1 id="txpushresourcepayload">TxPushResourcePayload</h1>
-<p>[jvm] data class <a href="./">TxPushResourcePayload</a>(<strong>data</strong>: <a href="-tx-push-resource-payload-data/">TxPushResourcePayload.TxPushResourcePayloadData</a>)   </p>
+<p>[jvm]\
+data class <a href="./">TxPushResourcePayload</a>(val data: <a href="-tx-push-resource-payload-data/">TxPushResourcePayload.TxPushResourcePayloadData</a>)</p>
+<h2 id="constructors">Constructors</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-tx-push-resource-payload/">TxPushResourcePayload</a></td>
+<td>[jvm]<br>constructor(data: <a href="-tx-push-resource-payload-data/">TxPushResourcePayload.TxPushResourcePayloadData</a>)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="types">Types</h2>
 <table>
 <thead>
@@ -2282,16 +2307,16 @@
 </thead>
 <tbody>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPushResourcePayload.Companion///PointingToDeclaration/"></a><a href="-companion/">Companion</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPushResourcePayload.Companion///PointingToDeclaration/"></a>[jvm]  <br>Content  <br>object <a href="-companion/">Companion</a>  <br><br><br></td>
+<td><a href="-companion/">Companion</a></td>
+<td>[jvm]<br>object <a href="-companion/">Companion</a></td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPushResourcePayload.TxAttributes///PointingToDeclaration/"></a><a href="-tx-attributes/">TxAttributes</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPushResourcePayload.TxAttributes///PointingToDeclaration/"></a>[jvm]  <br>Content  <br>data class <a href="-tx-attributes/">TxAttributes</a>(<strong>content</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>content_encoding</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>file_type</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)  <br><br><br></td>
+<td><a href="-tx-attributes/">TxAttributes</a></td>
+<td>[jvm]<br>data class <a href="-tx-attributes/">TxAttributes</a>(val content: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, val content_encoding: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;text&quot;, val file_type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?)</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPushResourcePayload.TxPushResourcePayloadData///PointingToDeclaration/"></a><a href="-tx-push-resource-payload-data/">TxPushResourcePayloadData</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPushResourcePayload.TxPushResourcePayloadData///PointingToDeclaration/"></a>[jvm]  <br>Content  <br>data class <a href="-tx-push-resource-payload-data/">TxPushResourcePayloadData</a>(<strong>attributes</strong>: <a href="-tx-attributes/">TxPushResourcePayload.TxAttributes</a>, <strong>relationships</strong>: <a href="../-tx-relation-ships/">TxRelationShips</a>, <strong>type</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)  <br><br><br></td>
+<td><a href="-tx-push-resource-payload-data/">TxPushResourcePayloadData</a></td>
+<td>[jvm]<br>data class <a href="-tx-push-resource-payload-data/">TxPushResourcePayloadData</a>(val attributes: <a href="-tx-attributes/">TxPushResourcePayload.TxAttributes</a>, val relationships: <a href="../-tx-relation-ships/">TxRelationShips</a>, val type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -2305,8 +2330,8 @@
 </thead>
 <tbody>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPushResourcePayload/data/#/PointingToDeclaration/"></a><a href="data/">data</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPushResourcePayload/data/#/PointingToDeclaration/"></a> [jvm] val <a href="data/">data</a>: <a href="-tx-push-resource-payload-data/">TxPushResourcePayload.TxPushResourcePayloadData</a>   <br></td>
+<td><a href="data/">data</a></td>
+<td>[jvm]<br>val <a href="data/">data</a>: <a href="-tx-push-resource-payload-data/">TxPushResourcePayload.TxPushResourcePayloadData</a></td>
 </tr>
 </tbody>
 </table>
@@ -2363,7 +2388,7 @@
     <script id="__config" type="application/json">{"base": "../../../../../..", "features": [], "search": "../../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>

@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../../../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -2234,6 +2234,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     <span class="md-ellipsis">
       Properties
@@ -2262,7 +2271,23 @@
 
 <p>//<a href="../../../../">kinta-lib</a>/<a href="../../">com.dailymotion.kinta.integration.transifex.internal.model</a>/<a href="../">TxPullResourcePayload</a>/<a href="./">TxAttributes</a></p>
 <h1 id="txattributes">TxAttributes</h1>
-<p>[jvm] data class <a href="./">TxAttributes</a>(<strong>callback_url</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, <strong>content_encoding</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>file_type</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, <strong>mode</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>?, <strong>pseudo</strong>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)   </p>
+<p>[jvm]\
+data class <a href="./">TxAttributes</a>(val callback_url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, val content_encoding: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;text&quot;, val file_type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;default&quot;, val mode: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, val pseudo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false)</p>
+<h2 id="constructors">Constructors</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-tx-attributes/">TxAttributes</a></td>
+<td>[jvm]<br>constructor(callback_url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, content_encoding: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;text&quot;, file_type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;default&quot;, mode: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, pseudo: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="properties">Properties</h2>
 <table>
 <thead>
@@ -2273,24 +2298,24 @@
 </thead>
 <tbody>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/callback_url/#/PointingToDeclaration/"></a><a href="callback_url/">callback_url</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/callback_url/#/PointingToDeclaration/"></a> [jvm] val <a href="callback_url/">callback_url</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null   <br></td>
+<td><a href="callback_url/">callback_url</a></td>
+<td>[jvm]<br>val <a href="callback_url/">callback_url</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/content_encoding/#/PointingToDeclaration/"></a><a href="content_encoding/">content_encoding</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/content_encoding/#/PointingToDeclaration/"></a> [jvm] val <a href="content_encoding/">content_encoding</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>   <br></td>
+<td><a href="content_encoding/">content_encoding</a></td>
+<td>[jvm]<br>val <a href="content_encoding/">content_encoding</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/file_type/#/PointingToDeclaration/"></a><a href="file_type/">file_type</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/file_type/#/PointingToDeclaration/"></a> [jvm] val <a href="file_type/">file_type</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>   <br></td>
+<td><a href="file_type/">file_type</a></td>
+<td>[jvm]<br>val <a href="file_type/">file_type</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/mode/#/PointingToDeclaration/"></a><a href="mode/">mode</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/mode/#/PointingToDeclaration/"></a> [jvm] val <a href="mode/">mode</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null   <br></td>
+<td><a href="mode/">mode</a></td>
+<td>[jvm]<br>val <a href="mode/">mode</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/pseudo/#/PointingToDeclaration/"></a><a href="pseudo/">pseudo</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TxPullResourcePayload.TxAttributes/pseudo/#/PointingToDeclaration/"></a> [jvm] val <a href="pseudo/">pseudo</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false   <br></td>
+<td><a href="pseudo/">pseudo</a></td>
+<td>[jvm]<br>val <a href="pseudo/">pseudo</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false</td>
 </tr>
 </tbody>
 </table>
@@ -2347,7 +2372,7 @@
     <script id="__config" type="application/json">{"base": "../../../../../../..", "features": [], "search": "../../../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>

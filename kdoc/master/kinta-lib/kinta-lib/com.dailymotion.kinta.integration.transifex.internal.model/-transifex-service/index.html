@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -2262,7 +2262,8 @@
 
 <p>//<a href="../../../">kinta-lib</a>/<a href="../">com.dailymotion.kinta.integration.transifex.internal.model</a>/<a href="./">TransifexService</a></p>
 <h1 id="transifexservice">TransifexService</h1>
-<p>[jvm] interface <a href="./">TransifexService</a>   </p>
+<p>[jvm]\
+interface <a href="./">TransifexService</a></p>
 <h2 id="functions">Functions</h2>
 <table>
 <thead>
@@ -2273,24 +2274,24 @@
 </thead>
 <tbody>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getDownloadTranslationStatus/#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="get-download-translation-status/">getDownloadTranslationStatus</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getDownloadTranslationStatus/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = {download_type}/{id})  <br>  <br>abstract fun <a href="get-download-translation-status/">getDownloadTranslationStatus</a>(@Path(value = download_type)type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Path(value = id)id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call<ResponseBody>  <br><br><br></td>
+<td><a href="get-download-translation-status/">getDownloadTranslationStatus</a></td>
+<td>[jvm]<br>@GET(value = &quot;{download_type}/{id}&quot;)<br>abstract fun <a href="get-download-translation-status/">getDownloadTranslationStatus</a>(@Path(value = &quot;download_type&quot;)type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Path(value = &quot;id&quot;)id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;ResponseBody&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getLanguages/#kotlin.String/PointingToDeclaration/"></a><a href="get-languages/">getLanguages</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getLanguages/#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = projects/{projectSlug}/languages)  <br>  <br>abstract fun <a href="get-languages/">getLanguages</a>(@Path(value = projectSlug)projectSlug: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="../-tx-supported-languages-response/">TxSupportedLanguagesResponse</a>&gt;  <br><br><br></td>
+<td><a href="get-languages/">getLanguages</a></td>
+<td>[jvm]<br>@GET(value = &quot;projects/{projectSlug}/languages&quot;)<br>abstract fun <a href="get-languages/">getLanguages</a>(@Path(value = &quot;projectSlug&quot;)projectSlug: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;<a href="../-tx-supported-languages-response/">TxSupportedLanguagesResponse</a>&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getUploadResourceStatus/#kotlin.String#kotlin.String/PointingToDeclaration/"></a><a href="get-upload-resource-status/">getUploadResourceStatus</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/getUploadResourceStatus/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@GET(value = {upload_type}/{id})  <br>  <br>abstract fun <a href="get-upload-resource-status/">getUploadResourceStatus</a>(@Path(value = upload_type)type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Path(value = id)id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call<ResponseBody>  <br><br><br></td>
+<td><a href="get-upload-resource-status/">getUploadResourceStatus</a></td>
+<td>[jvm]<br>@GET(value = &quot;{upload_type}/{id}&quot;)<br>abstract fun <a href="get-upload-resource-status/">getUploadResourceStatus</a>(@Path(value = &quot;upload_type&quot;)type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Path(value = &quot;id&quot;)id: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): Call&lt;ResponseBody&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/requestDownloadTranslation/#kotlin.String#okhttp3.RequestBody/PointingToDeclaration/"></a><a href="request-download-translation/">requestDownloadTranslation</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/requestDownloadTranslation/#kotlin.String#okhttp3.RequestBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = {download_type})  <br>  <br>abstract fun <a href="request-download-translation/">requestDownloadTranslation</a>(@Path(value = download_type)type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Body()payload: RequestBody): Call<ResponseBody>  <br><br><br></td>
+<td><a href="request-download-translation/">requestDownloadTranslation</a></td>
+<td>[jvm]<br>@POST(value = &quot;{download_type}&quot;)<br>abstract fun <a href="request-download-translation/">requestDownloadTranslation</a>(@Path(value = &quot;download_type&quot;)type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Bodypayload: RequestBody): Call&lt;ResponseBody&gt;</td>
 </tr>
 <tr>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/requestUploadResource/#kotlin.String#okhttp3.RequestBody/PointingToDeclaration/"></a><a href="request-upload-resource/">requestUploadResource</a></td>
-<td><a name="com.dailymotion.kinta.integration.transifex.internal.model/TransifexService/requestUploadResource/#kotlin.String#okhttp3.RequestBody/PointingToDeclaration/"></a>[jvm]  <br>Content  <br>@POST(value = {upload_type})  <br>  <br>abstract fun <a href="request-upload-resource/">requestUploadResource</a>(@Path(value = upload_type)type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Body()payload: RequestBody): Call<ResponseBody>  <br><br><br></td>
+<td><a href="request-upload-resource/">requestUploadResource</a></td>
+<td>[jvm]<br>@POST(value = &quot;{upload_type}&quot;)<br>abstract fun <a href="request-upload-resource/">requestUploadResource</a>(@Path(value = &quot;upload_type&quot;)type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, @Bodypayload: RequestBody): Call&lt;ResponseBody&gt;</td>
 </tr>
 </tbody>
 </table>
@@ -2347,7 +2348,7 @@
     <script id="__config" type="application/json">{"base": "../../../../../..", "features": [], "search": "../../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>
