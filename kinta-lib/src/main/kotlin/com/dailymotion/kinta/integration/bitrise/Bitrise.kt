@@ -5,11 +5,15 @@ import com.dailymotion.kinta.Logger
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.*
-import okhttp3.MediaType
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 
 object Bitrise {
@@ -39,7 +43,7 @@ object Bitrise {
         ))
 
         val bodyAsString = body.toString()
-        val requestBody = RequestBody.create(MediaType.parse("application/json"), bodyAsString)
+        val requestBody = bodyAsString.toRequestBody("application/json".toMediaTypeOrNull())
 
         val request = Request.Builder()
                 .header("Authorization", "token $token_")
@@ -50,9 +54,9 @@ object Bitrise {
         val response = OkHttpClient().newCall(request).execute()
 
         if (!response.isSuccessful) {
-            throw Exception("cannot trigger build: ${response.code()}: ${response.body()!!.string()}")
+            throw Exception("cannot trigger build: ${response.code}: ${response.body!!.string()}")
         } else {
-            response.body()?.string()?.let {
+            response.body?.string()?.let {
                 val element = json.parseToJsonElement(it)
 
                 val buildUrl = element.jsonObject["build_url"]?.jsonPrimitive?.content
@@ -73,15 +77,15 @@ object Bitrise {
         val response = OkHttpClient().newCall(request).execute()
 
         if (!response.isSuccessful) {
-            throw Exception("cannot get app list: ${response.code()}: ${response.body()!!.string()}")
+            throw Exception("cannot get app list: ${response.code}: ${response.body!!.string()}")
         } else {
-            response.body()?.string()?.let { data ->
+            response.body?.string()?.let { data ->
                 val list: AppsListResponse = json.decodeFromString(data)
                 return list.data.find { it.repo_slug == repoName }?.slug
                         ?: throw Exception("app not found. Current repo is ${repoName}")
             }
         }
-        throw Exception("error parsing app list: ${response.code()}: ${response.body()!!.string()}")
+        throw Exception("error parsing app list: ${response.code}: ${response.body!!.string()}")
     }
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -102,14 +106,14 @@ object Bitrise {
         val response = OkHttpClient().newCall(request).execute()
 
         if (!response.isSuccessful) {
-            throw Exception("cannot get workflows list: ${response.code()}: ${response.body()!!.string()}")
+            throw Exception("cannot get workflows list: ${response.code}: ${response.body!!.string()}")
         }
 
-        response.body()?.string()?.let { data ->
+        response.body?.string()?.let { data ->
             val list: WorkflowsResponse = json.decodeFromString(data)
             return list.data
         }
-        throw Exception("error parsing workflows list: ${response.code()}: ${response.body()!!.string()}")
+        throw Exception("error parsing workflows list: ${response.code}: ${response.body!!.string()}")
     }
 
     @Serializable

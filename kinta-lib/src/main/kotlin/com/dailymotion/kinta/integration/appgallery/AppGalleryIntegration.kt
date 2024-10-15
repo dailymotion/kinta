@@ -2,20 +2,30 @@ package com.dailymotion.kinta.integration.appgallery
 
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
-import com.dailymotion.kinta.helper.ProgressRequestBody
-import com.dailymotion.kinta.integration.appgallery.internal.*
-import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.dailymotion.kinta.globalJson
+import com.dailymotion.kinta.helper.ProgressRequestBody
+import com.dailymotion.kinta.integration.appgallery.internal.AppGalleryService
+import com.dailymotion.kinta.integration.appgallery.internal.ChangelogBody
+import com.dailymotion.kinta.integration.appgallery.internal.ListingBody
+import com.dailymotion.kinta.integration.appgallery.internal.TokenBody
+import com.dailymotion.kinta.integration.appgallery.internal.UploadData
+import com.dailymotion.kinta.integration.googleplay.internal.GooglePlayIntegration
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.*
-import okhttp3.*
+import kotlinx.serialization.json.JsonObject
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Retrofit
 import java.io.File
 
 object AppGalleryIntegration {
 
-    private val JSON = MediaType.parse("application/json; charset=utf-8")
+    private val JSON = "application/json; charset=utf-8".toMediaTypeOrNull()
     private const val API_URL = "https://connect-api.cloud.huawei.com/api/"
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -36,7 +46,7 @@ object AppGalleryIntegration {
         val retrofit = Retrofit.Builder()
                 .baseUrl(API_URL)
                 .client(okHttpClient)
-                .addConverterFactory(globalJson.asConverterFactory(MediaType.get("application/json")))
+                .addConverterFactory(globalJson.asConverterFactory("application/json".toMediaType()))
                 .build()
 
         return retrofit.create(AppGalleryService::class.java)
@@ -93,7 +103,9 @@ object AppGalleryIntegration {
         val token = KintaEnv.get(KintaEnv.Var.APPGALLERY_TOKEN) ?: acquireToken(clientId, clientSecret)
 
         Logger.i("Submitting app to AppGallery...")
-        val result = service(clientId, token).submit(appId, "1", RequestBody.create(JSON, JsonObject(mapOf()).toString())).execute()
+        val result = service(clientId, token).submit(appId, "1",
+            JsonObject(mapOf()).toString().toRequestBody(JSON)
+        ).execute()
 
         if(result.body()?.isSuccess() ?: false == false){
             val error = result.body()?.ret ?: result.errorBody()?.string() ?: result.code()
@@ -259,18 +271,21 @@ object AppGalleryIntegration {
             fileName: String,
             file: File
     ): String {
-        val mediaType = MediaType.parse("application/vnd.android.package-archive")
+        val mediaType = "application/vnd.android.package-archive".toMediaTypeOrNull()
 
         Logger.i("Uploading file to AppGallery...")
         val result = service(clientId, token).upload(uploadData.uploadUrl,
-                MultipartBody.Part.createFormData("file", fileName, ProgressRequestBody(RequestBody.create(mediaType, file), object : ProgressRequestBody.Listener {
+                MultipartBody.Part.createFormData("file", fileName, ProgressRequestBody(
+                    file.asRequestBody(
+                        mediaType
+                    ), object : ProgressRequestBody.Listener {
                     override fun onProgress(progress: Int) {
                         Logger.d("Upload progress $progress")
                     }
                 })),
-                RequestBody.create(okhttp3.MultipartBody.FORM, fileName),
-                RequestBody.create(okhttp3.MultipartBody.FORM, uploadData.authCode),
-                RequestBody.create(okhttp3.MultipartBody.FORM, "1")
+            fileName.toRequestBody(MultipartBody.FORM),
+            uploadData.authCode.toRequestBody(MultipartBody.FORM),
+            "1".toRequestBody(MultipartBody.FORM)
         ).execute()
 
         result.body()?.result?.uploadFileRsp?.fileInfoList?.let {

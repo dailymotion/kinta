@@ -15,7 +15,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Interceptor
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import org.eclipse.jgit.api.Git
@@ -39,7 +39,7 @@ object GitlabIntegration : GitTool {
         val retrofit = Retrofit.Builder()
                 .baseUrl(GITLAB_API)
                 .client(okHttpClient)
-                .addConverterFactory(json.asConverterFactory(MediaType.get("application/json")))
+                .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
                 .build()
 
         return retrofit.create(GitlabService::class.java)

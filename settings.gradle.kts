@@ -11,7 +11,7 @@ pluginManagement {
 
     resolutionStrategy {
         eachPlugin {
-            if (requested.id.namespace == "com.apollographql") {
+            if (requested.id.namespace == "com.apollographql.apollo") {
                 useModule("com.apollographql.apollo:apollo-gradle-plugin:${requested.version}")
             }
             if (requested.id.id == "org.jetbrains.dokka") {

@@ -30,6 +30,6 @@ dependencies {
 }
 
 application {
-    mainClassName = "com.dailymotion.kinta.MainKt"
+    mainClass.set("com.dailymotion.kinta.MainKt")
     applicationName = "kinta"
 }

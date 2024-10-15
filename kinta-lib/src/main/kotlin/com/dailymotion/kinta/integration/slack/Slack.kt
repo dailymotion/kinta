@@ -2,13 +2,12 @@ package com.dailymotion.kinta.integration.slack
 
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 object Slack {
 
@@ -38,7 +37,7 @@ object Slack {
                 )
         )
 
-        val body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val body = jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
         Logger.i("Sending slack notification")
 
@@ -53,7 +52,7 @@ object Slack {
                 .execute()
 
         if (!response.isSuccessful) {
-            Logger.e("cannot send notif ${response.code()}:\n${response.body()?.string()}")
+            Logger.e("cannot send notif ${response.code}:\n${response.body?.string()}")
         }
     }
 }

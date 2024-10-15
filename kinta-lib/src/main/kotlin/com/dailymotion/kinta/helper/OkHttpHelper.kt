@@ -17,12 +17,12 @@ fun newOkHttpClient(): OkHttpClient {
 }
 
 fun Request.executeOrFail(
-        errorMessage: String = "Cannot execute ${this.url()}",
+        errorMessage: String = "Cannot execute ${this.url}",
         okHttpClient: OkHttpClient = newOkHttpClient()): ResponseBody {
     val response = okHttpClient.newCall(this).execute()
-    if (response.isSuccessful && response.body() != null) {
-        return response.body()!!
+    if (response.isSuccessful && response.body != null) {
+        return response.body!!
     } else {
-        throw IllegalStateException("$errorMessage :\n${response.body()?.string()}")
+        throw IllegalStateException("$errorMessage :\n${response.body?.string()}")
     }
 }

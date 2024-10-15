@@ -1,14 +1,13 @@
 package com.dailymotion.kinta.integration.travis
 
 import com.dailymotion.kinta.globalJson
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.security.KeyFactory
 import java.security.spec.X509EncodedKeySpec
-import java.util.*
+import java.util.Base64
 import javax.crypto.Cipher
 
 object TravisIntegration {
@@ -30,7 +29,7 @@ object TravisIntegration {
         return "https://api.travis-ci.org/repos/$repoOwner/$repoName/key".let {
             Request.Builder().get().url(it)
         }.let {
-            OkHttpClient().newCall(it.build()).execute().body()!!.string()
+            OkHttpClient().newCall(it.build()).execute().body!!.string()
         }.let {
             globalJson.parseToJsonElement(it).jsonObject["key"]?.jsonPrimitive?.content!!
         }

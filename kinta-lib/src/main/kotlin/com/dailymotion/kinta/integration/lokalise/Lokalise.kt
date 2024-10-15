@@ -14,9 +14,9 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.io.Closeable
@@ -102,7 +102,7 @@ object Lokalise {
         projectId: String,
         payload: LkUploadPayload,
     ) {
-        val requestBody = RequestBody.create(MediaType.get("application/json"), Gson().toJson(payload))
+        val requestBody = Gson().toJson(payload).toRequestBody("application/json".toMediaType())
         val response = service(token).requestUpload(
             projectId = projectId,
             requestBody = requestBody,
@@ -119,7 +119,7 @@ object Lokalise {
         payload: LkDownloadPayload,
     ): LokaliseDownloadResponse {
 
-        val requestBody = RequestBody.create(MediaType.get("application/json"), Gson().toJson(payload))
+        val requestBody = Gson().toJson(payload).toRequestBody("application/json".toMediaType())
         val response = service(token).requestDownload(
             projectId = project,
             requestBody = requestBody
@@ -185,7 +185,7 @@ object Lokalise {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(globalJson.asConverterFactory(MediaType.get("application/json")))
+            .addConverterFactory(globalJson.asConverterFactory("application/json".toMediaType()))
             .build()
 
         return retrofit.create(LokaliseService::class.java)
