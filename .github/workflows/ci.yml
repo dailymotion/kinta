@@ -31,7 +31,7 @@ jobs:
             git remote set-url origin git@github.com:dailymotion/kinta.git
             git config --global user.email "apps@dailymotion.com"
             git config --global user.name "Kinta GithubActions"
-            python3 -m venv venv
+            python3 -m venv venv --break-system-packages
             which pip
             pip install mkdocs-material
             mkdocs -V
