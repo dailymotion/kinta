@@ -65,4 +65,7 @@ afterEvaluate {
     tasks.getByName("dokkaGfmPartial"){
         dependsOn("kintaVersion")
     }
+    tasks.getByName("sourcesJar"){
+        dependsOn("kintaVersion")
+    }
 }
