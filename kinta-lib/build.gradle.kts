@@ -60,3 +60,9 @@ tasks.getByName("compileKotlin") {
     this.source(file("build/generated/kotlin"))
     dependsOn("kintaVersion")
 }
+
+afterEvaluate {
+    tasks.getByName("dokkaGfmPartial"){
+        dependsOn("kintaVersion")
+    }
+}
