@@ -16,7 +16,7 @@ object Constants {
                 .get()
                 .build()
                 .let {
-                    OkHttpClient().newCall(it).execute().body()!!.string()
+                    OkHttpClient().newCall(it).execute().body!!.string()
                 }.let {
                     Version(it)
                 }

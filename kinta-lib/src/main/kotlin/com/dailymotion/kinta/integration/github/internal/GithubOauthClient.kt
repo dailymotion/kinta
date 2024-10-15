@@ -6,10 +6,10 @@ import fi.iki.elonen.NanoHTTPD
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import java.io.File
 import java.security.SecureRandom
@@ -68,7 +68,7 @@ object GithubOauthClient {
                         "&code=$code"
 
                 val request = Request.Builder()
-                        .post(RequestBody.create(MediaType.parse("text/plain"), ""))
+                        .post("".toRequestBody("text/plain".toMediaTypeOrNull()))
                         .url(postUrl)
                         .header("Accept", "application/json")
                         .build()
@@ -88,9 +88,10 @@ object GithubOauthClient {
                 if (!response.isSuccessful) {
                     throw Exception("cannot exchange code")
                 }
+                val json = Json { ignoreUnknownKeys = true }
 
                 synchronized(lock) {
-                    token = Json { ignoreUnknownKeys = true }.parseToJsonElement(response.body()!!.string())
+                    token = json.parseToJsonElement(response.body!!.string())
                         .jsonObject["access_token"]
                         ?.jsonPrimitive
                         ?.content

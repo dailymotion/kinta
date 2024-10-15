@@ -1,8 +1,8 @@
 object Versions {
-    const val coroutines = "1.5.0"
-    const val kotlin = "1.7.22"
-    const val apollo = "2.5.7"
-    const val okhttp = "3.8.1"
+    const val coroutines = "1.7.3"
+    const val kotlin = "2.0.21"
+    const val apollo = "4.0.1"
+    const val okhttp = "4.12.0"
     const val dokka = "1.4.32"
 }
 

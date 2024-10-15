@@ -14,7 +14,6 @@ dependencies {
 
     implementation(Libs.coroutines)
     implementation(Libs.apollo)
-    implementation(Libs.apolloCoroutinesSupport)
 
     implementation(Libs.nanoHttp)
 
@@ -32,8 +31,9 @@ dependencies {
 }
 
 apollo {
-    generateKotlinModels.set(true)
-    useSemanticNaming.set(false)
+    service("service") {
+        packageName.set("com.dailymotion.kinta")
+    }
 }
 
 

@@ -1,4 +1,5 @@
 import kotlinx.coroutines.runBlocking
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -27,14 +28,15 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
             allWarningsAsErrors = true
         }
     }
 
     afterEvaluate {
         this.configure<JavaPluginExtension> {
-            targetCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_17
         }
     }
 

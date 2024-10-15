@@ -11,9 +11,9 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
@@ -81,7 +81,7 @@ object Transifex {
          * automatically added, and the API will return a 500 error.
          * By converting the data to byteArray, we avoid this behavior **/
         val dataByteArray = Gson().toJson(payload).toByteArray()
-        val requestBody = RequestBody.create(MediaType.get("application/vnd.api+json"), dataByteArray)
+        val requestBody = dataByteArray.toRequestBody("application/vnd.api+json".toMediaType(), 0, dataByteArray.size)
         val response = service(token).requestUploadResource(payload.data.type, requestBody).execute()
 
         check (response.isSuccessful) {
@@ -229,7 +229,7 @@ object Transifex {
          * automatically added, and the API will return a 500 error.
          * By converting the data to byteArray, we avoid this behavior **/
         val dataByteArray = Gson().toJson(payload).toByteArray()
-        val requestBody = RequestBody.create(MediaType.get("application/vnd.api+json"), dataByteArray)
+        val requestBody = dataByteArray.toRequestBody("application/vnd.api+json".toMediaType(), 0, dataByteArray.size)
         val response = service(token).requestDownloadTranslation(payload.data.type, requestBody).execute()
 
         check (response.isSuccessful) {
@@ -309,7 +309,7 @@ object Transifex {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://rest.api.transifex.com/")
             .client(okHttpClient)
-            .addConverterFactory(globalJson.asConverterFactory(MediaType.get("application/json")))
+            .addConverterFactory(globalJson.asConverterFactory("application/json".toMediaType()))
             .build()
 
         return retrofit.create(TransifexService::class.java)

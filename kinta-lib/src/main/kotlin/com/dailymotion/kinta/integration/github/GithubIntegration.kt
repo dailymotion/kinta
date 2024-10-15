@@ -1,10 +1,10 @@
 package com.dailymotion.kinta.integration.github
 
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.coroutines.await
-import com.dailymotion.kinta.GetPullRequestWithBase
-import com.dailymotion.kinta.GetPullRequestWithHead
-import com.dailymotion.kinta.GetRefs
+import com.apollographql.apollo.network.okHttpClient
+import com.dailymotion.kinta.GetPullRequestWithBaseQuery
+import com.dailymotion.kinta.GetPullRequestWithHeadQuery
+import com.dailymotion.kinta.GetRefsQuery
 import com.dailymotion.kinta.GitTool
 import com.dailymotion.kinta.KintaEnv
 import com.dailymotion.kinta.Logger
@@ -26,10 +26,11 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okio.ByteString.Companion.encodeUtf8
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
@@ -71,7 +72,7 @@ object GithubIntegration : GitTool {
             )
         )
 
-        val body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val body = jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
         val request = Request.Builder()
             .url("https://api.github.com/repos/$owner/$repo/pulls")
@@ -81,10 +82,10 @@ object GithubIntegration : GitTool {
         Logger.i("creating pull request to merge $head into $base")
         val response = httpClient(token).newCall(request).execute()
         if (!response.isSuccessful) {
-            throw Exception(response.body()?.string() ?: "")
+            throw Exception(response.body?.string() ?: "")
         }
 
-        return response.body()?.charStream()?.let {
+        return response.body?.charStream()?.let {
             try {
                 val htmlUrl = json.parseToJsonElement(it.readText()).jsonObject["html_url"]?.jsonPrimitive?.content
                 Logger.i("-> $htmlUrl")
@@ -110,17 +111,17 @@ object GithubIntegration : GitTool {
         val repo_ = repo ?: repository(remote).name
 
         val depdendentPullRequestsData = runBlocking {
-            val query = GetPullRequestWithBase(owner_, repo_, branch)
+            val query = GetPullRequestWithBaseQuery(owner_, repo_, branch)
             apolloClient(token_).query(query)
-                .await()
+                .execute()
                 .data
                 ?.repository
         }
 
         val pullRequestsData = runBlocking {
-            val query = GetPullRequestWithHead(owner_, repo_, branch)
+            val query = GetPullRequestWithHeadQuery(owner_, repo_, branch)
             apolloClient(token_).query(query)
-                .await()
+                .execute()
                 .data
                 ?.repository
         }
@@ -155,7 +156,7 @@ object GithubIntegration : GitTool {
 
         val response = httpClient(token_).newCall(request).execute()
         if (!response.isSuccessful) {
-            throw Exception(response.body()?.string() ?: "")
+            throw Exception(response.body?.string() ?: "")
         }
 
     }
@@ -170,9 +171,9 @@ object GithubIntegration : GitTool {
         val repo = repo ?: repository().name
 
         return runBlocking {
-            val query = GetRefs(owner, repo)
+            val query = GetRefsQuery(owner, repo)
             apolloClient(token).query(query)
-                .await()
+                .execute()
                 .data
                 ?.repository
                 ?.refs
@@ -184,7 +185,7 @@ object GithubIntegration : GitTool {
     }
 
     fun apolloClient(token: String): ApolloClient {
-        return ApolloClient.builder()
+        return ApolloClient.Builder()
             .serverUrl("https://api.github.com/graphql")
             .okHttpClient(httpClient(token))
             .build()
@@ -256,16 +257,16 @@ object GithubIntegration : GitTool {
         )
 
         val request = Request.Builder()
-            .post(RequestBody.create(MediaType.parse("application/json"), JsonObject(input).toString()))
+            .post(JsonObject(input).toString().toRequestBody("application/json".toMediaTypeOrNull()))
             .url("https://api.github.com/repos/$owner/$repo/releases")
             .build()
 
         val response = httpClient(token).newCall(request).execute()
         if (!response.isSuccessful) {
-            throw Exception("cannot create github release: ${response.body()?.string()}")
+            throw Exception("cannot create github release: ${response.body?.string()}")
         }
 
-        val responseString = response.body()!!.string()
+        val responseString = response.body!!.string()
 
         val release = json.parseToJsonElement(responseString).jsonObject
 
@@ -276,13 +277,13 @@ object GithubIntegration : GitTool {
                 .expand()
 
             val request2 = Request.Builder()
-                .post(RequestBody.create(MediaType.parse("application/zip"), asset))
+                .post(asset.asRequestBody("application/zip".toMediaTypeOrNull()))
                 .url(uploadUrl)
                 .build()
 
             val response2 = httpClient(token).newCall(request2).execute()
             check(response2.isSuccessful) {
-                "cannot upload asset: ${response2.body()?.string()}"
+                "cannot upload asset: ${response2.body?.string()}"
             }
         }
     }
@@ -309,10 +310,10 @@ object GithubIntegration : GitTool {
             }
 
         check(response.isSuccessful) {
-            "cannot retrieve key: ${response.body()?.byteStream()?.reader()?.readText()}"
+            "cannot retrieve key: ${response.body?.byteStream()?.reader()?.readText()}"
         }
 
-        val json = response.body()?.byteStream()?.reader()?.readText() ?: ""
+        val json = response.body?.byteStream()?.reader()?.readText() ?: ""
         return this.json.decodeFromString(json)
     }
 
@@ -349,7 +350,7 @@ object GithubIntegration : GitTool {
         ))
 
         val response = Request.Builder()
-            .put(RequestBody.create(MediaType.parse("application/json"), jsonObject.toString()))
+            .put(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull()))
             .url("https://api.github.com/repos/$owner/$repo/actions/secrets/$name")
             .build()
             .let {
@@ -357,7 +358,7 @@ object GithubIntegration : GitTool {
             }
 
         check(response.isSuccessful) {
-            "cannot set secret $name: ${response.body()?.byteStream()?.reader()?.readText()}"
+            "cannot set secret $name: ${response.body?.byteStream()?.reader()?.readText()}"
         }
     }
 
@@ -380,7 +381,7 @@ object GithubIntegration : GitTool {
             }
 
         check(response.isSuccessful) {
-            "cannot delete secret $name: ${response.body()?.byteStream()?.reader()?.readText()}"
+            "cannot delete secret $name: ${response.body?.byteStream()?.reader()?.readText()}"
         }
     }
 
@@ -399,7 +400,7 @@ object GithubIntegration : GitTool {
             mapOf("assignees" to JsonArray(assignees.map { JsonPrimitive(it) }))
         )
 
-        val body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val body = jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
         val request = Request.Builder()
             .url("https://api.github.com/repos/$owner/$repo/issues/$issue/assignees")
@@ -409,7 +410,7 @@ object GithubIntegration : GitTool {
         Logger.i("Assigning...")
         val response = httpClient(token).newCall(request).execute()
         if (!response.isSuccessful) {
-            throw Exception(response.body()?.string() ?: "")
+            throw Exception(response.body?.string() ?: "")
         }
     }
 }
