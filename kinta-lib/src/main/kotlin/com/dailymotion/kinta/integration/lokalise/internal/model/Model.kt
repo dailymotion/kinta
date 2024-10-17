@@ -33,7 +33,7 @@ data class LkUploadPayload(
     val data: String,
     val filename: String,
     val lang_iso: String,
-    val replace_modified: Boolean = true,
+    val replace_modified: Boolean,
 )
 
 enum class EmptyExport { BASE, EMPTY, NULL, SKIP }
