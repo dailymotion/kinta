@@ -39,7 +39,8 @@ object Lokalise {
         project: String? = null,
         resource: String,
         lang: String,
-        content: String
+        content: String,
+        replaceModified: Boolean = true,
     ) {
         val project_ = project ?: KintaEnv.getOrFail(KintaEnv.Var.LOKALISE_PROJECT)
 
@@ -47,6 +48,7 @@ object Lokalise {
             data = content,
             filename = resource,
             lang_iso = lang,
+            replace_modified = replaceModified,
         )
 
         requestUpload(
