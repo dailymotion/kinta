@@ -30,6 +30,10 @@ dependencies {
     testImplementation(Libs.jUnit)
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 apollo {
     service("service") {
         packageName.set("com.dailymotion.kinta")

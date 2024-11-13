@@ -30,7 +30,7 @@ subprojects {
     tasks.withType<KotlinCompile> {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
-            allWarningsAsErrors = true
+            allWarningsAsErrors.set(true)
         }
     }
 

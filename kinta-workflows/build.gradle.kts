@@ -24,3 +24,7 @@ dependencies {
     testImplementation(Libs.jUnit)
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
