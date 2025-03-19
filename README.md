@@ -41,12 +41,13 @@ This will create a `kintaSrc` directory where you can tweak your workflows.
 
 Current integrations include:
 
-* Appcenter
 * Bitrise
 * Google Cloud Storage
 * Google Play
+* AppGallery
 * Jira
 * Transifex
+* Lokalise
 * Slack
 
 # Snapshots
