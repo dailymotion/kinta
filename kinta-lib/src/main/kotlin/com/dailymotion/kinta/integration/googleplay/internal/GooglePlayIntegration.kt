@@ -65,8 +65,8 @@ object GooglePlayIntegration {
 
         return AndroidPublisher.Builder(HTTP_TRANSPORT, JSON_FACTORY, HttpRequestInitializer {
             it.apply {
-                connectTimeout = 100_000
-                readTimeout = 100_000
+                connectTimeout = 180_000
+                readTimeout = 180_000
             }
             credential.initialize(it)
         })
