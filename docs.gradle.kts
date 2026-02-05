@@ -115,11 +115,11 @@ val cleanDocs = tasks.register("cleanDocs") {
 
 
 val deployTask = tasks.register("deployDocs") {
-    group = DOCUMENTATION_GROUP
+   /* group = DOCUMENTATION_GROUP
 
     dependsOn(tasks.named("dokkaGfmMultiModule"))
 
-    /** zip master binaries **/
+    *//** zip master binaries **//*
     val masterZipTaskProvider = subprojects.first { it.name == "kinta-cli" }.tasks.named("distZip").map { it as Zip }
     dependsOn(masterZipTaskProvider)
 
@@ -133,7 +133,7 @@ val deployTask = tasks.register("deployDocs") {
         createMkdocsYml()
 
         runCommand(command = "mkdocs gh-deploy --force")
-    }
+    }*/
 }
 
 fun runCommand(workingDirectory: File = File("."), command: String) {
