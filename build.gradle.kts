@@ -159,8 +159,8 @@ fun Project.configureMavenPublish() {
                 name = "centralPortal"
                 url = uri("https://central.sonatype.com/api/v1/publisher/upload")
                 credentials {
-                    username = System.getenv("SONATYPE_NEXUS_USERNAME")  // Token Portal username
-                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")  // Token Portal password
+                    username = System.getenv("SONATYPE_NEXUS_USERNAME_V2")  // Token Portal username
+                    password = System.getenv("SONATYPE_NEXUS_PASSWORD_V2")  // Token Portal password
                 }
             }
 
@@ -169,8 +169,8 @@ fun Project.configureMavenPublish() {
                 name = "centralSnapshots"
                 url = uri("https://central.sonatype.com/repository/maven-snapshots/")
                 credentials {
-                    username = System.getenv("SONATYPE_NEXUS_USERNAME")  // Token Portal username
-                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")  // Token Portal password
+                    username = System.getenv("SONATYPE_NEXUS_USERNAME_V2")  // Token Portal username
+                    password = System.getenv("SONATYPE_NEXUS_PASSWORD_V2")  // Token Portal password
                 }
             }
         }
