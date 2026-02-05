@@ -7,6 +7,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization").version(Versions.kotlin).apply(false)
     id("com.apollographql.apollo").version(Versions.apollo).apply(false)
     id("org.jetbrains.dokka").version(Versions.dokka).apply(false)
+    id("com.gradle.plugin-publish") version "1.3.0" apply false
+
 }
 
 version = "0.1.17-SNAPSHOT"
@@ -62,39 +64,17 @@ subprojects {
 
     tasks.register<Task>("deployArtifactsIfNeeded") {
         if (isTag()) {
-            project.logger.lifecycle("Upload to OSSStaging needed.")
-            dependsOn("publishDefaultPublicationToOssStagingRepository")
+            project.logger.lifecycle("Upload to Central Portal needed.")
+            dependsOn("publishDefaultPublicationToCentralPortalRepository")  // ← Nouveau nom
         } else if (isPushMaster()) {
-            project.logger.lifecycle("Upload to OSSSnapshots needed.")
-            dependsOn("publishDefaultPublicationToOssSnapshotsRepository")
+            project.logger.lifecycle("Upload to Central Snapshots needed.")
+            dependsOn("publishDefaultPublicationToCentralSnapshotsRepository")  // ← Nouveau nom
         }
     }
 }
 
 fun Project.getOssStagingUrl(): String {
-    val url = try {
-        this.extensions.extraProperties["ossStagingUrl"] as String?
-    } catch (e: ExtraPropertiesExtension.UnknownPropertyException) {
-        null
-    }
-    if (url != null) {
-        return url
-    }
-    val client = net.mbonnin.vespene.lib.NexusStagingClient(
-        baseUrl = "https://s01.oss.sonatype.org/service/local/",
-        username = System.getenv("SONATYPE_NEXUS_USERNAME"),
-        password = System.getenv("SONATYPE_NEXUS_PASSWORD")
-    )
-    val repositoryId = runBlocking {
-        client.createRepository(
-            profileId = System.getenv("KINTA_STAGING_PROFILE_ID"),
-            description = "$group $name $version"
-        )
-    }
-    println("publishing to '$repositoryId")
-    return "https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/${repositoryId}/".also {
-        this.extensions.extraProperties["ossStagingUrl"] = it
-    }
+   return "EMPTY"
 }
 
 fun isTag(): Boolean {
@@ -174,22 +154,23 @@ fun Project.configureMavenPublish() {
         }
 
         repositories {
+            // Pour les RELEASES
             maven {
-                name = "ossStaging"
-                setUrl {
-                    uri(rootProject.getOssStagingUrl())
-                }
+                name = "centralPortal"
+                url = uri("https://central.sonatype.com/api/v1/publisher/upload")
                 credentials {
-                    username = System.getenv("SONATYPE_NEXUS_USERNAME")
-                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")
+                    username = System.getenv("SONATYPE_NEXUS_USERNAME")  // Token Portal username
+                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")  // Token Portal password
                 }
             }
+
+            // Pour les SNAPSHOTS
             maven {
-                name = "ossSnapshots"
-                url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                name = "centralSnapshots"
+                url = uri("https://central.sonatype.com/repository/maven-snapshots/")
                 credentials {
-                    username = System.getenv("SONATYPE_NEXUS_USERNAME")
-                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")
+                    username = System.getenv("SONATYPE_NEXUS_USERNAME")  // Token Portal username
+                    password = System.getenv("SONATYPE_NEXUS_PASSWORD")  // Token Portal password
                 }
             }
         }
