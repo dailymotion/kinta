@@ -8,5 +8,4 @@ repositories {
 }
 
 dependencies {
-    implementation("net.mbonnin.vespene:vespene-lib:0.5")
 }
