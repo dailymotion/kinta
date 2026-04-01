@@ -16,6 +16,12 @@ interface LokaliseService {
         @Body requestBody: RequestBody,
     ): Call<ResponseBody>
 
+    @POST("projects/{project_id}/files/async-download")
+    fun requestAsyncDownload(
+        @Path("project_id") projectId: String,
+        @Body requestBody: RequestBody,
+    ): Call<ResponseBody>
+
     @POST("projects/{project_id}/files/upload")
     fun requestUpload(
         @Path("project_id") projectId: String,
@@ -24,4 +30,10 @@ interface LokaliseService {
 
     @GET("projects/{project_id}/languages")
     fun getLanguages(@Path("project_id") projectId: String,): Call<LkSupportedLanguagesResponse>
+
+    @GET("projects/{project_id}/processes/{process_id}")
+    fun getProcess(
+        @Path("project_id") projectId: String,
+        @Path("process_id") processId: String,
+    ): Call<ResponseBody>
 }

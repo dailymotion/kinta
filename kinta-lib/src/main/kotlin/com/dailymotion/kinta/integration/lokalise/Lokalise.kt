@@ -33,6 +33,8 @@ object Lokalise {
 
     private const val BASE_URL = "https://api.lokalise.com/api2/"
     private const val HEADER_TOKEN = "X-Api-Token"
+    private const val ASYNC_EXPORT_MAX_ATTEMPTS = 60
+    private const val ASYNC_EXPORT_POLL_DELAY_MS = 2000L
 
     fun uploadResource(
         token: String? = null,
@@ -129,14 +131,99 @@ object Lokalise {
             requestBody = requestBody
         ).execute()
 
+        val errorBody = response.errorBody()?.string().orEmpty()
+        if (!response.isSuccessful && response.code() == 413 && errorBody.contains("async export", ignoreCase = true)) {
+            Logger.i("Lokalise: sync export too large, switching to async export...")
+            val bundleUrl = requestAsyncDownload(
+                token = token,
+                project = project,
+                payload = payload,
+            )
+            return extractDownloadResponse(bundleUrl)
+        }
+
         check (response.isSuccessful) {
-            "Lokalise: cannot request download for ${payload.filter_langs}: ${response.code()}: ${response.errorBody()?.string()}"
+            "Lokalise: cannot request download for ${payload.filter_langs}: ${response.code()}: $errorBody"
         }
 
         val bundleUrl = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
             .jsonObject.getValue("bundle_url").jsonPrimitive.content
 
         return extractDownloadResponse(bundleUrl)
+    }
+
+    private fun requestAsyncDownload(
+        token: String? = null,
+        project: String,
+        payload: LkDownloadPayload,
+    ): String {
+        val requestBody = Gson().toJson(payload).toRequestBody("application/json".toMediaType())
+        val response = service(token).requestAsyncDownload(
+            projectId = project,
+            requestBody = requestBody
+        ).execute()
+
+        val errorBody = response.errorBody()?.string().orEmpty()
+        check(response.isSuccessful) {
+            "Lokalise: cannot request async download for ${payload.filter_langs}: ${response.code()}: $errorBody"
+        }
+
+        val processId = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
+            .jsonObject.getValue("process_id").jsonPrimitive.content
+
+        return pollForAsyncDownloadUrl(
+            token = token,
+            project = project,
+            processId = processId,
+        )
+    }
+
+    private fun pollForAsyncDownloadUrl(
+        token: String? = null,
+        project: String,
+        processId: String,
+    ): String {
+        repeat(ASYNC_EXPORT_MAX_ATTEMPTS) { attempt ->
+            val response = service(token).getProcess(
+                projectId = project,
+                processId = processId,
+            ).execute()
+
+            val errorBody = response.errorBody()?.string().orEmpty()
+            check(response.isSuccessful) {
+                "Lokalise: cannot retrieve async export process $processId: ${response.code()}: $errorBody"
+            }
+
+            val process = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
+                .jsonObject["process"]?.jsonObject
+
+            val status = process?.get("status")?.jsonPrimitive?.content ?: "unknown"
+            when (status) {
+                "finished" -> {
+                    val downloadUrl = process?.get("details")
+                        ?.jsonObject
+                        ?.get("download_url")
+                        ?.jsonPrimitive
+                        ?.content
+
+                    check(!downloadUrl.isNullOrBlank()) {
+                        "Lokalise: async export finished but missing download_url for $processId"
+                    }
+
+                    return downloadUrl
+                }
+                "failed" -> {
+                    val message = process?.get("message")?.jsonPrimitive?.content
+                    error("Lokalise: async export failed for $processId: ${message ?: "unknown error"}")
+                }
+                else -> {
+                    Logger.d("Lokalise: async export status=$status (attempt ${attempt + 1}/$ASYNC_EXPORT_MAX_ATTEMPTS)")
+                    Thread.sleep(ASYNC_EXPORT_POLL_DELAY_MS)
+                }
+            }
+        }
+
+        error("Lokalise: async export timed out after ${ASYNC_EXPORT_MAX_ATTEMPTS * ASYNC_EXPORT_POLL_DELAY_MS / 1000}s for $processId")
     }
 
     private fun extractDownloadResponse(bundleUrl: String): LokaliseDownloadResponse {
