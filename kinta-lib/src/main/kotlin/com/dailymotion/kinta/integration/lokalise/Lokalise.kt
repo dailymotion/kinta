@@ -124,19 +124,64 @@ object Lokalise {
     ): LokaliseDownloadResponse {
 
         val requestBody = Gson().toJson(payload).toRequestBody("application/json".toMediaType())
-        val response = service(token).requestDownload(
+        val service = service(token)
+        val response = service.requestAsyncDownload(
             projectId = project,
-            requestBody = requestBody
+            body = requestBody
         ).execute()
 
         check (response.isSuccessful) {
-            "Lokalise: cannot request download for ${payload.filter_langs}: ${response.code()}: ${response.errorBody()?.string()}"
+            "Lokalise: cannot request async download for ${payload.filter_langs}: ${response.code()}: ${response.errorBody()?.string()}"
         }
 
-        val bundleUrl = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
-            .jsonObject.getValue("bundle_url").jsonPrimitive.content
+        val processId = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
+            .jsonObject.getValue("process_id").jsonPrimitive.content
+
+        Logger.d("Lokalise async export started: process_id=$processId")
+
+        val bundleUrl = pollProcess(service, project, processId)
 
         return extractDownloadResponse(bundleUrl)
+    }
+
+    private fun pollProcess(
+        service: LokaliseService,
+        project: String,
+        processId: String,
+        pollIntervalMs: Long = 3_000L,
+        timeoutMs: Long = 5 * 60_000L,
+    ): String {
+        val deadline = System.currentTimeMillis() + timeoutMs
+
+        while (System.currentTimeMillis() < deadline) {
+            val response = service.getProcess(projectId = project, processId = processId).execute()
+
+            check(response.isSuccessful) {
+                "Lokalise: cannot get process $processId: ${response.code()}: ${response.errorBody()?.string()}"
+            }
+
+            val process = globalJson.parseToJsonElement(response.body()?.string().orEmpty())
+                .jsonObject.getValue("process").jsonObject
+            val status = process.getValue("status").jsonPrimitive.content
+
+            when (status) {
+                "finished" -> {
+                    val details = process.getValue("details").jsonObject
+                    return (details["download_url"] ?: details["bundle_url"]
+                        ?: error("Lokalise: process $processId finished but no download_url/bundle_url in details"))
+                        .jsonPrimitive.content
+                }
+                "failed", "cancelled" -> {
+                    error("Lokalise: process $processId ended with status=$status: ${process["message"]?.jsonPrimitive?.content.orEmpty()}")
+                }
+                else -> {
+                    Logger.d("Lokalise process $processId status=$status, polling again in ${pollIntervalMs}ms")
+                    Thread.sleep(pollIntervalMs)
+                }
+            }
+        }
+
+        error("Lokalise: timed out waiting for process $processId to finish")
     }
 
     private fun extractDownloadResponse(bundleUrl: String): LokaliseDownloadResponse {
