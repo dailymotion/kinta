@@ -11,7 +11,7 @@ plugins {
 
 }
 
-version = "0.1.19-SNAPSHOT"
+version = "0.1.19"
 
 repositories {
     mavenCentral()
