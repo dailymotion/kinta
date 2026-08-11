@@ -49,11 +49,14 @@ jobs:
         run: |
           TOKEN=$(printf '%s:%s' "$SONATYPE_NEXUS_USERNAME_V2" "$SONATYPE_NEXUS_PASSWORD_V2" | base64 -w0)
 
-          RESPONSE=$(curl -s -H "Authorization: Bearer $TOKEN" \
-            "https://ossrh-staging-api.central.sonatype.com/manual/search/repositories?profile_id=${KINTA_STAGING_PROFILE_ID}&state=open")
-          echo "Search response: $RESPONSE"
+          HTTP_CODE=$(curl -s -o /tmp/search_response.json -w "%{http_code}" -H "Authorization: Bearer $TOKEN" \
+            "https://ossrh-staging-api.central.sonatype.com/manual/search/repositories?profile_id=${KINTA_STAGING_PROFILE_ID}")
+          echo "Search HTTP code: $HTTP_CODE"
+          echo "Search response:"
+          cat /tmp/search_response.json
+          echo
 
-          REPO_KEY=$(echo "$RESPONSE" | jq -r '.repositories[0].key // empty')
+          REPO_KEY=$(jq -r '[.repositories[]? | select(.state != "released")][0].key // empty' /tmp/search_response.json)
 
           if [ -z "$REPO_KEY" ]; then
             echo "No open staging repository found, nothing to release automatically. A manual release via https://central.sonatype.com/publishing/deployments may be needed."
