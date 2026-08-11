@@ -38,4 +38,4 @@ jobs:
             PIP_BREAK_SYSTEM_PACKAGES=1 pip install mkdocs-material
             mkdocs -V
           fi
-          ./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded deployArchivesIfNeeded -i --stacktrace
+          ./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded -i --stacktrace
