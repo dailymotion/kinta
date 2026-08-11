@@ -157,7 +157,7 @@ fun Project.configureMavenPublish() {
             // Pour les RELEASES
             maven {
                 name = "centralPortal"
-                url = uri("https://central.sonatype.com/api/v1/publisher/upload")
+                url = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
                 credentials {
                     username = System.getenv("SONATYPE_NEXUS_USERNAME_V2")  // Token Portal username
                     password = System.getenv("SONATYPE_NEXUS_PASSWORD_V2")  // Token Portal password
