@@ -39,3 +39,34 @@ jobs:
             mkdocs -V
           fi
           ./gradlew clean assemble deployArtifactsIfNeeded deployDocsIfNeeded -i --stacktrace
+
+      - name: Release Sonatype Central Portal staging deployment
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          SONATYPE_NEXUS_USERNAME_V2: ${{ secrets.SONATYPE_NEXUS_USERNAME_V2 }}
+          SONATYPE_NEXUS_PASSWORD_V2: ${{ secrets.SONATYPE_NEXUS_PASSWORD_V2 }}
+          KINTA_STAGING_PROFILE_ID: ${{ secrets.KINTA_STAGING_PROFILE_ID }}
+        run: |
+          TOKEN=$(printf '%s:%s' "$SONATYPE_NEXUS_USERNAME_V2" "$SONATYPE_NEXUS_PASSWORD_V2" | base64 -w0)
+
+          RESPONSE=$(curl -s -H "Authorization: Bearer $TOKEN" \
+            "https://ossrh-staging-api.central.sonatype.com/manual/search/repositories?profile_id=${KINTA_STAGING_PROFILE_ID}&state=open")
+          echo "Search response: $RESPONSE"
+
+          REPO_KEY=$(echo "$RESPONSE" | jq -r '.repositories[0].key // empty')
+
+          if [ -z "$REPO_KEY" ]; then
+            echo "No open staging repository found, nothing to release automatically. A manual release via https://central.sonatype.com/publishing/deployments may be needed."
+            exit 0
+          fi
+
+          echo "Releasing staging repository $REPO_KEY"
+          HTTP_CODE=$(curl -s -o /tmp/release_response.txt -w "%{http_code}" -X POST -H "Authorization: Bearer $TOKEN" \
+            "https://ossrh-staging-api.central.sonatype.com/manual/upload/repository/${REPO_KEY}?publishing_type=automatic")
+          echo "Release response ($HTTP_CODE):"
+          cat /tmp/release_response.txt
+
+          if [ "$HTTP_CODE" -ge 300 ]; then
+            echo "Release call failed with status $HTTP_CODE"
+            exit 1
+          fi
